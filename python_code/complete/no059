@@ -1,0 +1,49 @@
+#!/usr/bin/env python
+
+from python_code.decorators import euler_timer
+
+def translate(message, key):
+    len_key = len(key)
+    result = message[:]
+
+    for i in range(len_key):
+        for j in range(i, len(result), len_key):
+            result[j] = result[j] ^ key[i]
+
+    result = "".join([ chr(xx) for xx in result ])
+    return result
+
+@euler_timer(59)
+def main():
+    with open('/Users/dan/Documents/sandbox/euler_project'
+              '/problem_data/no059.txt', 'r') as fh:
+        message = fh.read()[:-2].split(",")
+
+    message = [ int(xx) for xx in message ]
+
+    possible_keys = []
+    for xx in range(97,123):
+        for yy in range(97,123):
+            for zz in range(97,123):
+                possible_keys += [ [xx,yy,zz] ]
+
+    for key in possible_keys:
+        curr = translate(message, key)
+        if ( curr.upper().find("THE") != -1
+             and curr.upper().find("IS") != -1
+             and curr.upper().find("AND") != -1
+             and curr.upper().find("OF") != -1
+             and curr.upper().find("ARE") != -1 ):
+            break
+
+    key_as_word = "".join([ chr(xx) for xx in key ])
+    result = "\nActual Message:\n%s\n\nThe key is: %s or %s." % (
+        curr, key_as_word, key)
+
+    print sum([ ord(xx) for xx in curr ])
+
+    return result
+
+if __name__ == "__main__":
+    message = main()
+    print message

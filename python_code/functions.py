@@ -1,12 +1,16 @@
-from os.path import expanduser
-from os.path import join
+from os import path as opath
+import sys
 
 def get_data(problem_number):
+    path = opath.abspath(opath.dirname(sys.argv[0]))
+
     relative_filename = 'no%s.txt' % str(problem_number).zfill(3)
-    path = "/".join(["..",
-                     "..",
-                     "problem_data"])
-    filename = join(expanduser(path), relative_filename)
+    relative_path = "/".join(["..",
+                              "..",
+                              "problem_data",
+                              relative_filename])
+
+    filename = opath.join(path, relative_path)
     with open(filename) as fh:
         # files if file doesn't exist
         result = fh.read()

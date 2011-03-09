@@ -1,0 +1,30 @@
+#!/usr/bin/env python
+
+# Find the largest palindrome made from the
+# product of two 3-digit numbers
+
+# 100**2 = 10000 <= a*b <= 998001 = 999**2
+
+from python_code.decorators import euler_timer
+
+def is_palindrome(n):
+    return str(n) == str(n)[-1::-1]
+
+def palindromes_from_products(list_):
+    result = set()
+    for xx in list_:
+        for yy in list_:
+            result.add(xx*yy)
+
+    result = list(result)
+    result = [ xx for xx in result if is_palindrome(xx) ]
+
+    return result
+
+@euler_timer(4)
+def main():
+    print max(palindromes_from_products(range(100,1000)))
+
+if __name__ == "__main__":
+    main()
+

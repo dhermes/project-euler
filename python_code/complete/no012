@@ -1,0 +1,75 @@
+#!/usr/bin/env python
+
+# What is the value of the first triangle number to have over five hundred divisors?
+
+from python_code.decorators import euler_timer
+
+def factor_list_helper(n):
+    if n == 1:
+        return [1, 1]
+    
+    div = 2
+    while n % div != 0:
+        div += 1
+    return [ div, n/div ]
+
+def factor_list(n, hash_):
+    if n in hash_:
+        return hash_[n]
+
+    if n == 1:
+        return []
+    else:
+        pair = factor_list_helper(n)
+        if pair[1] in hash_:
+            return [ pair[0] ] + hash_[pair[1]]
+        else:
+            return [ pair[0] ] + factor_list(pair[1], hash_)
+
+def list_frequencies(list_):
+    result = {}
+    for element in list_:
+        if element in result:
+            result[element] += 1
+        else:
+            result[element] = 1
+    return result.items()
+
+# def num_factors(n, hash_):
+#     if n in hash_:
+#         factors = list_frequencies(hash_[n])
+#     else:
+#         factors = list_frequencies(factor_list(n))
+#     prod = 1
+#     for factor in factors:
+#         prod *= factor[1] + 1
+#     hash_[n] = prod
+#     return prod
+
+def special_num_factors(a, b, hash_):
+    factors = factor_list(a, hash_) + factor_list(b, hash_)
+    factors = list_frequencies(factors)
+
+    prod = 1
+    for factor in factors:
+        prod *= factor[1] + 1
+    return prod
+
+def num_factors_nth_triangular(n, hash_):
+    if n % 2 == 0:
+        return special_num_factors(n/2, n + 1, hash_)
+    else:
+        return special_num_factors(n, (n + 1)/2, hash_)
+
+@euler_timer(12)
+def main():
+    n = 1
+    h = {}
+    num_fac = num_factors_nth_triangular(n, h)
+    while num_fac <= 500:
+        n += 1
+        num_fac = num_factors_nth_triangular(n, h)
+    print "%s. It has %s factors and occurs when n = %s." % ( (n*(n + 1))/2, num_fac, n )
+
+if __name__ == "__main__":
+    main()

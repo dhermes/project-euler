@@ -1,0 +1,31 @@
+#!/usr/bin/env python
+
+# What is the smallest positive number that is evenly divisible 
+# by all of the numbers from 1 to 20?
+
+from python_code.decorators import euler_timer
+
+def gcd(a, b):
+    if a == 0:
+        return b
+    elif b == 0 or a == b:
+        return a
+
+    M = max(a, b)
+    m = min(a, b)
+    return gcd(m, M % m)
+
+def min_product(n):
+    if n < 2:
+        return 1
+
+    prod = min_product(n - 1)
+    shared = gcd(prod, n)
+    return prod*n/shared
+
+@euler_timer(5)
+def main():
+    print min_product(20)
+
+if __name__ == "__main__":
+    main()

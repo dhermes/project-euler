@@ -1,0 +1,36 @@
+#!/usr/bin/env python
+
+# Which starting number, under one million, produces the longest chain? (Of the collatz chain)
+
+from python_code.decorators import euler_timer
+
+def next(n):
+    if n % 2 == 0:
+        return n/2
+    else:
+        return 3*n + 1
+
+def length(n, hash_):
+    if n in hash_:
+        return hash_[n]
+    else:
+        lngth = 1 + length(next(n), hash_)
+        hash_[n] = lngth
+        return lngth
+
+def max_collatz_length_up_to_n(n, hash_ = {1: 1}):
+    max_lng = -1
+    max_lng_at = -1
+    for i in range(1, n + 1):
+        if length(i, hash_) > max_lng:
+            max_lng = length(i, hash_)
+            max_lng_at = i
+    return [ max_lng_at , max_lng ]
+
+@euler_timer(14)
+def main():
+    ans = max_collatz_length_up_to_n(999999)
+    print "%s. The Collatz chain at %s has length %s." % (ans[0], ans[0], ans[1])
+
+if __name__ == "__main__":
+    main()

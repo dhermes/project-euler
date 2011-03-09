@@ -1,0 +1,20 @@
+#!/usr/bin/env python
+
+# Find the sum of all the multiples of 3 or 5 below 1000.
+
+from python_code.decorators import euler_timer
+
+def all_multiples(divisor_list, maximum):
+    result = set()
+    for divisor in divisor_list:
+        result = result.union(range(divisor, maximum + 1, divisor))
+
+    return sorted(list(result))
+
+@euler_timer(1)
+def main():
+    print sum(all_multiples([3,5],999))
+
+if __name__ == "__main__":
+    main()
+

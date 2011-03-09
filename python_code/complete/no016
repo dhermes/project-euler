@@ -1,0 +1,15 @@
+#!/usr/bin/env python
+
+# What is the sum of the digits of the number 2^(1000)?
+
+from python_code.decorators import euler_timer
+
+def sum_dig(n):
+    return sum([ int(xx) for xx in str(n) ])
+
+@euler_timer(16)
+def main():
+    print sum_dig(2**1000)
+
+if __name__ == "__main__":
+    main()

@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 from python_code.decorators import euler_timer
+from python_code.functions import get_data
 
 def translate(message, key):
     len_key = len(key)
@@ -15,9 +16,7 @@ def translate(message, key):
 
 @euler_timer(59)
 def main():
-    with open('/Users/dan/Documents/sandbox/euler_project'
-              '/problem_data/no059.txt', 'r') as fh:
-        message = fh.read()[:-2].split(",")
+    message = get_data(59).split(",")
 
     message = [ int(xx) for xx in message ]
 

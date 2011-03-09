@@ -24,6 +24,7 @@
 # 7C 3C TH 5S 8H 8C 9C JD TC KD
 
 from python_code.decorators import euler_timer
+from python_code.functions import get_data
 
 CARDS = dict([ ('2', 2),
                ('3', 3),
@@ -191,9 +192,8 @@ def compare_hands(hand1, hand2):
 
 @euler_timer(54)
 def main():
-    with open('/Users/dan/Documents/sandbox/'
-              'euler_project/problem_data/no054.txt', 'r') as fh:
-        hands = [ read_hand(row) for row in fh.read().split("\n") if row ]
+    data = get_data(54)
+    hands = [ read_hand(row) for row in data.split("\n") if row ]
     hands = [ (top_cards(entry[0]), top_cards(entry[1])) for entry in hands ]
 
     count = 0

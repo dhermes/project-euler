@@ -1,0 +1,52 @@
+#!/usr/bin/env python
+
+# What is the 10001st prime number?
+
+from python_code.decorators import euler_timer
+
+def is_prime(n):
+    if n < 7:
+        if n == 2 or n == 3 or n == 5:
+            return True
+        else:
+            return False
+
+    if not n % 2 or not n % 3 or not n % 3:
+        return False
+
+    a = 5
+    b = 7
+    mid = int(n**0.5)
+
+    while a <= mid or b <= mid:
+        if not n % a or not n % b:
+            return False
+
+        a += 6
+        b += 6
+
+    return True
+
+def first_n_primes(n):
+    primes = [2,3]
+
+    a = 5
+    b = 7
+
+    while len(primes) < n:
+        if is_prime(a):
+            primes += [a]
+        if is_prime(b):
+            primes += [b]
+
+        a += 6
+        b += 6
+
+    return primes[:n]
+
+@euler_timer(7)
+def main():
+    print first_n_primes(10001)[-1]
+
+if __name__ == "__main__":
+    main()

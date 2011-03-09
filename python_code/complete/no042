@@ -12,6 +12,7 @@
 
 # I've renamed words.txt as no042.txt
 from python_code.decorators import euler_timer
+from python_code.functions import get_data
 from math import sqrt
 
 def is_triangular(n, hash_ = {}):
@@ -30,11 +31,10 @@ def word_to_value(word):
     letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     return sum([ letters.find(letter) + 1 for letter in word ])
 
-def num_triangle(filename):
+def num_triangle():
     # Assumes file is "A","ABILITIY","ABLE",...
-    fh = open(filename, "r")
-    words = [ word[1:-1] for word in fh.read().split(",") ]
-    fh.close()
+    data = get_data(42)
+    words = [ word[1:-1] for word in data.split(",") ]
     vals = [ word_to_value(word) for word in words ]
     triangle_hash = {}
     count = 0
@@ -45,8 +45,7 @@ def num_triangle(filename):
 
 @euler_timer(42)
 def main():
-    print num_triangle("/Users/dan/Documents/sandbox/euler_project" \
-                       "/problem_data/no042.txt")
+    print num_triangle()
 
 if __name__ == "__main__":
     main()

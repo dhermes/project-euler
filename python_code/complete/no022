@@ -11,15 +11,13 @@
 # What is the total of all the name scores in the file?
 
 from python_code.decorators import euler_timer
+from python_code.functions import get_data
 
-def sort_names(filename):
-    fh = open(filename)
-    names = fh.read()
-    fh.close()
+def sort_names(names):
     # The name file is a comma separated file with quotes
-    names = names.split(",")
-    names = [ name[1:-1] for name in names if name[1:-1] ]
-    return sorted(names)
+    result = names.split(",")
+    result = [ name[1:-1] for name in result if name[1:-1] ]
+    return sorted(result)
 
 def my_ord(letter):
     return ord(letter.upper()) - 64
@@ -27,17 +25,17 @@ def my_ord(letter):
 def name_score(name):
     return sum([ my_ord(letter) for letter in name ])
 
-def total_score(filename):
+def total_score():
     result = 0
-    names = sort_names(filename)
+    data = get_data(22)
+    names = sort_names(data)
     for i, name in enumerate(names):
         result += (i + 1)*name_score(name)
     return result
 
 @euler_timer(22)
 def main():
-    print total_score("/Users/dan/Documents/sandbox/euler_project" \
-                      "/problem_data/no022.txt")
+    print total_score()
 
 if __name__ == "__main__":
     main()

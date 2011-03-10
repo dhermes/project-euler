@@ -30,7 +30,7 @@ def max_collatz_length_up_to_n(n, hash_ = {1: 1}):
 @euler_timer(14)
 def main():
     ans = max_collatz_length_up_to_n(999999)
-    print "%s. The Collatz chain at %s has length %s." % (ans[0], ans[0], ans[1])
+    print "%s.\nThe Collatz chain at %s has length %s." % (ans[0], ans[0], ans[1])
 
 if __name__ == "__main__":
     main()

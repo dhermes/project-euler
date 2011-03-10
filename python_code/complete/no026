@@ -1,0 +1,37 @@
+#!/usr/bin/env python
+
+# Find the value of d < 1000 for which ^(1)/_(d) contains the
+# longest recurring cycle in its decimal fraction part.
+
+from python_code.decorators import euler_timer
+
+def remove_2s_and_5s(n):
+    result = n
+    while result % 5 == 0:
+        result = result/5
+    while result % 2 == 0:
+        result = result/2
+    return result
+
+def repeating_block(d):
+    stripped_d = remove_2s_and_5s(d)
+    # We seek the smallest n such that 10^n - 1 % d == 0
+    if stripped_d == 1:
+        return 0
+    res = 9 % stripped_d
+    n = 1
+    while res != 0:
+        res = (10*res + 9) % stripped_d
+        n += 1
+    return n
+
+def max_block(n):
+    tops = [ repeating_block(i) for i in range(1, n + 1) ]
+    return tops.index(max(tops)) + 1
+
+@euler_timer(26)
+def main():
+    print max_block(999)
+
+if __name__ == "__main__":
+    main()

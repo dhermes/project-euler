@@ -12,12 +12,12 @@ def is_palindrome(n):
 
 def palindromes_from_products(list_):
     result = set()
-    for xx in list_:
-        for yy in list_:
-            result.add(xx*yy)
+    for elt1 in list_:
+        for elt2 in list_:
+            result.add(elt1*elt2)
 
     result = list(result)
-    result = [ xx for xx in result if is_palindrome(xx) ]
+    result = [ elt for elt in result if is_palindrome(elt) ]
 
     return result
 

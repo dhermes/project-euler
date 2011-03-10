@@ -7,7 +7,7 @@ from python_code.decorators import euler_timer
 from python_code.functions import get_data
 
 def greatest_product_digits(number, digits):
-    n = [ int(xx) for xx in str(number)]
+    n = [ int(dig) for dig in str(number)]
     prods = [ reduce(lambda x,y : x*y, n[i:i + digits]) for i in range(len(n) - digits + 1) ]
     return max(prods)
 

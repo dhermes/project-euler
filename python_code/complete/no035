@@ -1,0 +1,73 @@
+#!/usr/bin/env python
+
+# The number, 197, is called a circular prime because all
+# rotations of the digits: 197, 971, and 719, are themselves prime.
+
+# How many circular primes are there below one million?
+
+from python_code.decorators import euler_timer
+
+def all_perms(list_):
+    if len(list_) == 1:
+        return [ list_ ]
+
+    result = []
+    for element in list_:
+        curr = list_[:]
+        curr.remove(element)
+        to_add = [ [element] + sub_list for sub_list in all_perms(curr) ]
+        result.extend([ sub_list for sub_list in to_add
+                        if sub_list not in result ])
+    return result
+
+def all_circular_perms(list_):
+    n = len(list_)
+    result = []
+    for lead in range(n):
+        indices = [ index % n for index in range(lead, lead + n) ]
+        result.append([ list_[index] for index in indices ])
+    return result
+
+def all_perms_int(n):
+    digs = [ dig for dig in str(n) ]
+    result = all_perms(digs)
+    return [ int("".join(perm)) for perm in result ]
+
+def all_circular_perms_int(n):
+    digs = [ dig for dig in str(n) ]
+    return [ int("".join(perm)) for perm in all_circular_perms(digs) ]
+
+def sieve(n):
+    # requires n > 0
+    prime_sieve = range(n+1)
+    prime_list = []
+
+    for index in range(2,n+1):
+        if prime_sieve[index]:
+            prime_list.append(index)
+            for sub_index in range(2*index,n+1,index):
+                prime_sieve[sub_index] = 0
+
+    return prime_list
+
+def all_perm_in(prime, primes):
+    perms = all_perms_int(prime)
+    return set(perms) <= set(primes)
+
+def all_circular_perm_in(prime, primes):
+    perms = all_circular_perms_int(prime)
+    return set(perms) <= set(primes)
+
+def all_circular(n):
+    # the number of digits limits the size of all permutations
+    digs = len(str(n))
+    primes = sieve(10**digs - 1)
+    return [ prime for prime in primes if prime <= n
+             and all_circular_perm_in(prime, primes) ]
+
+@euler_timer(35)
+def main():
+    print len(all_circular(10**6 - 1))
+
+if __name__ == "__main__":
+    main()

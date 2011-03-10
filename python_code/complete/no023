@@ -1,0 +1,51 @@
+#!/usr/bin/env python
+
+# A number n is called abundant if the sum of its proper divisors exceeds n.
+
+# By mathematical analysis, it can be shown that all integers greater than
+# 28123 can be written as the sum of two abundant numbers.
+
+# Find the sum of all the positive integers which cannot be written as
+# the sum of two abundant numbers.
+
+from python_code.decorators import euler_timer
+
+def factor_list_helper(n):
+    if n == 1:
+        return [1, 1]
+
+    # Can assume n not 1
+    div = 2
+    while n % div != 0:
+        div += 1
+    return [ div, n/div ]
+
+def sum_proper(list_):
+    return sum(list_) - max(list_)
+
+def abundant_numbers(n):
+    result = []
+
+    factor_hash = {1: [1]}
+    for i in range(2, n + 1):
+        [prime, quotient] = factor_list_helper(i)
+        to_add = factor_hash[quotient][:]
+        to_add.extend([ divisor*prime for divisor in to_add ])
+        factor_hash[i] = sorted(list(set(to_add)))
+        if i < sum_proper(factor_hash[i]):
+            result.append(i)
+    return result
+
+def all_sums(list_):
+    result = [ i + j for i in list_ for j in list_ ]
+    return sorted(list(set(result)))
+
+@euler_timer(23)
+def main():
+    abundants = abundant_numbers(28123)
+    sums = all_sums(abundants)
+    bad_ones = [ i for i in range(28123 + 1) if i not in sums ]
+    print sum(bad_ones)
+
+if __name__ == "__main__":
+    main()

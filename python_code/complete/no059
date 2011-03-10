@@ -11,20 +11,20 @@ def translate(message, key):
         for j in range(i, len(result), len_key):
             result[j] = result[j] ^ key[i]
 
-    result = "".join([ chr(xx) for xx in result ])
+    result = "".join([ chr(val) for val in result ])
     return result
 
 @euler_timer(59)
 def main():
     message = get_data(59).split(",")
 
-    message = [ int(xx) for xx in message ]
+    message = [ int(char) for char in message ]
 
     possible_keys = []
-    for xx in range(97,123):
-        for yy in range(97,123):
-            for zz in range(97,123):
-                possible_keys += [ [xx,yy,zz] ]
+    for ascii1 in range(97,123):
+        for ascii2 in range(97,123):
+            for ascii3 in range(97,123):
+                possible_keys.append([ascii1, ascii2, ascii3])
 
     for key in possible_keys:
         curr = translate(message, key)
@@ -35,11 +35,11 @@ def main():
              and curr.upper().find("ARE") != -1 ):
             break
 
-    key_as_word = "".join([ chr(xx) for xx in key ])
+    key_as_word = "".join([ chr(val) for val in key ])
     result = "\nActual Message:\n%s\n\nThe key is: %s or %s." % (
         curr, key_as_word, key)
 
-    print sum([ ord(xx) for xx in curr ])
+    print sum([ ord(letter) for letter in curr ])
 
     return result
 

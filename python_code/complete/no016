@@ -5,7 +5,7 @@
 from python_code.decorators import euler_timer
 
 def sum_dig(n):
-    return sum([ int(xx) for xx in str(n) ])
+    return sum([ int(dig) for dig in str(n) ])
 
 @euler_timer(16)
 def main():

@@ -21,7 +21,7 @@ def prime_factors(n):
 
     while curr[1] != 1:
         curr = prime_factors_helper( curr[1] )
-        result += [ curr[0] ]
+        result.append(curr[0])
 
     return result
 

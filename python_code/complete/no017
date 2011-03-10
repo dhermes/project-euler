@@ -22,23 +22,23 @@ def words(n):
         return "one thousand"
 
     result = []
-    digs = [ int(xx) for xx in str(n).zfill(3) ]
+    digs = [ int(dig) for dig in str(n).zfill(3) ]
 
     if digs[0] != 0:
         if n != 100*digs[0]:
-            result += [ ones[digs[0]] , "hundred", "and"]
+            result.extend([ ones[digs[0]] , "hundred", "and"])
         else:
             return "%s hundred" % ones[digs[0]]
 
     if digs[1] == 1:
-        result += [ teens[10*digs[1] + digs[2]] ]
+        result.append(teens[10*digs[1] + digs[2]])
         return " ".join(result)
     elif digs[1] != 0:
-        result += [ tens[digs[1]] ]
+        result.append(tens[digs[1]])
 
     # Here we can safely ignore teens since we return in that loop
     if digs[2] != 0:
-        result += [ ones[digs[2]] ]
+        result.append(ones[digs[2]])
 
     return " ".join(result)
 

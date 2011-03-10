@@ -35,9 +35,9 @@ def first_n_primes(n):
 
     while len(primes) < n:
         if is_prime(a):
-            primes += [a]
+            primes.append(a)
         if is_prime(b):
-            primes += [b]
+            primes.append(b)
 
         a += 6
         b += 6

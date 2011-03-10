@@ -1,0 +1,21 @@
+#!/usr/bin/env python
+
+# Find the sum of the digits in the number 100!
+
+from python_code.decorators import euler_timer
+
+def factorial_helper(n, prod):
+    if n < 2:
+        return prod
+    else:
+        return factorial_helper(n - 1, n*prod)
+
+def factorial(n):
+    return factorial_helper(n, 1)
+
+@euler_timer(20)
+def main():
+    print sum([ int(digit) for digit in str(factorial(100)) ])
+
+if __name__ == "__main__":
+    main()

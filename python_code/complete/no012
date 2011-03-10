@@ -7,7 +7,7 @@ from python_code.decorators import euler_timer
 def factor_list_helper(n):
     if n == 1:
         return [1, 1]
-    
+
     div = 2
     while n % div != 0:
         div += 1
@@ -69,7 +69,8 @@ def main():
     while num_fac <= 500:
         n += 1
         num_fac = num_factors_nth_triangular(n, h)
-    print "%s. It has %s factors and occurs when n = %s." % ( (n*(n + 1))/2, num_fac, n )
+    print "%s.\nIt is the %sth triangular number and has %s divisors." % (
+        (n*(n + 1))/2, n, num_fac)
 
 if __name__ == "__main__":
     main()

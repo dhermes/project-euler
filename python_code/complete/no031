@@ -10,15 +10,11 @@
 
 from python_code.decorators import euler_timer
 
-def my_add(left, right):
-    if len(left) > len(right):
-        M = left
-        m = right
-    else:
-        M = right
-        m = left
-    m = [0] * (len(M) - len(m)) + m
-    return [ M[i] + m[i] for i in range(len(m)) ]
+def polynomial_add(left, right):
+    max_len = max(len(left), len(right))
+    to_add_left = [0]*(max_len - len(left)) + left[:]
+    to_add_right = [0]*(max_len - len(right)) + right[:]
+    return [ to_add_left[i] + to_add_right[i] for i in range(max_len) ]
 
 # represent ax^n + bx^(n-1) + ... + c as [c,...b,a]
 # 1 + 2x + x^2 + 2x^3 = (1+2x)*(1+x^2) =
@@ -27,19 +23,19 @@ def polynomial_mult(f, g):
     result = []
     for ind in range(len(f)):
         to_add = [ f[-ind - 1]*coeff for coeff in g ] + [0] * ind
-        result = my_add(result, to_add)
+        result = polynomial_add(result, to_add)
     return result
 
-def gen_poly(max_power, base):
+def generating_poly(max_power, base):
     add_on = [0]*(base - 1) + [1]
     return [1] + add_on * (max_power/base)
 
 @euler_timer(31)
 def main():
-    prod = gen_poly(200,1)
+    prod = generating_poly(200,1)
     coins = [2, 5, 10, 20, 50, 100, 200]
     for coin in coins:
-        prod = polynomial_mult(prod, gen_poly(200,coin))
+        prod = polynomial_mult(prod, generating_poly(200,coin))
     print prod[200]
 
 if __name__ == "__main__":

@@ -14,42 +14,30 @@
 
 from python_code.decorators import euler_timer
 
-def next_direction(direction):
-    directions = ['R', 'D', 'L', 'U', 'R']
-    return directions[directions.index(direction) + 1]
-
-def direction_coords(direction):
-    if direction == 'R':
-        return [ 1,  0 ]
-    elif direction == 'L':
-        return [-1,  0 ]
-    elif direction == 'U':
-        return [ 0,  1 ]
-    else:
-        return [ 0, -1 ]
-
-def move_ahead(curr_level, max_levels, direction, curr_int):
-    print 1
-
-# 1, 1, 2, 2, 3, 3, 4, 4, etc., every 2 is a cornerx
+# 1, 1, 2, 2, 3, 3, 4, 4, etc., every 2 is a corner
 
 def spiral_sum(n):
     if n % 2 == 0:
         raise ValueError("Spiral only occurs on odds.")
 
-    curr_int = 1
+    curr_val = 1
     total = 0
 
+    # as we move along the corners on the spiral, the number of
+    # steps (i.e. number of corners) dictates the size of each
+    # new step. In almost all cases, the step increases by one
+    # but every four, when the next corner wraps a new layer,
+    # it does not increase
     step_num = 0
     step_size = 0
-    while curr_int <= n**2:
+    while curr_val <= n**2:
         if step_num % 2 == 0:
             step_size += 1
-        curr_int += step_size
+        curr_val += step_size
         if step_num % 4 == 0:
-            total += curr_int - 1
+            total += curr_val - 1
         else:
-            total += curr_int
+            total += curr_val
         step_num += 1
 
     return total

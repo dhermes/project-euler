@@ -13,14 +13,16 @@
 # terms, find the value of the denominator.
 
 from python_code.decorators import euler_timer
+from fractions import gcd
+import operator
 
 def canceled_pair(numer, denom):
     shared = set(str(numer)).intersection(set(str(denom)))
     result_n = [ dig for dig in str(numer) ]
     result_d = [ dig for dig in str(denom) ]
     for dig in shared:
-        result_n.remove(dig)
-        result_d.remove(dig)
+        result_n.remove(dig) # Only removes first instance
+        result_d.remove(dig) # Only removes first instance
     result_n = int("".join(result_n)) if result_n else 0
     result_d = int("".join(result_d)) if result_d else 0
     return result_n, result_d
@@ -40,11 +42,8 @@ def main():
     pairs = [ (numer, denom) for numer in range(10,99)
                              for denom in range(numer + 1, 100)
                              if equals_canceled_pair(numer, denom) ]
-    def mult(x,y):
-        return x*y
-    num = reduce(mult, [ pair[0] for pair in pairs ])
-    denom = reduce(mult, [ pair[1] for pair in pairs ])
-    from fractions import gcd
+    num = reduce(operator.mul, [ pair[0] for pair in pairs ])
+    denom = reduce(operator.mul, [ pair[1] for pair in pairs ])
     print denom/(gcd(num,denom))
 
 if __name__ == "__main__":

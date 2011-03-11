@@ -4,23 +4,12 @@
 # How many routes are there through a 20 x 20 grid?
 
 from python_code.decorators import euler_timer
-
-def factorial_helper(n, prod):
-    if n < 2:
-        return prod
-    else:
-        return factorial_helper(n - 1, n*prod)
-
-def factorial(n):
-    return factorial_helper(n, 1)
-
-# In an n x m grid there are (n + m) C m = (n + m) C n such paths.
-def num_paths(n, m):
-    return factorial(n + m)/(factorial(n)*factorial(m))
+from math import factorial
 
 @euler_timer(15)
 def main():
-    print num_paths(20, 20)
+    # In an n x m grid there are (n + m) C m = (n + m) C n such paths.
+    print factorial(20 + 20)/(factorial(20)*factorial(20))
 
 if __name__ == "__main__":
     main()

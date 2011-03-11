@@ -11,9 +11,11 @@
 # how many are triangle words?
 
 # I've renamed words.txt as no042.txt
+
 from python_code.decorators import euler_timer
 from python_code.functions import get_data
 from math import sqrt
+import string
 
 def is_triangular(n, hash_ = {}):
     if n in hash_:
@@ -28,13 +30,12 @@ def is_triangular(n, hash_ = {}):
     return bool_val
 
 def word_to_value(word):
-    letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    letters = string.uppercase
     return sum([ letters.find(letter) + 1 for letter in word ])
 
 def num_triangle():
     # Assumes file is "A","ABILITIY","ABLE",...
-    data = get_data(42)
-    words = [ word[1:-1] for word in data.split(",") ]
+    words = get_data(42).strip('"').split('","')
     vals = [ word_to_value(word) for word in words ]
     triangle_hash = {}
     count = 0

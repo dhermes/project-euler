@@ -31,35 +31,34 @@
 
 from python_code.decorators import euler_timer
 from python_code.functions import get_data
-
-DATA = get_data(11)
-DATA = [ [ int(entry) for entry in row.split() ] for row in DATA.split("\n") if row ]
+import operator
 
 def make_path(point, step, length):
     return [ (point[0] + i*step[0], point[1] + i*step[1]) for i in range(length) ]
 
-def convert(path):
-    # Assumes path is made of points (x,y) where DATA[x][y] exists
-    def mult(x,y):
-        return x*y
-    return reduce(mult, [ DATA[entry[0]][entry[1]] for entry in path ])
+def convert(path, data):
+    # Assumes path is made of points (x,y) where data[x][y] exists
+    return reduce(operator.mul, [ data[x][y] for x, y in path ])
 
 @euler_timer(11)
 def main():
+    DATA = get_data(11)
+    DATA = [ [ int(entry) for entry in row.split() ] for row in DATA.split("\n") if row ]
+
     # UP/DOWN goes from DATA[x][y] to DATA[x+3][y] where 0 <= x, x+3, y <= 19
-    vert = max([ convert(make_path((x, y), (1, 0), 4)) for x
+    vert = max([ convert(make_path((x, y), (1, 0), 4), DATA) for x
                  in range(0, 16 + 1) for y in range(19 + 1) ])
 
     # LEFT/RIGHT goes from DATA[x][y] to DATA[x][y+3] where 0 <= x, y, y+3 <= 19
-    horiz = max([ convert(make_path((x, y), (0, 1), 4)) for x
+    horiz = max([ convert(make_path((x, y), (0, 1), 4), DATA) for x
                   in range(0, 19 + 1) for y in range(16 + 1) ])
 
     # DIAGONAL L->R goes from DATA[x][y] to DATA[x+3][y+3] via +[1,1]
-    diag_l_r = max([ convert(make_path((x, y), (1, 1), 4)) for x
+    diag_l_r = max([ convert(make_path((x, y), (1, 1), 4), DATA) for x
                      in range(0, 16 + 1) for y in range(16 + 1) ])
 
     # DIAGONAL R->L goes from DATA[x][y] to DATA[x-3][y+3] via +[-1,1]
-    diag_r_l = max([ convert(make_path((x, y), (-1, 1), 4)) for x
+    diag_r_l = max([ convert(make_path((x, y), (-1, 1), 4), DATA) for x
                      in range(3, 19 + 1) for y in range(16 + 1) ])
 
     print max(vert, horiz, diag_l_r, diag_r_l)

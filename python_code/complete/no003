@@ -3,27 +3,7 @@
 # What is the largest prime factor of the number 600851475143
 
 from python_code.decorators import euler_timer
-
-def prime_factors_helper(n):
-    # Returns [ p, n/p ] where p is the smallest prime dividing n
-    if n == 1:
-        return [1,1]
-
-    divisor = 2
-    while n % divisor:
-        divisor += 1
-
-    return [ divisor, n/divisor ]
-
-def prime_factors(n):
-    curr = prime_factors_helper(n)
-    result = [ curr[0] ]
-
-    while curr[1] != 1:
-        curr = prime_factors_helper( curr[1] )
-        result.append(curr[0])
-
-    return result
+from python_code.functions import prime_factors
 
 @euler_timer(3)
 def main():
@@ -31,4 +11,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

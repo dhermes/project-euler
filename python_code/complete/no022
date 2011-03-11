@@ -13,29 +13,14 @@
 from python_code.decorators import euler_timer
 from python_code.functions import get_data
 
-def sort_names(names):
-    # The name file is a comma separated file with quotes
-    result = names.split(",")
-    result = [ name[1:-1] for name in result if name[1:-1] ]
-    return sorted(result)
-
-def my_ord(letter):
-    return ord(letter.upper()) - 64
-
 def name_score(name):
-    return sum([ my_ord(letter) for letter in name ])
-
-def total_score():
-    result = 0
-    data = get_data(22)
-    names = sort_names(data)
-    for i, name in enumerate(names):
-        result += (i + 1)*name_score(name)
-    return result
+    return sum([ (ord(letter.upper()) - ord('A') + 1) for letter in name ])
 
 @euler_timer(22)
 def main():
-    print total_score()
+    # The name file is a comma separated file with quotes
+    names = sorted(get_data(22).strip('"').split('","'))
+    print sum([ (i + 1)*name_score(name) for i, name in enumerate(names) ])
 
 if __name__ == "__main__":
     main()

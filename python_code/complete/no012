@@ -3,28 +3,7 @@
 # What is the value of the first triangle number to have over five hundred divisors?
 
 from python_code.decorators import euler_timer
-
-def factor_list_helper(n):
-    if n == 1:
-        return [1, 1]
-
-    div = 2
-    while n % div != 0:
-        div += 1
-    return [ div, n/div ]
-
-def factor_list(n, hash_):
-    if n in hash_:
-        return hash_[n]
-
-    if n == 1:
-        return []
-    else:
-        pair = factor_list_helper(n)
-        if pair[1] in hash_:
-            return [ pair[0] ] + hash_[pair[1]]
-        else:
-            return [ pair[0] ] + factor_list(pair[1], hash_)
+from python_code.functions import prime_factors
 
 def list_frequencies(list_):
     result = {}
@@ -35,19 +14,9 @@ def list_frequencies(list_):
             result[element] = 1
     return result.items()
 
-# def num_factors(n, hash_):
-#     if n in hash_:
-#         factors = list_frequencies(hash_[n])
-#     else:
-#         factors = list_frequencies(factor_list(n))
-#     prod = 1
-#     for factor in factors:
-#         prod *= factor[1] + 1
-#     hash_[n] = prod
-#     return prod
-
 def special_num_factors(a, b, hash_):
-    factors = factor_list(a, hash_) + factor_list(b, hash_)
+    factors = prime_factors(a, unique=False, hash_=hash_) + \
+              prime_factors(b, unique=False, hash_=hash_)
     factors = list_frequencies(factors)
 
     prod = 1

@@ -22,7 +22,7 @@
 from python_code.decorators import euler_timer
 from python_code.functions import sieve
 
-def consecutive_primes(a, b, primes):
+def polynomial_consecutive_primes(a, b, primes):
     # f(n + 1) = f(n) + 1 + a + 2n
     current = b
     index = 0
@@ -36,7 +36,7 @@ def main():
     PRIMES = sieve(86238)
     b_choices = [ prime for prime in PRIMES if prime < 1000 ]
 
-    candidates = [ (a, b, consecutive_primes(a, b, PRIMES))
+    candidates = [ (a, b, polynomial_consecutive_primes(a, b, PRIMES))
                    for a in range(-999, 999 + 1)
                    for b in b_choices ]
     quantities = [ entry[2] for entry in candidates ]

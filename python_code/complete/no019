@@ -7,6 +7,7 @@
 # on a century unless it is divisible by 400.
 
 from python_code.decorators import euler_timer
+
 def leap_year(year):
     if year % 4 == 0:
         if year % 100 == 0:
@@ -40,7 +41,8 @@ def main():
         months = month_lengths(year)
         for month in months:
             date = (date + month) % 7
-            if date == 0: count += 1
+            if date == 0:
+                count += 1
 
     # The final date will be Jan 1 2001, so we need to disallow it if it was bad
     if date == 0:

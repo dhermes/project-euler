@@ -15,6 +15,7 @@
 # RUNTIME NOTE: I have run this and the largest is 739397
 
 from python_code.decorators import euler_timer
+from python_code.functions import is_prime
 from python_code.functions import sieve
 
 def truncated_list(n, from_left):
@@ -38,28 +39,6 @@ def is_truncatable_prime(n, primes):
             primes.append(candidate)
         else:
             return False
-    return True
-
-def is_prime(n):
-    from math import sqrt
-
-    if n < 10:
-        if n == 2 or n == 3 or n == 5 or n == 7:
-            return True
-        else:
-            return False
-
-    # We safely assume n >= 10
-    if n % 2 == 0 or n % 3 == 0:
-        return False
-
-    mid = int(sqrt(n))
-    div_1, div_2 = 5, 7
-    while div_1 <= mid:
-        if n % div_1 == 0 or n % div_2 == 0:
-            return False
-        div_1 += 6
-        div_2 += 6
     return True
 
 def find_first_n_truncatable(n):

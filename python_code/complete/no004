@@ -6,24 +6,13 @@
 # 100**2 = 10000 <= a*b <= 998001 = 999**2
 
 from python_code.decorators import euler_timer
-
-def is_palindrome(n):
-    return str(n) == str(n)[-1::-1]
-
-def palindromes_from_products(list_):
-    result = set()
-    for elt1 in list_:
-        for elt2 in list_:
-            result.add(elt1*elt2)
-
-    result = list(result)
-    result = [ elt for elt in result if is_palindrome(elt) ]
-
-    return result
+from python_code.functions import apply_to_list
+import operator
 
 @euler_timer(4)
 def main():
-    print max(palindromes_from_products(range(100,1000)))
+    products = apply_to_list(operator.mul, range(100,1000))
+    print max([ elt for elt in products if str(elt) == str(elt)[-1::-1] ])
 
 if __name__ == "__main__":
     main()

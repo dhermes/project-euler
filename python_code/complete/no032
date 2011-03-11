@@ -38,15 +38,15 @@ def possible_products(list_):
 def main():
     products = set()
     candidates = all_orderings(range(1,10))
-    for elt in candidates:
-        prods = possible_products(elt[:5])
-        last4 = elt[-4:]
+    for candidate in candidates:
+        prods = possible_products(candidate[:5])
+        last4 = candidate[-4:]
         last4 = int("".join([str(elt) for elt in last4]))
         if last4 in prods:
             products.add(last4)
 
-        prods = possible_products(elt[:6])
-        last3 = elt[-3:]
+        prods = possible_products(candidate[:6])
+        last3 = candidate[-3:]
         last3 = int("".join([str(elt) for elt in last3]))
         if last3 in prods:
             products.add(last3)

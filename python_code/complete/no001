@@ -4,16 +4,10 @@
 
 from python_code.decorators import euler_timer
 
-def all_multiples(divisor_list, maximum):
-    result = set()
-    for divisor in divisor_list:
-        result = result.union(range(divisor, maximum + 1, divisor))
-
-    return sorted(list(result))
-
 @euler_timer(1)
 def main():
-    print sum(all_multiples([3,5],999))
+    multiples = [ i for i in range(1, 1000) if i % 3 == 0 or i % 5 == 0 ]
+    print sum(multiples)
 
 if __name__ == "__main__":
     main()

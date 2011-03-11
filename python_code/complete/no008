@@ -5,20 +5,23 @@
 
 from python_code.decorators import euler_timer
 from python_code.functions import get_data
+import operator
 
-def greatest_product_digits(number, digits):
-    n = [ int(dig) for dig in str(number)]
-    prods = [ reduce(lambda x,y : x*y, n[i:i + digits]) for i in range(len(n) - digits + 1) ]
-    return max(prods)
+def product_consec_digits(number, consecutive):
+    """
+    Returns the largest product of "consecutive"
+    consecutive digits from number
+    """
+    digits = [ int(dig) for dig in str(number)]
+    max_start = len(digits) - consecutive
+    return [ reduce(operator.mul, digits[i:i + consecutive])
+             for i in range(max_start + 1) ]
 
 @euler_timer(8)
 def main():
-    n = get_data(8)
-    n = n.split("\n")
-    n = [ line.strip() for line in n ]
-    n = int("".join(n))
+    n = int("".join([ line.strip() for line in get_data(8).split("\n") ]))
 
-    print greatest_product_digits(n, 5)
+    print max(product_consec_digits(n, 5))
 
 if __name__ == "__main__":
     main()

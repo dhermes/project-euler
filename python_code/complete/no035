@@ -6,6 +6,7 @@
 # How many circular primes are there below one million?
 
 from python_code.decorators import euler_timer
+from python_code.functions import sieve
 
 def all_perms(list_):
     if len(list_) == 1:
@@ -36,19 +37,6 @@ def all_perms_int(n):
 def all_circular_perms_int(n):
     digs = [ dig for dig in str(n) ]
     return [ int("".join(perm)) for perm in all_circular_perms(digs) ]
-
-def sieve(n):
-    # requires n > 0
-    prime_sieve = range(n+1)
-    prime_list = []
-
-    for index in range(2,n+1):
-        if prime_sieve[index]:
-            prime_list.append(index)
-            for sub_index in range(2*index,n+1,index):
-                prime_sieve[sub_index] = 0
-
-    return prime_list
 
 def all_perm_in(prime, primes):
     perms = all_perms_int(prime)

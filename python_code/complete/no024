@@ -6,32 +6,29 @@
 # digits 0, 1, 2, 3, 4, 5, 6, 7, 8 and 9
 
 from python_code.decorators import euler_timer
+from math import factorial
 
-def fact_helper(n, prod):
-    if n < 2:
-        return prod
-    else:
-        return fact_helper(n - 1, n*prod)
+def lex(list_, perm):
+    """
+    Returns the perm-th permutation of the list in order
 
-def fact(n):
-    return fact_helper(n, 1)
+    The ordering can be thought of like so:
+    Consider the indices representing each step, they will make
+    up all permutations of 0, 1, ..., len(list_) - 1. So we can
+    order them based on the value of this number in base len(list_)
+    """
+    if len(list_) < 2:
+        return list_[:]
 
-def lex(n, perm):
-    # Each of 0, 1, ..., n - 1 contributes (n - 1)! things
-    curr_ind = perm - 1
-    curr = range(n)
-    result = []
-
-    while curr:
-        ind = curr_ind/fact(len(curr) - 1) # int. division intended
-        result.append(curr[ind])
-        curr_ind = curr_ind % fact(len(curr) - 1)
-        curr.remove(curr[ind])
-    return result
+    index = perm/factorial(len(list_) - 1) # int. division intended
+    remaining = perm % factorial(len(list_) - 1)
+    return [list_[index]] + lex(list_[:index]+list_[index+1:], remaining)
 
 @euler_timer(24)
 def main():
-    print "".join( [ str(dig) for dig in lex(10, 10**6) ] )
+    list_ = range(10)
+    perm = 10**6 - 1 # Our indexing begins at 0
+    print "".join( [ str(dig) for dig in lex(list_, perm) ] )
 
 if __name__ == "__main__":
     main()

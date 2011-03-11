@@ -3,15 +3,7 @@
 # Find the sum of all the primes below two million.
 
 from python_code.decorators import euler_timer
-
-def sieve(n):
-    to_check = [1] * (n+1)
-    for i in range(2,n+1):
-        if to_check[i]:
-            for j in range(2*i,n+1,i):
-                to_check[j] = 0
-
-    return [ i for i in range(2,n+1) if to_check[i] ]
+from python_code.functions import sieve
 
 @euler_timer(10)
 def main():

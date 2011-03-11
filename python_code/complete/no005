@@ -1,19 +1,10 @@
 #!/usr/bin/env python
 
-# What is the smallest positive number that is evenly divisible 
+# What is the smallest positive number that is evenly divisible
 # by all of the numbers from 1 to 20?
 
 from python_code.decorators import euler_timer
-
-def gcd(a, b):
-    if a == 0:
-        return b
-    elif b == 0 or a == b:
-        return a
-
-    M = max(a, b)
-    m = min(a, b)
-    return gcd(m, M % m)
+from fractions import gcd
 
 def min_product(n):
     if n < 2:

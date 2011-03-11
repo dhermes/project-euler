@@ -7,18 +7,10 @@
 # hence sum(n) = n implies 3628800d >= 10^d. We must have d <= 7.
 
 from python_code.decorators import euler_timer
-
-def fact_helper(n, prod):
-    if n < 2:
-        return prod
-    else:
-        return fact_helper(n - 1, n*prod)
-
-def fact(n):
-    return fact_helper(n, 1)
+from math import factorial
 
 def fact_sum_digs(n):
-    return sum( [ fact(int(dig)) for dig in str(n) ] )
+    return sum( [ factorial(int(dig)) for dig in str(n) ] )
 
 @euler_timer(34)
 def main():

@@ -4,12 +4,9 @@
 
 from python_code.decorators import euler_timer
 
-def sum_dig(n):
-    return sum([ int(dig) for dig in str(n) ])
-
 @euler_timer(16)
 def main():
-    print sum_dig(2**1000)
+    print sum([ int(dig) for dig in str(2**1000) ])
 
 if __name__ == "__main__":
     main()

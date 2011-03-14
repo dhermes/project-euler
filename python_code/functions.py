@@ -266,7 +266,7 @@ def polynomial_roots(coefficients):
     discriminant_rt = sqrt(b**2 - 4*a*c)
     return [(-b + discriminant_rt)/(2.0*a), (-b - discriminant_rt)/(2.0*a)]
 
-# 42, 44, 61
+# 6, 42, 44, 61
 def polygonal_number(s, n):
     return n*((s - 2)*n - (s - 4))/2
 

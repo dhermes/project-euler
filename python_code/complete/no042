@@ -14,20 +14,9 @@
 
 from python_code.decorators import euler_timer
 from python_code.functions import get_data
+from python_code.functions import reverse_polygonal_number
 from math import sqrt
 import string
-
-def is_triangular(n, hash_ = {}):
-    if n in hash_:
-        return hash_[n]
-
-    # n = 1/2(x**2 + x)
-    # 8n + 1 = 4x**2 + 4x + 1
-    # sqrt(8n + 1) = 2x + 1
-    x = int((sqrt(8*n + 1) - 1)/2)
-    bool_val = (2*n == x**2 + x)
-    hash_[n] = bool_val
-    return bool_val
 
 def word_to_value(word):
     letters = string.uppercase
@@ -40,7 +29,7 @@ def num_triangle():
     triangle_hash = {}
     count = 0
     for val in vals:
-        if is_triangular(val, triangle_hash):
+        if reverse_polygonal_number(3, val, triangle_hash) != -1:
             count += 1
     return count
 

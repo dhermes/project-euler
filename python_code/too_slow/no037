@@ -58,4 +58,8 @@ def main():
         ", ".join([ str(prime) for prime in ans ]))
 
 if __name__ == "__main__":
-    main()
+    print "The answer to Euler Project, question 37 is: 748317\n" \
+          "The primes are: 23, 37, 53, 73, 313, 317, " \
+          "373, 797, 3137, 3797, 739397\n\n" \
+          "This solution ran in 5.226E2 seconds.\n" \
+          "Due to runtime, this is not actually running."

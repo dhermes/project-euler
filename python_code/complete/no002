@@ -13,19 +13,16 @@
 #          = 4*f_(3k+3) + f_(3k)
 
 from python_code.decorators import euler_timer
-
-def all_even_fibonacci(maximum):
-    a, b = 0, 2
-    result = [0]
-    while b <= maximum:
-        result.append(b)
-        a, b = b, 4*b + a
-
-    return result
+from python_code.functions import recurrence_next
 
 @euler_timer(2)
 def main():
-    print sum(all_even_fibonacci(4000000))
+    a, b = 0, 2
+    running_sum = 0
+    while b <= 4000000:
+        running_sum += b
+        a, b = recurrence_next([1,4], [a,b])
+    print running_sum
 
 if __name__ == "__main__":
     main()

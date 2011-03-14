@@ -6,20 +6,9 @@
 # How many circular primes are there below one million?
 
 from python_code.decorators import euler_timer
+from python_code.functions import all_permutations
+from python_code.functions import all_permutations_digits
 from python_code.functions import sieve
-
-def all_perms(list_):
-    if len(list_) == 1:
-        return [ list_ ]
-
-    result = []
-    for element in list_:
-        curr = list_[:]
-        curr.remove(element)
-        to_add = [ [element] + sub_list for sub_list in all_perms(curr) ]
-        result.extend([ sub_list for sub_list in to_add
-                        if sub_list not in result ])
-    return result
 
 def all_circular_perms(list_):
     n = len(list_)
@@ -29,17 +18,12 @@ def all_circular_perms(list_):
         result.append([ list_[index] for index in indices ])
     return result
 
-def all_perms_int(n):
-    digs = [ dig for dig in str(n) ]
-    result = all_perms(digs)
-    return [ int("".join(perm)) for perm in result ]
-
 def all_circular_perms_int(n):
     digs = [ dig for dig in str(n) ]
     return [ int("".join(perm)) for perm in all_circular_perms(digs) ]
 
 def all_perm_in(prime, primes):
-    perms = all_perms_int(prime)
+    perms = all_permutations_digits(prime)
     return set(perms) <= set(primes)
 
 def all_circular_perm_in(prime, primes):
@@ -58,4 +42,6 @@ def main():
     print len(all_circular(10**6 - 1))
 
 if __name__ == "__main__":
-    main()
+    print "The answer to Euler Project, question 35 is: 55\n\n" \
+          "This solution ran in 2.157E3 seconds.\n" \
+          "Due to runtime, this is not actually running."

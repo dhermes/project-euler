@@ -46,6 +46,24 @@ def robust_divide(n, quotient, include_count=False):
     else:
         return result
 
+# 2, 57, 65
+def recurrence_next(relation, values):
+    """
+    Assumes recurrence of length k satisfies
+    f(n+k) = relation[0]*f(n) + relation[1]*f(n+1) + ...
+
+    Values are also expected to be ordered [f(n),f(n+1),...]
+    """
+    if len(relation) != len(values):
+        raise ValueError("Poorly specified recurrence")
+    recurrence_order = len(relation)
+    next_val = sum([relation[i]*values[i] for i in range(recurrence_order)])
+    return values[1:] + [next_val] # copies values (doesn't change inputs)
+
+# 4, 36, 55
+def is_palindrome(n):
+    return (str(n) == str(n)[::-1])
+
 ############################################################
 ##################### PROBLEM SPECIFIC #####################
 ############################################################
@@ -76,8 +94,9 @@ def max_sum(triangle_matrix):
     # the results one low below
     while depth >= 0:
         for i, entry in enumerate(triangle_matrix[depth]):
-            result[(i, max_depth - depth)] = entry + max(
-                result[(i, max_depth - depth - 1)], result[(i + 1, max_depth - depth - 1)] )
+            val_left = result[(i, max_depth - depth - 1)]
+            val_right = result[(i + 1, max_depth - depth - 1)]
+            result[(i, max_depth - depth)] = entry + max(val_left, val_right)
         depth -= 1
 
     return result[(0, max_depth - depth - 1)]
@@ -98,7 +117,6 @@ def fibonacci_generator():
 ########################## PRIMES ##########################
 ############################################################
 
-# 12
 def first_prime_divisor(n, prime_list=None):
     if n == 1:
         return [1, 1]
@@ -112,10 +130,10 @@ def first_prime_divisor(n, prime_list=None):
         divisor = 2
         while n % divisor != 0:
             divisor += 1
-        return [ divisor, n/divisor ]
+        return [divisor, n/divisor]
     raise ValueError("Bad input %s." % n)
 
-# 3, 12
+# 3, 12, 47
 def prime_factors(n, unique=False, hash_=None):
     if n == 1:
         return []
@@ -154,15 +172,15 @@ def all_factors(n, hash_ = {1:[1], 2:[1,2], 3:[1,3]}):
             reduced = first_prime_divisor(i, all_primes)
 
             to_add = factor_hash[reduced[1]][:]
-            to_add.extend([ reduced[0] * elt for elt in to_add ])
+            to_add.extend([reduced[0] * elt for elt in to_add])
             to_add = sorted(list(set(to_add)))
 
             factor_hash[i] = to_add
 
     return factor_hash
 
-# 7, 37
-def is_prime(n):
+# 37, 41, 58
+def is_prime(n, primes=[], failure_point=None):
     if n < 10:
         if n == 2 or n == 3 or n == 5 or n == 7:
             return True
@@ -172,6 +190,19 @@ def is_prime(n):
     # We safely assume n >= 10
     if n % 2 == 0 or n % 3 == 0 or n % 5 == 0:
         return False
+
+    if failure_point is not None:
+        if n >= failure_point:
+            raise ValueError("%s is too large for is_prime." % n)
+
+    if primes != []:
+        if n in primes:
+            return True
+        to_check = [prime for prime in primes if prime**2 <= n]
+        for prime in to_check:
+            if n % prime == 0:
+                return False
+        return True
 
     divisor_bound = int(sqrt(n))
     # From here, we know only +/- 1 mod 6 works, so
@@ -184,7 +215,7 @@ def is_prime(n):
         divisor_plus += 6
     return True
 
-# 10, 21, 27, 35, 37
+# 7, 10, 21, 27, 35, 37, 46, 49, 50, 51, 58, 60
 def sieve(n):
     """
     Sieve of Eratosthenes
@@ -197,12 +228,13 @@ def sieve(n):
             for j in range(2*i,n+1,i):
                 to_check[j] = 0
 
-    return [ i for i in range(2,n+1) if to_check[i] ]
+    return [i for i in range(2,n+1) if to_check[i]]
 
 ############################################################
-####################### NUMBER THEORY ######################
+################# NUMBER THEORY AND ALGEBRA ################
 ############################################################
 
+# 26
 def order_mod_n(value, n):
     if gcd(value, n) != 1 or n == 1:
         raise ValueError("%s is not a unit modulo %s." % (value, n))
@@ -217,14 +249,97 @@ def order_mod_n(value, n):
         exponent += 1
     return exponent
 
+# 48
+def modular_exponentiate(n, exp, modulus):
+    """Raise n to the exp with respect to modulus"""
+    result = 1
+    for i in range(exp):
+        result = (n * result) % modulus
+    return result
+
+def polynomial_roots(coefficients):
+    # Assumes coefficients = [a_0, a_1,..., a_n]
+    # for f(x) = a_n x^n + ... + a_1 x + a_0
+    if len(coefficients) != 3:
+        raise ValueError("Only supporting quadratics at this time")
+    c, b, a = coefficients
+    discriminant_rt = sqrt(b**2 - 4*a*c)
+    return [(-b + discriminant_rt)/(2.0*a), (-b - discriminant_rt)/(2.0*a)]
+
+# 42, 44, 61
+def polygonal_number(s, n):
+    return n*((s - 2)*n - (s - 4))/2
+
+# 42, 44, 61
+def reverse_polygonal_number(sides, number, hash_={}):
+    """
+    Returns n given that number is the nth polygonal
+    number with respect to sides
+
+    The n-th polygonal number for s sides is:
+    n*((s - 2)*n - (s - 4))/2
+    """
+    if number in hash_:
+        return hash_[number]
+    root_plus, _ = polynomial_roots([-2*number, 4 - sides, sides - 2])
+    if root_plus != int(root_plus):
+        result = -1
+    else:
+        result = int(root_plus)
+    if hash_ != {}:
+        hash_[number] = result
+    return result
+
 ############################################################
 ###################### LIST MANAGEMENT #####################
 ############################################################
 
-# 4, 23, 29
-def apply_to_list(func, list_):
+# 4, 23, 29, 56
+def apply_to_list(func, list_, non_match=False):
     result = []
     for elt1 in list_:
         for elt2 in list_:
-            result.append(func(elt1, elt2))
+            if non_match:
+                if elt1 != elt2:
+                    result.append(func(elt1, elt2))
+            else:
+                result.append(func(elt1, elt2))
+    return result
+
+# 35, 41, 43
+def all_permutations(list_):
+    if len(list_) == 1:
+        return [list_]
+
+    result = []
+    for element in list_:
+        curr = list_[:]
+        curr.remove(element)
+        to_add = [[element] + sub_list
+                  for sub_list in all_permutations(curr)]
+        result.extend([sub_list for sub_list in to_add
+                       if sub_list not in result]) # avoid duplicates
+    return result
+
+# 35, 41, 43
+def all_permutations_digits(n):
+    digs = [dig for dig in str(n)]
+    result = all_permutations(digs)
+    return [int("".join(perm)) for perm in result]
+
+# 49, 51, 60
+def all_subsets(list_, size):
+    if len(list_) < size:
+        raise("List too small.")
+
+    # Base case
+    if size == 1:
+        return [[element] for element in list_]
+
+    # We can assume size > 1
+    result = []
+    for i in range(len(list_) - size + 1):
+        curr = list_[i + 1:]
+        result.extend([[list_[i]] + sub_list
+                       for sub_list in all_subsets(curr, size - 1)])
     return result

@@ -1,0 +1,16 @@
+#!/usr/bin/env python
+
+# Find the last ten digits of the series 1^1 + 2^2 + 3^3 + ... + 1000^1000.
+
+from python_code.decorators import euler_timer
+from python_code.functions import modular_exponentiate
+
+@euler_timer(48)
+def main():
+    result = 0
+    for i in range(1, 1000 + 1):
+        result = (result + modular_exponentiate(i, i, 10**10)) % 10**10
+    print result
+
+if __name__ == "__main__":
+    main()

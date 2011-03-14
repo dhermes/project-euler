@@ -1,0 +1,62 @@
+#!/usr/bin/env python
+
+# By replacing the 1st digit of *3, it turns out that six of the nine possible
+# values: 13, 23, 43, 53, 73, and 83, are all prime.
+
+# By replacing the 3rd and 4th digits of 56**3 with the same digit, this
+# 5-digit number is the first example having seven primes among the ten
+# generated numbers, yielding the family:
+# 56003, 56113, 56333, 56443, 56663, 56773, and 56993.
+# Consequently 56003, being the first member of this family, is the smallest
+# prime with this property.
+
+# Find the smallest prime which, by replacing part of the number (not necessarily
+# adjacent digits) with the same digit, is part of an eight prime value family.
+
+##################################
+# Algorithm
+# 1. Pick a prime p with n digits
+# 2. Find all (2^n - 1) nontrivial subsets of [0,...,n-1]
+#    For each of these subsets we get 9 numbers be replacing all digits with 1,..,9
+#    We also take the non-lead digits to replace 0
+# 3. We check if this set of 9 (or 10) numbers contains 8 or more primes
+##################################
+
+from python_code.decorators import euler_timer
+from python_code.functions import all_subsets
+from python_code.functions import sieve
+
+def prime_count(list_, primes):
+    return len(set(list_).intersection(primes))
+
+def replace(digit, subset, n):
+    digits = list(str(n))
+    for index in subset:
+        digits[index] = str(digit)
+    return int(''.join(digits))
+
+def max_primes_upon_replacement(n, primes):
+    digits = list(str(n))
+    # Handle case of 0 first
+    subsets = all_subsets(range(len(digits)))
+    replaced = []
+    for subset in subsets:
+        if 0 not in subset:
+            replace_digits = range(10)
+        else:
+            replace_digits = range(1,10)
+        replaced.append([ replace(digit, subset, n) for digit in replace_digits ])
+    prime_counts = [ prime_count(entry, primes) for entry in replaced ]
+    return max(prime_counts)
+
+@euler_timer(51)
+def main():
+    # sieve(10**7) takes ~7 s
+    PRIMES = sieve(10**7) # CURRENT ASSUMPTION, MAY NEED OT CHANGE
+    for prime in PRIMES:
+        if max_primes_upon_replacement(prime, PRIMES) >= 8:
+            print prime
+            return
+
+if __name__ == "__main__":
+    main()

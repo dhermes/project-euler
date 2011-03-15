@@ -1,0 +1,234 @@
+#!/usr/bin/env python
+
+# 1 --> (2,3,4,5,6,7)
+
+# [1] 1
+# [2,...,7] 6
+# [8,...,19] 12
+# [20,...,37] 18
+# [38,...,61] 24
+
+# f(k) = 3k^2 - 3k + 1
+# f(k) = elements before layer k if k > 0
+#Layer 0
+#  1 -- (1,1) -- (2,1),(2,2),(2,3),(2,4),(2,5),(2,6)
+
+# Layer 1
+#  2 -- (2,1) -- (1,1), (2,2),(2,6), (3,1),(3,2),(3,12) C
+#  3 -- (2,2) -- (1,1), (2,1),(2,3), (3,2),(3,3),(3,4) C
+#  4 -- (2,3) -- (1,1), (2,2),(2,4), (3,4),(3,5),(3,6) C
+#  5 -- (2,4) -- (1,1), (2,3),(2,5), (3,6),(3,7),(3,8) C
+#  6 -- (2,5) -- (1,1), (2,4),(2,6), (3,8),(3,9),(3,10) C
+#  7 -- (2,6) -- (1,1), (2,5),(2,1), (3,10),(3,11),(3,12) C
+
+# Layer 2
+#  8 -- (3,1) -- (2,1),      (3,2),(3,12),(4,1),(4,2),(4,18) C
+#  9 -- (3,2) -- (2,1),(2,2),(3,1),(3,3), (4,2),(4,3)
+# 10 -- (3,3) -- (2,2),      (3,2),(3,4), (4,3),(4,4),(4,5) C
+# 11 -- (3,4) -- (2,2),(2,3),(3,3),(3,5), (4,5),(4,6)
+# 12 -- (3,5) -- (2,3),      (3,4),(3,6), (4,6),(4,7),(4,8) C
+# 13 -- (3,6) -- (2,3),(2,4)
+# 14 -- (3,7) -- (2,4)
+# 15 -- (3,8) -- (2,4),(2,5)
+# 16 -- (3,9) -- (2,5)
+# 17 -- (3,10) -- (2,5),(2,6)
+# 18 -- (3,11) -- (2,6)
+# 19 -- (3,12) -- (2,6),(2,1)
+
+# 20 -- (4,1) -- (3,)(4,)(5,)
+# 21 -- (4,2) --(3,1)(3,2)
+# 22 -- (4,3) -- (3,2)(3,3)
+# 22 -- (4,4) --
+
+# (n, k) is corner if k % (n - 1) == 1
+# A corner is adjacent to 1 block of lower class, 2 of same, and 3 of higher
+# the 2 of same will always be (n, k - 1 *wrap*), (n, k + 1 *wrap*)
+# (n,1) will always be (n-1,1),(n,0),(n,2),(n+1,0),(n+1,1),(n+1,2)
+# Both the n-1 and n+1 grouping will start where the previous one left off
+
+# Only the corners and the final non-corner have a chance at 3 primes
+# This is because if we are not either, then they are next to 2 consec. #'s,
+# which give a diff. of 1, the other two pairs will give differences that differ
+# by one, so at most 1 of each can be prime
+
+##############################
+# Case1, k neq 1, corner
+##############################
+# The corner (n, k) is adjacent to
+# (n-1, (k-1)/(n-1)*(n-2) + 1), (n,k-1), (n,k+1)--> don't matter if not end piece,
+# (n+1, (k-1)/(n-1)*n), (n+1, (k-1)/(n-1)*n + 1), (n+1, (k-1)/(n-1)*n + 2),
+# 3*(n - 1)*(n - 2) + 1 + k vs.
+# 3*(n - 2)*(n - 3) + 1 + (k - 1)/(n - 1)*(n - 2) + 1,
+# 3*(n - 1)*(n - 2) + k,3*(n - 1)*(n - 2) + 2 + k,
+# 3*n*(n - 1) + 1 + (k - 1)/(n - 1)*n, 3*n*(n - 1) + 1 + (k - 1)/(n - 1)*n + 1,
+# 3*n*(n - 1) + 1 + (k - 1)/(n - 1)*n + 2
+
+# Diffs
+# 6*(n - 2) + (k - 1)/(n - 1),
+# 1,1,
+# 6*(n - 1) + (k - 1)/(n - 1) - 1,
+# 6*(n - 1) + (k - 1)/(n - 1),
+# 6*(n - 1) + (k - 1)/(n - 1) + 1,
+# Only way it can be 3 is if
+# c1=6*(n - 2) + (k - 1)/(n - 1),
+# c2=6*(n - 1) + (k - 1)/(n - 1) - 1,
+# c3=6*(n - 1) + (k - 1)/(n - 1) + 1,
+# But if n > 2, c1 prime implies (k-1)/(n-1) == 1,5 mod 6
+# implies c2 == 0,4 mod 6, c3 == 0,2 mod 6, so it is never possible
+# for n > 2
+# For n = 1, 1 works
+# For n = 2, of 3,4,5,6,7 none work
+
+##############################
+# Case2, k = 1
+##############################
+# The corner (n, 1) is adjacent to
+# (n-1, 1), (n,6*(n-1)), (n,2)--> don't matter if not end piece,
+# (n+1, 6*n), (n+1, 1), (n+1, 2),
+# 3*(n - 1)*(n - 2) + 2 vs.
+# 3*(n - 2)*(n - 3) + 2,
+# 3*(n - 1)*(n - 2) + 1 + 6*(n - 1),3*(n - 1)*(n - 2) + 3,
+# 3*n*(n - 1) + 1 + 6*n, 3*n*(n - 1) + 2,
+# 3*n*(n - 1) + 3
+
+# Diffs
+# 6*(n - 2),
+# 6*(n - 1) - 1,1
+# 6*(2*n - 1) - 1, 6*(n - 1),
+# 6*(n - 1) + 1
+
+# c1=6*(n - 1) - 1
+# c2=6*(2*n - 1) - 1
+# c3=6*(n - 1) + 1
+
+# Start at n = 3 (cases 1 and 2 already done, special cases)
+
+##############################
+# Case3
+##############################
+# The one outlier is the final piece (n, 6*(n - 1))
+# When n > 2, this is not 1 mod n - 1, hence not a corner
+# This is adjacent to (n,1),(n,6*n-7),(n-1,1),(n-1,6*(n-2)),
+# (n+1,6*n),(n+1,6*n-1)
+
+# 3*(n - 1)*(n - 2) + 1 + 6*(n-1) vs.
+# 3*(n - 1)*(n - 2) + 1 + 1, 3*(n - 1)*(n - 2) + 6*(n - 1),
+# 3*(n - 2)*(n - 3) + 1 + 1, 3*(n - 2)*(n - 3) + 1 + 6*(n-2),
+# 3*n*(n - 1) + 1 + 6*n, 3*n*(n - 1) + 6*n
+
+# Diffs
+# 6*(n - 1) - 1, 1,
+# 6*(2*n - 3) - 1, 6*(n - 1),
+# 6*n, 6*n - 1
+
+# c1=6*(n - 1) - 1
+# c2=6*(2*n - 3) - 1
+# c3=6*n - 1
+
+# Start at n = 3 (cases 1 and 2 already done, special cases)
+
+from python_code.decorators import euler_timer
+from python_code.functions import sieve
+
+def next_pairs(final_pair, num):
+    n, k = final_pair
+    if n == 1:
+        return [(1, 1)]
+    length = 6*(n - 1)
+    return [ (n, (k + i - 1) % length + 1) for i in range(num) ]
+
+def all_nodes(n):
+    if n == 1:
+        result = {}
+        result[(1,1)] = {-1: [],
+                          0: [],
+                          1: [(2,1),(2,2),(2,3),(2,4),(2,5),(2,6)]}
+
+    length = 6*(n - 1)
+    result = {}
+    result[(n, 1)] = {-1: [(n - 1, 1)],
+                       0: [(n, length), (n, 2)],
+                       1: [(n + 1, length + 6), (n + 1, 1), (n + 1, 2) ]}
+    for k in range(2, length + 1):
+        to_add = {}
+        for i in (-1, 1):
+            last = result[(n, k - 1)][i][-1]
+            num = 2
+            # corner
+            if n == 2 or (k % (n - 1) == 1):
+                num += i
+            to_add[i] = next_pairs(last, num)
+        to_add[0] = [(n, (k - 2) % length + 1), (n, (k % length) + 1)]
+        result[(n, k)] = to_add
+    return result
+
+def convert(pair):
+    n, k = pair
+    if n == 1:
+        return 1
+
+    return (3*(n - 1)*(n - 2) + 1) + k
+
+def surrounding_layer(n):
+    if n == 1:
+        return {1: range(2, 7 + 1)}
+
+    length = 6*(n - 1)
+    base_val = convert((n,1)) - 1
+    nodes = all_nodes(n)
+    result = {}
+    for i in range(1, length + 1):
+        key = base_val + i
+        result[key] = []
+        for j in (-1, 0, 1):
+            result[key].extend([ convert(node) for node in nodes[(n, i)][j] ])
+    return result
+
+def differences_in_layer(n, desired, primes):
+    layer = surrounding_layer(n)
+    result = []
+    for key in layer:
+        diffs = set([ abs(entry - key) for entry in layer[key] ])
+        # print key, sorted(list(diffs))[1:], sorted(list(diffs.intersection(primes)))
+        if len(diffs.intersection(primes)) == desired:
+            result.append(key)
+    return result
+
+# 3*(n - 1)*(n - 2) + 2:
+# c1=6*(n - 1) - 1 = 6*n - 7
+# c2=6*(2*n - 1) - 1=12*n - 7
+# c3=6*(n - 1) + 1=6*n - 5
+
+# 3*(n - 1)*(n - 2) + 1 + 6*(n-1):
+# c1=6*(n - 1) - 1=6*n - 7
+# c2=6*(2*n - 3) - 1=12*n - 19
+# c3=6*n - 1=6*n - 1
+def try_add(layer, primes):
+    if layer < 3:
+        raise Exception("This is built for n > 2.")
+    if (6*layer - 7) not in primes:
+        return []
+
+    result = []
+    if (6*layer - 5) in primes and (12*layer - 7) in primes:
+        result.append(3*(layer - 1)*(layer - 2) + 2)
+    if (6*layer - 1) in primes and (12*layer - 19) in primes:
+        result.append(3*(layer - 1)*(layer - 2) + 1 + 6*(layer - 1))
+    return result
+
+@euler_timer(128)
+def main():
+    PRIMES = sieve(10**6)
+    result = [1]
+    layer = 2
+    while len(result) < 2000:
+        layer += 1
+        if 12*layer - 7 > max(PRIMES):
+            raise Exception('Too big, reset primes')
+        result.extend(try_add(layer, PRIMES))
+    print result[2000-2]
+
+if __name__ == "__main__":
+    print "The answer to Euler Project, question 128 is: 14516824220\n\n" \
+          "This solution ran in 1.29E3 seconds.\n" \
+          "Due to runtime, this is not actually running."

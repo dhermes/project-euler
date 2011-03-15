@@ -1,0 +1,32 @@
+#!/usr/bin/env python
+
+# There are ten composites below thirty containing precisely two, not
+# necessarily distinct, prime factors:
+# 4, 6, 9, 10, 14, 15, 21, 22, 25, 26.
+
+# How many composite integers, n < 10**8, have precisely two, not necessarily
+# distinct, prime factors?
+
+from math import sqrt
+
+from python_code.decorators import euler_timer
+from python_code.functions import sieve
+
+@euler_timer(187)
+def main():
+    max_n = 10**8
+    # q <= p, q**2 <= pq = n < max_n, q < sqrt(max_n)
+    # 2 <= q, 2p <= pq < max_n, p < max_n/2
+    # Given q, pq < max_n, p < max_n/q
+    PRIMES = sieve(max_n/2) # integer division intended
+    result = set()
+    for q in [prime for prime in PRIMES if prime**2 < max_n]:
+        for p in [prime for prime in PRIMES
+                  if prime >= q and prime*q < max_n]:
+            result.add(p*q)
+    print len(result)
+
+if __name__ == "__main__":
+    print "The answer to Euler Project, question 187 is: 17427258\n\n" \
+          "This solution ran in 1.057E3 seconds.\n" \
+          "Due to runtime, this is not actually running."

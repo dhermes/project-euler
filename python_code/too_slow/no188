@@ -1,0 +1,46 @@
+#!/usr/bin/env python
+
+# Define the operator {{ as such:
+# a {{ 1 = a,
+# a {{ (k + 1) = a**(a {{ k)
+
+# Find the last 8 digits of 1777 {{ 1855.
+
+# E.G. 2 {{ 4 = 2**(2 {{ 3) = 2**(2**(2 {{ 2))
+# = 2**(2**(2**(2))) = 2**16 = 65536
+
+from python_code.decorators import euler_timer
+
+def special_10_phi(n):
+    result = n
+    if n % 2 == 0:
+        result = result/2
+    if n % 5 == 0:
+        result = (result*4)/5
+    return result
+
+def hyper_exponentiate(a, b, modulus):
+    if modulus == 1:
+        return 1
+    elif modulus == 2:
+        return a % 2
+    if b == 1:
+        return a % modulus
+    PHI = special_10_phi(modulus)
+    return (a**hyper_exponentiate(a, b - 1, PHI)) % modulus
+
+# a**n == a**(n mod PHI(X)) mod X
+# if n = a*b, n mod PHI(X) == a**b mod PHI(X) = a**(b mod PHI(PHI(X))) mod PHI(X)
+
+# a**(a**a) mod X = f(a, 3, X) = a**f(a, 2, PHI(X))
+# f(a, k, X) = a**f(a, k - 1, PHI(X))
+# f(a, 1, X) = a % X
+
+@euler_timer(188)
+def main():
+    print hyper_exponentiate(1777, 1855, 10**8)
+
+if __name__ == "__main__":
+    print "The answer to Euler Project, question 188 is: 95962097\n\n" \
+          "This solution ran in 1.621E3 seconds.\n" \
+          "Due to runtime, this is not actually running."

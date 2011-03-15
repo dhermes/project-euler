@@ -64,6 +64,10 @@ def recurrence_next(relation, values):
 def is_palindrome(n):
     return (str(n) == str(n)[::-1])
 
+# 46
+def is_power(n, exponent):
+    return n == (int(n**(1.0/exponent)))**exponent
+
 ############################################################
 ##################### PROBLEM SPECIFIC #####################
 ############################################################
@@ -117,15 +121,20 @@ def fibonacci_generator():
 ########################## PRIMES ##########################
 ############################################################
 
-def first_prime_divisor(n, prime_list=None):
+def first_prime_divisor(n, prime_list=[]):
     if n == 1:
         return [1, 1]
 
-    if prime_list is not None:
+    if prime_list != []:
         for p in prime_list:
-            if not n % p:
+            if n % p == 0:
                 return [p, n/p]
-        raise ValueError("No prime in %s divides %s." % (prime_list, n))
+        # To complete this loop, either the prime list was
+        # insufficient or p is prime
+        if is_prime(n, primes=prime_list):
+            return [n, 1]
+        else:
+            raise ValueError("Prime list poorly specified")
     else:
         divisor = 2
         while n % divisor != 0:
@@ -136,6 +145,7 @@ def first_prime_divisor(n, prime_list=None):
 # 3, 12, 47
 def prime_factors(n, unique=False, hash_=None):
     if n == 1:
+        hash_[1] = []
         return []
     if type(hash_) == dict and n in hash_:
         return hash_[n]
@@ -144,14 +154,37 @@ def prime_factors(n, unique=False, hash_=None):
 
     remaining, count = robust_divide(n, prime, include_count=True)
     if unique:
-        result = [prime] + prime_factors(remaining, unique)
+        result = [prime] + prime_factors(remaining,
+                                         unique=unique,
+                                         hash_=hash_)
     else:
-        result = [prime] * count + prime_factors(remaining, unique)
+        result = [prime] * count + prime_factors(remaining,
+                                                 unique=unique,
+                                                 hash_=hash_)
 
     if type(hash_) == dict:
         hash_[n] = result
 
     return result
+
+# 135
+def factors(n, factor_hash={}, primes=[]):
+    if n in factor_hash:
+        return factor_hash[n]
+    elif n == 1:
+        factor_hash[1] = [1]
+        return [1]
+    elif n in primes:
+        factor_hash[n] = [1, n]
+        return [1,n]
+
+    prime, quotient = first_prime_divisor(n, prime_list=primes)
+
+    to_add = factors(quotient, factor_hash, primes)[:] # Need a deep-ish copy
+    to_add.extend([ prime*factor for factor in to_add ])
+
+    factor_hash[n] = sorted(list(set(to_add)))
+    return factor_hash[n]
 
 # 21, 23, 39
 def all_factors(n, hash_ = {1:[1], 2:[1,2], 3:[1,3]}):
@@ -170,12 +203,8 @@ def all_factors(n, hash_ = {1:[1], 2:[1,2], 3:[1,3]}):
     for i in range(4,n+1):
         if i not in factor_hash:
             reduced = first_prime_divisor(i, all_primes)
-
-            to_add = factor_hash[reduced[1]][:]
-            to_add.extend([reduced[0] * elt for elt in to_add])
-            to_add = sorted(list(set(to_add)))
-
-            factor_hash[i] = to_add
+            # This will update factor hash
+            factors(i, factor_hash=factor_hash, primes=all_primes)
 
     return factor_hash
 
@@ -222,13 +251,15 @@ def sieve(n):
 
     Returns all primes <= n
     """
-    to_check = [1] * (n+1)
-    for i in range(2,n+1):
-        if to_check[i]:
-            for j in range(2*i,n+1,i):
-                to_check[j] = 0
+    to_check = [True] * (n + 1)
+    final_check = int(sqrt(n)) # effectively the floor of sqrt(n)
 
-    return [i for i in range(2,n+1) if to_check[i]]
+    for i in xrange(2, final_check + 1):
+        if to_check[i]:
+            for j in xrange(i**2, n + 1, i):
+                to_check[j] = False
+
+    return [i for i in range(2, n + 1) if to_check[i]]
 
 ############################################################
 ################# NUMBER THEORY AND ALGEBRA ################
@@ -290,6 +321,21 @@ def reverse_polygonal_number(sides, number, hash_={}):
         hash_[number] = result
     return result
 
+# 72
+def mu(n, hash_, primes):
+    if n in hash_:
+        return hash_[n]
+
+    prime, _ = first_prime_divisor(n, prime_list=primes)
+    if n % prime**2 == 0:
+        hash_[n] = 0
+    else:
+        # if n/prime has a square, we will want mu(n) = 0
+        # if mu(n/prime) = 1, we add 1 prime so we negate it
+        # similarly if mu(n/prime) = -1
+        hash_[n] = -mu(n/prime, hash_, primes)
+    return hash_[n]
+
 ############################################################
 ###################### LIST MANAGEMENT #####################
 ############################################################
@@ -306,8 +352,8 @@ def apply_to_list(func, list_, non_match=False):
                 result.append(func(elt1, elt2))
     return result
 
-# 35, 41, 43
-def all_permutations(list_):
+# 35, 41, 68, 121
+def all_permutations(list_, duplicates=False):
     if len(list_) == 1:
         return [list_]
 
@@ -316,15 +362,19 @@ def all_permutations(list_):
         curr = list_[:]
         curr.remove(element)
         to_add = [[element] + sub_list
-                  for sub_list in all_permutations(curr)]
-        result.extend([sub_list for sub_list in to_add
-                       if sub_list not in result]) # avoid duplicates
+                  for sub_list in all_permutations(curr,
+                                                   duplicates=duplicates)]
+        if duplicates:
+            result.extend([sub_list for sub_list in to_add
+                           if sub_list not in result])
+        else:
+            result.extend(to_add)
     return result
 
-# 35, 41, 43
+# 35, 41
 def all_permutations_digits(n):
     digs = [dig for dig in str(n)]
-    result = all_permutations(digs)
+    result = all_permutations(digs, duplicates=True)
     return [int("".join(perm)) for perm in result]
 
 # 49, 51, 60

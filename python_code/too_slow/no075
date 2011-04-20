@@ -1,0 +1,95 @@
+#!/usr/bin/env python
+
+# It turns out that 12 cm is the smallest length of wire that can be
+# bent to form an integer sided right angle triangle in exactly one
+# way, but there are many more examples.
+
+# 12 cm: (3,4,5)
+# 24 cm: (6,8,10)
+# 30 cm: (5,12,13)
+# 36 cm: (9,12,15)
+# 40 cm: (8,15,17)
+# 48 cm: (12,16,20)
+
+# In contrast, some lengths of wire, like 20 cm, cannot be bent to form
+# an integer sided right angle triangle, and other lengths allow more
+# than one solution to be found; for example, using 120 cm it is possible
+# to form exactly three different integer sided right angle triangles.
+
+# 120 cm: (30,40,50), (20,48,52), (24,45,51)
+
+# Given that L is the length of the wire, for how many values of L <= 1,500,000
+# can exactly one integer sided right angle triangle be formed?
+
+from fractions import gcd
+from math import ceil
+from math import floor
+from math import sqrt
+
+from python_code.decorators import euler_timer
+from python_code.functions import all_factors
+
+def triple(L, m, k):
+    """
+    assumes L, m and k are well-formed
+
+    Returns valid pythagorean triple
+    resulting from L, m and k
+    """
+    n = L/(2*k*m) - m
+    a = k*(m**2 - n**2)
+    b = k*(2*m*n)
+    c = k*(m**2 + n**2)
+    if a + b + c != L:
+        raise ValueError("Incorrect input %s, %s, and %s" % (L, m, k))
+    if a < b:
+        return (a, b, c)
+    elif b < a:
+        return (b, a, c)
+    else:
+        raise Exception("No integral right triangle can be isosceles")
+
+def diophantine_solutions(L, factor_hash, break_val=None):
+    if L % 2 == 1:
+        return set()
+
+    result = set()
+    for k in factor_hash[L/2]:
+        # m(m + n) = L/(2k), m > n > 0 requires
+        # (L/4k) < m**2 < (L/2k)
+        lower_limit = sqrt(L/(4.0*k))
+        if lower_limit == int(lower_limit):
+            lower_limit = int(lower_limit) + 1
+        else:
+            lower_limit = int(ceil(lower_limit))
+        upper_limit = sqrt(L/(2.0*k))
+        if upper_limit == int(upper_limit):
+            upper_limit = int(upper_limit) - 1
+        else:
+            upper_limit = int(floor(upper_limit))
+
+        choices_m = [val for val in factor_hash[L/(2*k)]
+                     if lower_limit <= val <= upper_limit and
+                     gcd(val, (L/(2*k*val) - val)) == 1]
+        result.update([triple(L, m, k) for m in choices_m])
+        if break_val is not None:
+            if len(result) > break_val:
+                return result
+    return result
+
+@euler_timer(75)
+def main():
+    MAX_L = 1500000
+    factor_hash = all_factors(MAX_L/2)
+
+    count = 0
+    for i in range(1, MAX_L/2 + 1):
+        L = 2*i
+        if len(diophantine_solutions(L, factor_hash, 1)) == 1:
+            count += 1
+    print count
+
+if __name__ == "__main__":
+    print "The answer to Euler Project, question 75 is: 161667\n\n" \
+          "This solution ran in 4.637E3 seconds.\n" \
+          "Due to runtime, this is not actually running."

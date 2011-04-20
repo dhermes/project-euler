@@ -7,6 +7,9 @@ from fractions import gcd
 ##################### HELPER FUNCTIONS #####################
 ############################################################
 
+def lcm(n, m):
+    return n*m/(gcd(n, m))
+
 # 8, 11, 13, 18, 22, 42, 54, 59, 67
 def get_data(problem_number):
     """
@@ -145,7 +148,8 @@ def first_prime_divisor(n, prime_list=[]):
 # 3, 12, 47
 def prime_factors(n, unique=False, hash_=None):
     if n == 1:
-        hash_[1] = []
+        if type(hash_) == dict:
+            hash_[1] = []
         return []
     if type(hash_) == dict and n in hash_:
         return hash_[n]
@@ -266,19 +270,40 @@ def sieve(n):
 ############################################################
 
 # 26
-def order_mod_n(value, n):
+def order_mod_n(value, n, hash_={}, prime_list=[]):
+    if n in hash_:
+        return hash_[n]
+
     if gcd(value, n) != 1 or n == 1:
         raise ValueError("%s is not a unit modulo %s." % (value, n))
-    base_residue = value % n
-    if base_residue < 0:
-        base_residue = base_residue + n
 
-    residue = base_residue
-    exponent = 1
-    while residue != 1:
-        residue = (residue * base_residue) % n
-        exponent += 1
-    return exponent
+    prime, _ = first_prime_divisor(n, prime_list)
+    quotient = robust_divide(n, prime)
+    if quotient == 1:
+        # at this point, n is not in the hash_ but must be a
+        # prime power
+        base_residue = value % n
+        if base_residue < 0:
+            base_residue = base_residue + n
+
+        residue = base_residue
+        exponent = 1
+        while residue != 1:
+            residue = (residue * base_residue) % n
+            exponent += 1
+        hash_[n] = exponent
+        return exponent
+
+    # Here, quotient > 1
+    prime_power = n/quotient
+    prime_order = order_mod_n(value, prime_power,
+                              hash_=hash_,
+                              prime_list=prime_list)
+    quotient_order = order_mod_n(value, quotient,
+                                 hash_=hash_,
+                                 prime_list=prime_list)
+    hash_[n] = lcm(prime_order, quotient_order)
+    return hash_[n]
 
 # 48
 def modular_exponentiate(n, exp, modulus):
@@ -353,34 +378,26 @@ def apply_to_list(func, list_, non_match=False):
     return result
 
 # 35, 41, 68, 121
-def all_permutations(list_, duplicates=False):
-    if len(list_) == 1:
-        return [list_]
-
-    result = []
-    for element in list_:
-        curr = list_[:]
-        curr.remove(element)
-        to_add = [[element] + sub_list
-                  for sub_list in all_permutations(curr,
-                                                   duplicates=duplicates)]
-        if duplicates:
-            result.extend([sub_list for sub_list in to_add
-                           if sub_list not in result])
-        else:
-            result.extend(to_add)
+def all_permutations(list_):
+    result = [ [] ]
+    for i in range(len(list_)):
+        extended = []
+        for perm in result:
+            for position in range(i + 1):
+                extended.append(perm[:position] + [list_[i]] + perm[position:])
+        result = extended
     return result
 
 # 35, 41
 def all_permutations_digits(n):
     digs = [dig for dig in str(n)]
-    result = all_permutations(digs, duplicates=True)
+    result = all_permutations(digs)
     return [int("".join(perm)) for perm in result]
 
 # 49, 51, 60
 def all_subsets(list_, size):
     if len(list_) < size:
-        raise("List too small.")
+        raise ValueError("List too small.")
 
     # Base case
     if size == 1:

@@ -1,0 +1,80 @@
+#!/usr/bin/env python
+
+# R(k) = (10^k - 1)/9
+# So the smallest k such that R(k) == 0 mod n is related to the order
+# or the element 10 in the multiplicative group of units
+
+# if 3 does not divide n, then 3 (hence 9) is invertible, so
+# R(k) == 0 iff 10^k - 1 == 0 iff 10^k == 1 mod n, giving
+# us A(n) = order of 10 modulo n in those cases
+# if 3 does divide n, then 9 is not invertible, so
+# R(k) == 0 mod n iff 10^k - 1 == 0 mod (9n) giving
+# us A(n) = order of 10 modulo (9n) in those cases
+
+# Since A(n) divides PHI(n) (or PHI(9n) when 3 | n), we
+# know A(n) <= PHI(n) <= n - 1 < n ( < 9n when 3 | n)
+# Thus in order for A(n) to exceed some value M, we need
+# n > M unless n is divisible by 3 in which case we need
+# 9n > M. So it suffices to begin our check for
+# multiples of 3 which are coprime to 10 in the range
+# M/9 < n <= M and then from there consider all
+# values coprime to 10
+
+# We can actually consider residues modulo 30
+# The only ones we care about are
+# [1,3,5,7,11,13,17,19,21,23,27,29]
+# of which [3,9,21,27] matter initially
+# So we want k where M/9 < 30k + 27 <= M, after
+# which we switch to a full set of residues mod 30
+
+from math import ceil
+
+from python_code.decorators import euler_timer
+from python_code.functions import order_mod_n
+from python_code.functions import sieve
+
+@euler_timer(129)
+def main():
+    all_residues = [n for n in range(1, 30)
+                    if n % 2 != 0 and n % 5 != 0]
+    three_residues = [n for n in range(1, 30)
+                      if n % 2 != 0 and n % 5 != 0 and n % 3 == 0]
+
+
+    point_to_reach = 10**6
+    max_prime_val = 2*10**6
+    PRIMES = sieve(max_prime_val)
+    order_hash = {}
+
+    k = int(ceil((point_to_reach - 243)/270.0))
+    residues = three_residues
+    max_order = -1
+    max_n = -1
+    while max_order <= point_to_reach:
+        if 30*k + 27 > point_to_reach:
+            residues = all_residues
+        choices_n = [30*k + residue for residue in residues]
+        for n in choices_n:
+            if n > max_prime_val:
+                raise Exception("Reset PRIMES")
+
+            basis = n
+            if n % 3 == 0:
+                basis = 9*n
+
+            curr_order = order_mod_n(10, basis,
+                                     hash_=order_hash,
+                                     prime_list=PRIMES)
+            if curr_order > max_order:
+                max_order = curr_order
+                max_n = n
+
+            if max_order > point_to_reach:
+                break
+        k += 1
+    print max_n
+
+if __name__ == "__main__":
+    print "The answer to Euler Project, question 129 is: 1000023\n\n" \
+          "This solution ran in 5.702E2 seconds.\n" \
+          "Due to runtime, this is not actually running."

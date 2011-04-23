@@ -361,6 +361,30 @@ def mu(n, hash_, primes):
         hash_[n] = -mu(n/prime, hash_, primes)
     return hash_[n]
 
+def extended_euclid(a, b):
+    M = max(a, b)
+    m = min(a, b)
+
+    last = (M, [1, 0])
+    curr = (m, [0, 1])
+    while curr[0] > 1:
+        next = last[0] % curr[0]
+        factor = (last[0] - next)/curr[0]
+        last, curr = curr, (next, [last[1][0] - factor*curr[1][0],
+                                   last[1][1] - factor*curr[1][1]])
+    result = curr[1]
+    if a*result[0] + b*result[1] == 1:
+        return result
+    else:
+        return result[::-1]
+
+def inverse_mod_n(val, n):
+    if gcd(val, n) > 1:
+        raise Exception("Not invertible")
+
+    result, _ = extended_euclid(val, n)
+    return result % n
+
 ############################################################
 ###################### LIST MANAGEMENT #####################
 ############################################################

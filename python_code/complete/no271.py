@@ -1,21 +1,6 @@
 from itertools import product as i_product
+from python_code.functions import extended_euclid
 from python_code.functions import prime_factors
-
-def extended_euclid(a, b):
-    M = max(a, b)
-    m = min(a, b)
-
-    last = (M, [1, 0])
-    curr = (m, [0, 1])
-    while curr[0] > 1:
-        next = last[0] % curr[0]
-        factor = (last[0] - next)/curr[0]
-        last, curr = curr, (next, [last[1][0] - factor*curr[1][0], last[1][1] - factor*curr[1][1]])
-    result = curr[1]
-    if a*result[0] + b*result[1] == 1:
-        return result
-    else:
-        return result[::-1]
 
 def find_cube_roots(prime):
     # Won't check, but assumes prime is prime

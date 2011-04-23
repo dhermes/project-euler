@@ -1,27 +1,13 @@
 from math import floor
 from math import log
 
+from python_code.functions import extended_euclid
+from python_code.functions import inverse_mod_n
 from python_code.functions import robust_divide
 
 # f(9)=36288
 # f(10)=36288
 # f(20)=17664
-
-def extended_euclid(a, b):
-    M = max(a, b)
-    m = min(a, b)
-
-    last = (M, [1, 0])
-    curr = (m, [0, 1])
-    while curr[0] > 1:
-        next = last[0] % curr[0]
-        factor = (last[0] - next)/curr[0]
-        last, curr = curr, (next, [last[1][0] - factor*curr[1][0], last[1][1] - factor*curr[1][1]])
-    result = curr[1]
-    if a*result[0] + b*result[1] == 1:
-        return result
-    else:
-        return result[::-1]
 
 def unit_a_zero_b(a, b):
     _, multiplier = extended_euclid(a, b)
@@ -74,7 +60,7 @@ def f(n):
         power_apply = power % (4*(5**4)) # PHI(5**5)
         product = (product*(residue**power_apply)) % (5**5)
     fives = num_factors_fact(n, 5) % (4*(5**4)) # PHI(5**5)
-    inverse, _ = extended_euclid(2, 5**5)
+    inverse = inverse_mod_n(2, 5**5)
     product = (product*(inverse**fives)) % (5**5)
 
     return (product*unit_a_zero_b(5**5, 2**5)) % 10**5

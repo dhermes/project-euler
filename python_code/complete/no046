@@ -3,8 +3,6 @@
 # What is the smallest odd composite n that can't be written n = p + 2k^2
 # for some prime p and some integer k?
 
-from math import sqrt
-
 from python_code.decorators import euler_timer
 from python_code.functions import is_power
 from python_code.functions import sieve

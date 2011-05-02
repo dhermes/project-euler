@@ -12,11 +12,11 @@
 
 # I've renamed words.txt as no042.txt
 
+import string
+
 from python_code.decorators import euler_timer
 from python_code.functions import get_data
 from python_code.functions import reverse_polygonal_number
-from math import sqrt
-import string
 
 def word_to_value(word):
     letters = string.uppercase

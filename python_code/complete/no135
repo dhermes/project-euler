@@ -27,7 +27,7 @@ from python_code.decorators import euler_timer
 from python_code.functions import factors
 from python_code.functions import sieve
 
-def solutions(factor_list):
+def num_solutions(factor_list):
     n = max(factor_list)
     choices_a = [factor for factor in factor_list if n < 3*(factor**2)]
     return [a for a in choices_a if (n/a + a) % 4 == 0]
@@ -35,15 +35,16 @@ def solutions(factor_list):
 @euler_timer(135)
 def main():
     MAX_n = 10**6 - 1
-    num_solutions = 10
-    result = []
+    distinct_solutions = 10
     PRIMES = sieve(int(sqrt(MAX_n)) + 1)
     factor_hash = {}
+
+    count = 0
     for n in range(1, MAX_n + 1):
         factor_list = factors(n, factor_hash, PRIMES)
-        if len(solutions(factor_list)) == num_solutions:
-            result.append(n)
-    print len(result)
+        if len(num_solutions(factor_list)) == distinct_solutions:
+            count += 1
+    print count
 
 if __name__ == "__main__":
     main()

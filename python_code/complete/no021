@@ -2,7 +2,6 @@
 
 from python_code.decorators import euler_timer
 from python_code.functions import all_factors
-from python_code.functions import sieve
 
 @euler_timer(21)
 def main():

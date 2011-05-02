@@ -8,14 +8,9 @@
 # If d_n represents the nth digit of the fractional part, find the value of the following expression.
 # d_1 X d_10 X d_100 X d_1000 X d_10000 X d_100000 X d_1000000
 
-from python_code.decorators import euler_timer
-from math import ceil
-from math import log10
 import operator
 
-def num_ints_with_d_digits(d):
-    # Returns the number of integers with d digits
-    return 9*10**(d - 1)
+from python_code.decorators import euler_timer
 
 def num_digs_with_up_to_d_digits(d):
     # The smallest number with d + 1 digits is 10**d
@@ -31,14 +26,14 @@ def nth_digit_of_frac_part(n):
     num_digits = 1
     while num_digs_with_up_to_d_digits(num_digits) < n:
         num_digits += 1
-    
+
     # We know the nth digit occurs in the block of integers with num_digits digits
     # We want to determine which digit in the block it is
     place_in_digits = n - num_digs_with_up_to_d_digits(num_digits - 1)
-    digit_place_in_number = (place_in_digits - 1) % num_digits + 1    
+    digit_place_in_number = (place_in_digits - 1) % num_digits + 1
     numbers_prior = (place_in_digits - 1)/num_digits # intended to be integer division
 
-    # Since there are numbers_prior numbers of num_digits digits prior to 
+    # Since there are numbers_prior numbers of num_digits digits prior to
     # the number we are interested in, we need to calculate which number it is
     # The smallest number with num_digits digits is 10**(num_digits - 1)
     num_of_interest = str(10**(num_digits - 1) + numbers_prior)

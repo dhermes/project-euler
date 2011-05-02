@@ -3,12 +3,9 @@
 # Find the sum of the distinct squarefree numbers in the first 51
 # rows of Pascal's triangle.
 
-from math import sqrt
-
 from python_code.decorators import euler_timer
 from python_code.functions import first_prime_divisor
 from python_code.functions import robust_divide
-from python_code.functions import sieve
 
 def pascal_next(row):
     if len(row) < 2:

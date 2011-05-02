@@ -1,7 +1,11 @@
-from os import path as opath
+import operator
 import sys
-from math import sqrt
+
 from fractions import gcd
+from math import factorial
+from math import log
+from math import sqrt
+from os import path as opath
 
 ############################################################
 ##################### HELPER FUNCTIONS #####################
@@ -9,6 +13,9 @@ from fractions import gcd
 
 def lcm(n, m):
     return n*m/(gcd(n, m))
+
+def choose(n, k):
+    return factorial(n)/(factorial(k)*factorial(n - k))
 
 # 8, 11, 13, 18, 22, 42, 54, 59, 67
 def get_data(problem_number):
@@ -107,6 +114,42 @@ def max_sum(triangle_matrix):
         depth -= 1
 
     return result[(0, max_depth - depth - 1)]
+
+# 114, 115
+def fill_count(m, n):
+    count = 1
+    MAX_k = (n + 1)/(m + 1)
+    for k in range(1, MAX_k + 1):
+        for sum_ai in range(m*k, n + 1 - k + 1):
+            perm_count = 0
+            for bottom in range(m, sum_ai/k + 1):
+                for gp_ai in ascending(k, sum_ai, bottom, n + 1):
+                    perm_count += total_perms(gp_ai)
+            add_value = perm_count*(factorial(n + 1 - sum_ai))
+            add_value = add_value/(factorial(k)*factorial(n + 1 - sum_ai - k))
+            count += add_value
+    return count
+
+# 132, 133
+def prime_divides_repunit_power10(prime, cap=-1):
+    # Determines if a prime divides any repunit R(10**n)
+    # if cap > 0, then we set a max on the value of n
+    if prime in [2, 3, 5]:
+        return False
+    _, count_2 = robust_divide(prime - 1, 2, include_count=True)
+    _, count_5 = robust_divide(prime - 1, 5, include_count=True)
+    if cap > 0:
+        count_2 = min(cap, count_2)
+        count_5 = min(cap, count_5)
+    if prime == (2**count_2)*(5**count_5) + 1:
+        return True
+    possible_exp = sorted([(2**exp2)*(5**exp5)
+                           for exp2 in range(0, count_2 + 1)
+                           for exp5 in range(0, count_5 + 1)])
+    for exp in possible_exp:
+        if (10**exp - 1) % prime == 0:
+            return True
+    return False
 
 ############################################################
 ######################### FIBONACCI ########################
@@ -221,7 +264,7 @@ def is_prime(n, primes=[], failure_point=None):
             return False
 
     # We safely assume n >= 10
-    if n % 2 == 0 or n % 3 == 0 or n % 5 == 0:
+    if n % 2 == 0 or n % 3 == 0 or n % 5 == 0 or n % 7 == 0:
         return False
 
     if failure_point is not None:
@@ -239,7 +282,7 @@ def is_prime(n, primes=[], failure_point=None):
 
     divisor_bound = int(sqrt(n))
     # From here, we know only +/- 1 mod 6 works, so
-    # we start with 11 and 13
+    # we start with 11 and 13 (primes > 10)
     divisor_minus, divisor_plus = 11, 13
     while divisor_minus <= divisor_bound:
         if n % divisor_minus == 0 or n % divisor_plus == 0:
@@ -385,6 +428,39 @@ def inverse_mod_n(val, n):
     result, _ = extended_euclid(val, n)
     return result % n
 
+# Let r_i = 1/(a_(i+1) + 1/(a(i+2) + ...
+# Then 1/r_i = a_(i+1) + r_(i+1); a_i = floor(1/r_i)
+
+# We see we can write r_i = (A_i*rt(n) + B_i)/C_i
+# then 1/r_i = C_i(A_i*rt(n) - B_i)/(n*A_i**2 - B_i**2)
+
+# represent each r_i as r_i = (A, B, C) -> 1/r_i = a + r_(i + 1)
+# -> a = floor(1/r_i) = floor( C/(A rt(n) + B) )
+# -> r_(i + 1) = (C*A, C*B - a*(n*A**2 - B**2), n*A**2 - B**2)
+# -> r_(i + 1) = (A', B', C') #reduce
+# then r_(i+1) = (C_i*A_i*rt(n) - [C_i*B_i + a_(i+1)*(n*A_i**2 - B_i**2)])/(n*A_i**2 - B_i**2)
+
+def next_continued_fraction_triple(current, n):
+    A, B, C = current
+    a = int(C*(1.0)/(A*sqrt(n) + B))
+    r = (C*A, -C*B - a*(n*A**2 - B**2), n*A**2 - B**2)
+    d = gcd(gcd(r[0], r[1]), r[2])
+    return (r[0]/d, r[1]/d, r[2]/d)
+
+def continued_fraction_cycle(n):
+    result = [int(sqrt(n))]
+    init = curr_r = (1, -int(sqrt(n)), 1)
+
+    result.append(int(curr_r[2]*(1.0)/(curr_r[0]*sqrt(n) + curr_r[1])))
+    curr_r = next_continued_fraction_triple(curr_r, n)
+    while curr_r != init:
+        result.append(int(curr_r[2]*(1.0)/(curr_r[0]*sqrt(n) + curr_r[1])))
+        curr_r = next_continued_fraction_triple(curr_r, n)
+    return result
+
+def power_up_to_digits(n, digits):
+    return [n**exp for exp in range(int(digits*log(10)/log(n)) + 1)]
+
 ############################################################
 ###################### LIST MANAGEMENT #####################
 ############################################################
@@ -419,13 +495,21 @@ def all_permutations_digits(n):
     return [int("".join(perm)) for perm in result]
 
 # 49, 51, 60
-def all_subsets(list_, size):
+def all_subsets(list_, size, unique=True):
     if len(list_) < size:
-        raise ValueError("List too small.")
+        if unique:
+            raise ValueError("List too small.")
 
     # Base case
     if size == 1:
         return [[element] for element in list_]
+
+    if not unique:
+        result = []
+        for element in list_:
+            result.extend([[element] + subset for subset in
+                           all_subsets(list_, size - 1, False)])
+        return result
 
     # We can assume size > 1
     result = []
@@ -433,4 +517,102 @@ def all_subsets(list_, size):
         curr = list_[i + 1:]
         result.extend([[list_[i]] + sub_list
                        for sub_list in all_subsets(curr, size - 1)])
+    return result
+
+############################################################
+######################## GRAPH THEORY ######################
+############################################################
+
+def astar(graph, start, target, heuristic, adjacent):
+    closed_nodes = {start: (None, graph[start])}
+    # node, parent, distance, don't store heuristic dist.
+
+    open_nodes = {}
+    for node in adjacent(start):
+        if node in graph:
+            open_nodes[node] = (start, graph[start] + graph[node])
+
+    while target not in closed_nodes:
+        min_val = None
+        min_f = -1
+        for node in open_nodes:
+            val = open_nodes[node][1] + heuristic(node)
+            if min_val is None:
+                min_val = val
+                min_f = node
+            else:
+                if val < min_val:
+                    min_val = val
+                    min_f = node
+
+        closed_nodes[min_f] = open_nodes.pop(min_f)
+
+        min_val = min_val - heuristic(min_f)
+        for node in adjacent(min_f):
+            if node not in graph or node in closed_nodes:
+                continue
+            if node in open_nodes:
+                comp_val = open_nodes[node][1]
+                new_val = min_val + graph[node]
+                if new_val < comp_val:
+                    open_nodes[node] = (min_f, new_val)
+            else:
+                open_nodes[node] = (min_f, min_val + graph[node])
+
+    return closed_nodes[target][1]
+
+def prims_algo(adjacency_list):
+    keys = adjacency_list.keys()
+    vertices = [keys[0]]
+    keys = set(keys)
+    edges = []
+    min_sum = 0
+    while set(vertices) != keys:
+        # Find next edge
+        candidates = {}
+        for vertex in vertices:
+            for node, val in adjacency_list[vertex]:
+                if node not in vertices:
+                    candidates[(vertex, node)] = val
+
+        new_edge, val = sorted(candidates.items(), key=lambda pair: pair[1])[0]
+        min_sum += val
+        edges.append(new_edge)
+        vertices.append(new_edge[1])
+
+    return edges, min_sum
+
+def total_perms(o_list):
+    counts = []
+    curr_entry = o_list[0]
+    curr_count = 1
+    for entry in o_list[1:]:
+        if entry == curr_entry:
+            curr_count += 1
+        else:
+            counts.append(curr_count)
+            curr_entry = entry
+            curr_count = 1
+    counts.append(curr_count)
+
+    denominator = reduce(operator.mul,
+                         [factorial(count) for count in counts])
+    return factorial(sum(counts))/denominator
+
+def ascending(num, num_sum, min_num, prob_max):
+    if num_sum < min_num:
+        return []
+    if num == 1:
+        if num_sum == min_num:
+            return [[num_sum]]
+        else:
+            return []
+
+    next_sum = num_sum - min_num
+    biggest = next_sum/(num - 1) # integer division intended
+    biggest = min(biggest, prob_max)
+    result = []
+    for next_min in range(min_num, biggest + 1):
+        result.extend([[min_num] + cand for cand in
+                        ascending(num - 1, next_sum, next_min, prob_max)])
     return result

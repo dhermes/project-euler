@@ -20,10 +20,9 @@
 # the numerator and denominator in the fractional estimate as in
 # 65. Once these estimates agree to 100 digits, we stop
 
-from math import sqrt
-from fractions import gcd
-
 from python_code.decorators import euler_timer
+from python_code.functions import continued_fraction_cycle
+from python_code.functions import is_power
 from python_code.functions import recurrence_next
 
 def expanded_digits(numerator, denominator, digits):
@@ -36,26 +35,8 @@ def expanded_digits(numerator, denominator, digits):
                                              denominator,
                                              digits - len(quotient_digits))
 
-def next(current, n):
-    A, B, C = current
-    a = int(C*(1.0)/(A*sqrt(n) + B))
-    r = (C*A, -C*B - a*(n*A**2 - B**2), n*A**2 - B**2)
-    d = gcd(gcd(r[0], r[1]), r[2])
-    return ( r[0]/d, r[1]/d, r[2]/d )
-
-def cycle(n):
-    result = [int(sqrt(n))]
-    init = curr_r = (1, -int(sqrt(n)), 1)
-
-    result.append(int(curr_r[2]*(1.0)/(curr_r[0]*sqrt(n) + curr_r[1])))
-    curr_r = next(curr_r, n)
-    while curr_r != init:
-        result.append(int(curr_r[2]*(1.0)/(curr_r[0]*sqrt(n) + curr_r[1])))
-        curr_r = next(curr_r, n)
-    return result
-
 def stable_expansion(digits, n):
-    values = cycle(n)
+    values = continued_fraction_cycle(n)
     h_values = [1, values[0]] # a_0
     k_values = [0, 1]
 
@@ -80,8 +61,8 @@ def stable_expansion(digits, n):
 
 @euler_timer(80)
 def main():
-    non_squares = [ num for num in range(1, 100 + 1)
-                    if int(sqrt(num))**2 != num ]
+    non_squares = [num for num in range(1, 100 + 1)
+                   if not is_power(num, 2)]
     running_sum = 0
     for n in non_squares:
         running_sum += sum(stable_expansion(100, n))

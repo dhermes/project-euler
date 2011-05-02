@@ -15,30 +15,6 @@
 # indices j such that disk i_j was drawn red. The probability of this event
 # is (i_1 * ... * i_k)/factorial(n + 1)
 
-from python_code.decorators import euler_timer
-from python_code.functions import all_permutations
-
-def possible_draws(blue, red):
-    choices = list(("B" * blue) + ("R" * red))
-    return all_permutations(choices)
-
-def numerator_from_draw(draw):
-    n = len(draw)
-    # choice i is index i-1
-    product = 1
-    for i in range(1, n + 1):
-        if draw[i-1] == "R":
-            product *= i
-    return product
-
-def all_blue_winning_draws(n):
-    # intended to be integer division
-    min_blue = (n/2) + 1
-    draws = []
-    for blue in range(min_blue, n + 1):
-        draws.extend(possible_draws(blue, n - blue))
-    return sum([ numerator_from_draw(draw) for draw in draws ])
-
 # We can enumeratively define n_{j,k} to be the aggregate numerator
 # of all possible draws with j blues drawn out of k draws
 #
@@ -50,8 +26,11 @@ def all_blue_winning_draws(n):
 # except for the cases j = k, where n_{j,k} = numer(all blue) = 1
 # except for the cases j = 0, where n_{0,k} = k!
 
+from math import factorial
+
+from python_code.decorators import euler_timer
+
 def iterative_numerator(n):
-    from math import factorial
     numerators = {}
     for k in range(1,n + 1):
         for j in range(k + 1):
@@ -69,7 +48,6 @@ def iterative_numerator(n):
     return count
 
 def max_payout(n):
-    from math import factorial
     # Integer division precludes floor operation
     return factorial(n + 1)/iterative_numerator(n)
 

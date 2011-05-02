@@ -12,20 +12,18 @@
 
 # NOTE: 2, 3, 5, and 7 are not considered to be truncatable primes.
 
-# RUNTIME NOTE: I have run this and the largest is 739397
-
 from python_code.decorators import euler_timer
 from python_code.functions import is_prime
 from python_code.functions import sieve
 
 def truncated_list(n, from_left):
     if from_left:
-        digs = [ dig for dig in str(n) ]
-        return [ int("".join(digs[i:])) for i in range(len(digs)) ]
+        digs = [dig for dig in str(n)]
+        return [int("".join(digs[i:])) for i in range(len(digs))]
     # If the bool from_left is false, we are right
     else:
-        digs = [ dig for dig in str(n) ]
-        return [ int("".join(digs[:i + 1])) for i in range(len(digs)) ]
+        digs = [dig for dig in str(n)]
+        return [int("".join(digs[:i + 1])) for i in range(len(digs))]
 
 def truncated_all(n):
     return list(set(truncated_list(n, True) + truncated_list(n, False)))
@@ -41,25 +39,25 @@ def is_truncatable_prime(n, primes):
             return False
     return True
 
-def find_first_n_truncatable(n):
+def find_first_n_truncatable(n, max_n):
     result = []
-    primes = sieve(739397)[4:] # We don't include 2, 3, 5, or 7
+    primes = sieve(max_n)[4:] # We don't include 2, 3, 5, or 7
     for prime in primes:
         if is_truncatable_prime(prime, primes):
             result.append(prime)
         if len(result) == n:
             return result
+
+    if len(result) < n:
+        raise Exception("Not enough found, raise max_n")
+
     return result
 
 @euler_timer(37)
 def main():
-    ans = find_first_n_truncatable(11)
+    ans = find_first_n_truncatable(11, 10**6)
     print "%s.\nThe primes are: %s." % (sum(ans),
-        ", ".join([ str(prime) for prime in ans ]))
+        ", ".join([str(prime) for prime in ans]))
 
 if __name__ == "__main__":
-    print "The answer to Euler Project, question 37 is: 748317\n" \
-          "The primes are: 23, 37, 53, 73, 313, 317, " \
-          "373, 797, 3137, 3797, 739397\n\n" \
-          "This solution ran in 5.226E2 seconds.\n" \
-          "Due to runtime, this is not actually running."
+    main()

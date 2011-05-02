@@ -4,7 +4,7 @@
 
 from python_code.decorators import euler_timer
 
-def next(n):
+def collatz_next(n):
     if n % 2 == 0:
         return n/2
     else:
@@ -14,7 +14,7 @@ def length(n, hash_):
     if n in hash_:
         return hash_[n]
     else:
-        lngth = 1 + length(next(n), hash_)
+        lngth = 1 + length(collatz_next(n), hash_)
         hash_[n] = lngth
         return lngth
 

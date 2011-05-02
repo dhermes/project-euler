@@ -5,8 +5,6 @@
 from python_code.decorators import euler_timer
 from python_code.functions import all_factors
 
-from math import sqrt
-
 def all_triples(p, factors_hash={}):
     if p % 2 == 1 or p < 2 or type(p) is not int:
         return []

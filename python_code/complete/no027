@@ -34,12 +34,12 @@ def polynomial_consecutive_primes(a, b, primes):
 @euler_timer(27)
 def main():
     PRIMES = sieve(86238)
-    b_choices = [ prime for prime in PRIMES if prime < 1000 ]
+    b_choices = [prime for prime in PRIMES if prime < 1000]
 
-    candidates = [ (a, b, polynomial_consecutive_primes(a, b, PRIMES))
-                   for a in range(-999, 999 + 1)
-                   for b in b_choices ]
-    quantities = [ entry[2] for entry in candidates ]
+    candidates = [(a, b, polynomial_consecutive_primes(a, b, PRIMES))
+                  for a in range(-999, 999 + 1)
+                  for b in b_choices]
+    quantities = [entry[2] for entry in candidates]
     winner = candidates[quantities.index(max(quantities))]
     prod = winner[0]*winner[1]
     a = winner[0]

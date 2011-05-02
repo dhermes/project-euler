@@ -10,8 +10,8 @@ from python_code.decorators import euler_timer
 from python_code.functions import get_data
 
 def get_points(line):
-    result = [ int(val) for val in line.split(",") ]
-    return [ (result[2*i], result[2*i + 1]) for i in range(3) ]
+    result = [int(val) for val in line.split(",")]
+    return [(result[2*i], result[2*i + 1]) for i in range(3)]
 
 def cross_zero(p, q):
     if p[0] == q[0]:
@@ -34,8 +34,8 @@ def cross_zero(p, q):
 
 def zero_in(points):
     a, b, c = points
-    crosses = [ cross_zero(a, b), cross_zero(b, c), cross_zero(c, a) ]
-    crosses =  [ cross[0] for cross in crosses if cross[1] ]
+    crosses = [cross_zero(a, b), cross_zero(b, c), cross_zero(c, a)]
+    crosses =  [cross[0] for cross in crosses if cross[1]]
     if len(crosses) == 0:
         return False
     elif len(crosses) == 1:

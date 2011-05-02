@@ -36,8 +36,8 @@ def max_prime_length(digits, primes = []):
 
 def all_prime_seqs(length, digits, primes = []):
     """
-    Returns all sequences of primes of 
-    
+    Returns all sequences of primes of
+
     Assumes length <= max_prime_length(digits)
     """
     cap = 10**digits
@@ -49,7 +49,7 @@ def all_prime_seqs(length, digits, primes = []):
     curr = primes[final_index - length + 1:final_index + 1]
     running_sum = sum(curr)
     while running_sum < cap:
-        running_sum -= curr[0] # remove the smallest value from the sum 
+        running_sum -= curr[0] # remove the smallest value from the sum
         result.append(curr)
         final_index += 1
         curr = primes[final_index - length + 1:final_index + 1]
@@ -64,12 +64,12 @@ def prime_sequence_exists(length, digits, primes = []):
     cap = 10**digits
     if primes == []:
         primes = sieve(cap)
-    sums = [ sum(seq) for seq in all_prime_seqs(length, digits, primes) ]
+    sums = [sum(seq) for seq in all_prime_seqs(length, digits, primes)]
     return (set(sums).intersection(primes) != set())
 
 def longest_prime_sequence(digits, primes = []):
     """
-    Returns the length of the most consecutive primes which sum 
+    Returns the length of the most consecutive primes which sum
     to a prime and sum to less then 10**digits
     """
     if primes == []:
@@ -83,9 +83,9 @@ def longest_prime_sequence(digits, primes = []):
 def longest_prime(digits):
     primes = sieve(10**digits)
     length = longest_prime_sequence(digits, primes)
-    sums = [ sum(seq) for seq in all_prime_seqs(length, digits, primes) ]
+    sums = [sum(seq) for seq in all_prime_seqs(length, digits, primes)]
     return max(set(sums).intersection(primes))
-    
+
 @euler_timer(50)
 def main():
     print longest_prime(6)

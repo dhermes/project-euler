@@ -10,7 +10,7 @@
 from python_code.decorators import euler_timer
 
 def sum_of_digits_powers(n, power):
-    return sum([ int(dig)**power for dig in str(n) ])
+    return sum([int(dig)**power for dig in str(n)])
 
 @euler_timer(30)
 def main():
@@ -20,7 +20,7 @@ def main():
             valid.append(i)
 
     print "%s.\nThe numbers satisfying this property are: %s." % (sum(valid),
-        ", ".join([ str(num) for num in valid ]))
+        ", ".join([str(num) for num in valid]))
 
 if __name__ == "__main__":
     main()

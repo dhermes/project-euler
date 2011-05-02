@@ -42,7 +42,7 @@ def nth_digit_of_frac_part(n):
 @euler_timer(40)
 def main():
     # d_1 X d_10 X d_100 X d_1000 X d_10000 X d_100000 X d_1000000
-    result = [ nth_digit_of_frac_part(10**exponent) for exponent in range(7)]
+    result = [nth_digit_of_frac_part(10**exponent) for exponent in range(7)]
     digit_display = ["d_%s = %s" % (10**i, digit) for i, digit in enumerate(result)]
     print "%s.\nThe digits are as follows: %s" % (reduce(operator.mul, result),
         ", ".join(digit_display))

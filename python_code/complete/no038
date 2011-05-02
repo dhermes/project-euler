@@ -6,7 +6,7 @@
 from python_code.decorators import euler_timer
 
 def is_pandigital_9(str_):
-    for dig in [ str(elt) for elt in range(1, 10) ]:
+    for dig in [str(elt) for elt in range(1, 10)]:
         if str_.count(dig) != 1:
             return False
     return True
@@ -16,12 +16,12 @@ def all_pandigitals_1_to_n(n):
     multiplier = 1
     result = []
 
-    curr = "".join([ str(multiplier*elt) for elt in to_mult ])
+    curr = "".join([str(multiplier*elt) for elt in to_mult])
     while len(curr) < 10:
         if is_pandigital_9(curr):
             result.append(curr)
         multiplier += 1
-        curr = "".join([ str(multiplier*elt) for elt in to_mult ])
+        curr = "".join([str(multiplier*elt) for elt in to_mult])
 
     return result
 
@@ -30,7 +30,7 @@ def main():
     result = []
     for n in range(2, 10):
         result.extend(all_pandigitals_1_to_n(n))
-    print max([ int(elt) for elt in result ])
+    print max([int(elt) for elt in result])
 
 if __name__ == "__main__":
     main()

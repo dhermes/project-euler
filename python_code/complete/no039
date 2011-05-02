@@ -38,7 +38,7 @@ def convert_to_triangle(triple):
 
 def all_triangles(p, factors_hash={}):
     triples = all_triples(p, factors_hash)
-    return list(set([ convert_to_triangle(triple) for triple in triples ]))
+    return list(set([convert_to_triangle(triple) for triple in triples]))
 
 def all_triangles_up_to_n(n):
     factors_hash = all_factors(n)
@@ -53,8 +53,8 @@ def main():
     lengths = {}
     for key in all:
         lengths[key] = len(all[key])
-        max_keys = [ key for key, value in lengths.items()
-                     if value == max(lengths.values()) ]
+        max_keys = [key for key, value in lengths.items()
+                    if value == max(lengths.values())]
     if len(max_keys) != 1:
         raise("Keys are not unique")
     print max_keys[0]

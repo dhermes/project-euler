@@ -24,11 +24,11 @@ def words(n):
         return "one thousand"
 
     result = []
-    digs = [ int(dig) for dig in str(n).zfill(3) ]
+    digs = [int(dig) for dig in str(n).zfill(3)]
 
     if digs[0] != 0:
         if n != 100*digs[0]:
-            result.extend([ ones[digs[0]] , "hundred", "and"])
+            result.extend([ones[digs[0]] , "hundred", "and"])
         else:
             return "%s hundred" % ones[digs[0]]
 

@@ -32,7 +32,7 @@ from python_code.functions import max_sum
 def main():
     triangle = get_data(18).strip()
     TRIANGLE_MAT = [[int(elt) for elt in line.split()]
-                    for line in triangle.split("\n") if line ]
+                    for line in triangle.split("\n") if line]
 
     print max_sum(TRIANGLE_MAT)
 

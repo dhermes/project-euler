@@ -28,7 +28,7 @@ def lex(list_, perm):
 def main():
     list_ = range(10)
     perm = 10**6 - 1 # Our indexing begins at 0
-    print "".join( [ str(dig) for dig in lex(list_, perm) ] )
+    print "".join([str(dig) for dig in lex(list_, perm)])
 
 if __name__ == "__main__":
     main()

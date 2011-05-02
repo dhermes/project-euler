@@ -25,16 +25,16 @@ def possible_digits_key():
     four_digits = {}
     for sides in range(3, 9):
         four_digits[sides] = all_polygonal(sides, 4)
-        left_digits.update([ str(num)[:2] for num in four_digits[sides] ])
-        right_digits.update([ str(num)[-2:] for num in four_digits[sides] ])
+        left_digits.update([str(num)[:2] for num in four_digits[sides]])
+        right_digits.update([str(num)[-2:] for num in four_digits[sides]])
 
     two_digit_candidates = left_digits.intersection(right_digits)
 
     result = {}
     for sides in range(3, 9):
-        possible = [ elt for elt in four_digits[sides]
-                     if str(elt)[:2] in two_digit_candidates
-                     and str(elt)[-2:] in two_digit_candidates ]
+        possible = [elt for elt in four_digits[sides]
+                    if str(elt)[:2] in two_digit_candidates
+                    and str(elt)[-2:] in two_digit_candidates]
 
         for number in possible:
             left = str(number)[:2]
@@ -42,7 +42,7 @@ def possible_digits_key():
             if left in result:
                 result[left].append((right, sides))
             else:
-                result[left] = [ (right, sides) ]
+                result[left] = [(right, sides)]
 
     return result
 
@@ -56,21 +56,21 @@ def find_paths(start_val, start_sides, length, possible):
     at that step to
     [[('95', 7), ('91', 3)], [('95', 7), ('60', 5)]]
     """
-    paths = [ [(start_val, start_sides)] ]
+    paths = [[(start_val, start_sides)]]
 
     for i in range(length - 1):
         new_paths = []
         for path in paths:
-            digits = [ elt[0] for elt in path ]
-            sides = [ elt[1] for elt in path ]
+            digits = [elt[0] for elt in path]
+            sides = [elt[1] for elt in path]
 
             last_val = path[-1][0]
             # Extends each path by 1 to all the other
             # possible matches which don't conflict
             # with something already in path
-            to_add = [ path + [elt] for elt in possible[last_val]
-                       if elt[0] not in digits
-                       and elt[1] not in sides ]
+            to_add = [path + [elt] for elt in possible[last_val]
+                      if elt[0] not in digits
+                      and elt[1] not in sides]
             new_paths.extend(to_add)
 
         paths = new_paths[:]
@@ -111,11 +111,11 @@ def main():
     ENDC = '\033[0m'
 
     path = successful_path()
-    result = [ [ path[i][0] + path[i + 1][0], path[i + 1][1] ]
-               for i in range(5) ]
-    result.append([ path[-1][0] + path[0][0], path[0][1] ])
-    result = [ elt + [ reverse_polygonal_number(elt[1], int(elt[0])) ]
-               for elt in result ]
+    result = [[path[i][0] + path[i + 1][0], path[i + 1][1]]
+              for i in range(5)]
+    result.append([path[-1][0] + path[0][0], path[0][1]])
+    result = [elt + [reverse_polygonal_number(elt[1], int(elt[0]))]
+              for elt in result]
     display = ""
     for i, entry in enumerate(result):
         value, sides, number = entry
@@ -124,7 +124,7 @@ def main():
         colored_val = "".join([COLORS[i], left, ENDC,
                                COLORS[i+1], right, ENDC])
         display += "\nP_(%s,%s) = %s" % (sides, number, colored_val)
-    print "%s.%s" % (sum([ int(match[0]) for match in result ]), display)
+    print "%s.%s" % (sum([int(match[0]) for match in result]), display)
 
 if __name__ == "__main__":
     main()

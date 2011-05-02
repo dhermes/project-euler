@@ -9,14 +9,14 @@ from python_code.decorators import euler_timer
 
 def all_orderings(list_):
     if len(list_) == 1:
-        return [ list_ ]
+        return [list_]
 
     result = []
     for elt in list_:
         sublist = list_[:]
         sublist.remove(elt)
-        result.extend([ [elt] + ordering
-                        for ordering in all_orderings(sublist) ])
+        result.extend([[elt] + ordering
+                       for ordering in all_orderings(sublist)])
 
     return result
 

@@ -24,7 +24,7 @@ def minimal_solution(D):
 def main():
     max_n = 1000
     non_squares = [n for n in range(1, max_n + 1) if n != int(sqrt(n))**2]
-    D_x_pair_min_solns = [ (D,) + minimal_solution(D) for D in non_squares ]
+    D_x_pair_min_solns = [(D,) + minimal_solution(D) for D in non_squares]
     D_x_pair_min_solns.sort(key=lambda pair: pair[1])
     D, x, y = D_x_pair_min_solns[-1]
     print "%s.\n%s^2 - %s*%s^2 = 1" % (D, x, D, y)

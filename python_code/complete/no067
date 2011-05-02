@@ -24,8 +24,8 @@ from python_code.functions import max_sum
 @euler_timer(67)
 def main():
     triangle = get_data(67).strip()
-    TRIANGLE_MAT = [ [ int(elt) for elt in line.split() ]
-                     for line in triangle.split("\n") if line ]
+    TRIANGLE_MAT = [[int(elt) for elt in line.split()]
+                    for line in triangle.split("\n") if line]
     print max_sum(TRIANGLE_MAT)
 
 if __name__ == "__main__":

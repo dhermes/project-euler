@@ -25,7 +25,7 @@ def max_collatz_length_up_to_n(n, hash_ = {1: 1}):
         if length(i, hash_) > max_lng:
             max_lng = length(i, hash_)
             max_lng_at = i
-    return [ max_lng_at , max_lng ]
+    return [max_lng_at , max_lng]
 
 @euler_timer(14)
 def main():

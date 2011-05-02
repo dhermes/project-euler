@@ -6,7 +6,7 @@ from python_code.decorators import euler_timer
 
 @euler_timer(16)
 def main():
-    print sum([ int(dig) for dig in str(2**1000) ])
+    print sum([int(dig) for dig in str(2**1000)])
 
 if __name__ == "__main__":
     main()

@@ -20,12 +20,12 @@ from python_code.functions import reverse_polygonal_number
 
 def word_to_value(word):
     letters = string.uppercase
-    return sum([ letters.find(letter) + 1 for letter in word ])
+    return sum([letters.find(letter) + 1 for letter in word])
 
 def num_triangle():
     # Assumes file is "A","ABILITIY","ABLE",...
     words = get_data(42).strip('"').split('","')
-    vals = [ word_to_value(word) for word in words ]
+    vals = [word_to_value(word) for word in words]
     triangle_hash = {}
     count = 0
     for val in vals:

@@ -5,7 +5,7 @@
 # P_m = x_1 * x_2^2 * ... * x_m^m is maximised.
 
 # For example, it can be verified that [P_10] = 4112
-# ([ ] is the integer part function).
+# ([] is the integer part function).
 
 # Find SUM[P_m] for 2 <= m <= 15.
 

@@ -18,7 +18,7 @@
 # Find the sum of all 0 to 9 pandigital numbers with this property.
 
 # Since 5 | d_4 d_5 d_6, we know d_6 in [0,5]
-# Since 11 | d_6 d_7 d_8 in [0 d_7 d_8, 5 d_7, d_8 ], we know d_6 = 5
+# Since 11 | d_6 d_7 d_8 in [0 d_7 d_8, 5 d_7, d_8], we know d_6 = 5
 # This is because the only multiples of 11 with d_6 = 0 are
 # 11, 22, ..., 99, all of which have repeated digits
 # 11*50 = 550 is also eliminated, leaving us with

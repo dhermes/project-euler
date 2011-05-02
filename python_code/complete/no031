@@ -5,8 +5,8 @@
 # How many different ways can 200p be made using any number of coins?
 
 # This will be the coeficient of x^200 in
-# (1 + x + x^2 + ... )(1 + x^2 + x^4 + ... )(1 + x^5 + x^10 + ... )*...
-# ...*(1 + x^10 + x^20 + ... )(1 + x^20 + x^40 + ... )(1 + x^50 + x^100 + ... )
+# (1 + x + x^2 + ...)(1 + x^2 + x^4 + ...)(1 + x^5 + x^10 + ...)*...
+# ...*(1 + x^10 + x^20 + ...)(1 + x^20 + x^40 + ...)(1 + x^50 + x^100 + ...)
 
 from python_code.decorators import euler_timer
 
@@ -14,7 +14,7 @@ def polynomial_add(left, right):
     max_len = max(len(left), len(right))
     to_add_left = [0]*(max_len - len(left)) + left[:]
     to_add_right = [0]*(max_len - len(right)) + right[:]
-    return [ to_add_left[i] + to_add_right[i] for i in range(max_len) ]
+    return [to_add_left[i] + to_add_right[i] for i in range(max_len)]
 
 # represent ax^n + bx^(n-1) + ... + c as [c,...b,a]
 # 1 + 2x + x^2 + 2x^3 = (1+2x)*(1+x^2) =
@@ -22,7 +22,7 @@ def polynomial_add(left, right):
 def polynomial_mult(f, g):
     result = []
     for ind in range(len(f)):
-        to_add = [ f[-ind - 1]*coeff for coeff in g ] + [0] * ind
+        to_add = [f[-ind - 1]*coeff for coeff in g] + [0] * ind
         result = polynomial_add(result, to_add)
     return result
 

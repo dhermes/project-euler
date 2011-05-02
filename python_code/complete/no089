@@ -36,10 +36,10 @@ def pos_neg(val, next):
     return 1
 
 def actual(numeral):
-    pairs = [ (numeral[ind], numeral[ind + 1]) for
-              ind in range(len(numeral) - 1) ] + \
-            [ (numeral[-1], None) ]
-    return sum([ VALUES[pair[0]]*pos_neg(*pair) for pair in pairs ])
+    pairs = [(numeral[ind], numeral[ind + 1]) for
+             ind in range(len(numeral) - 1)] + \
+            [(numeral[-1], None)]
+    return sum([VALUES[pair[0]]*pos_neg(*pair) for pair in pairs])
 
 def to_roman(n):
     ints = (1000, 900,  500, 400, 100,  90, 50,  40, 10,  9,   5,  4,   1)
@@ -54,9 +54,9 @@ def to_roman(n):
 @euler_timer(89)
 def main():
     data = [num for num in get_data(89).split("\n") if num]
-    original_digits = len( "".join([ number for number in data ]) )
-    best = [ to_roman(actual(numeral)) for numeral in data ]
-    print original_digits - len("".join([ number for number in best ]) )
+    original_digits = len("".join([number for number in data]))
+    best = [to_roman(actual(numeral)) for numeral in data]
+    print original_digits - len("".join([number for number in best]))
 
 if __name__ == "__main__":
     main()

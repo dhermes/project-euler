@@ -18,8 +18,8 @@ import operator
 
 def canceled_pair(numer, denom):
     shared = set(str(numer)).intersection(set(str(denom)))
-    result_n = [ dig for dig in str(numer) ]
-    result_d = [ dig for dig in str(denom) ]
+    result_n = [dig for dig in str(numer)]
+    result_d = [dig for dig in str(denom)]
     for dig in shared:
         result_n.remove(dig) # Only removes first instance
         result_d.remove(dig) # Only removes first instance
@@ -39,11 +39,11 @@ def equals_canceled_pair(numer, denom):
 
 @euler_timer(33)
 def main():
-    pairs = [ (numer, denom) for numer in range(10,99)
-                             for denom in range(numer + 1, 100)
-                             if equals_canceled_pair(numer, denom) ]
-    num = reduce(operator.mul, [ pair[0] for pair in pairs ])
-    denom = reduce(operator.mul, [ pair[1] for pair in pairs ])
+    pairs = [(numer, denom) for numer in range(10,99)
+                            for denom in range(numer + 1, 100)
+                            if equals_canceled_pair(numer, denom)]
+    num = reduce(operator.mul, [pair[0] for pair in pairs])
+    denom = reduce(operator.mul, [pair[1] for pair in pairs])
     print denom/(gcd(num,denom))
 
 if __name__ == "__main__":

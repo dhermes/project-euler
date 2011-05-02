@@ -3,9 +3,10 @@
 # Considering natural numbers of the form, a^(b), where a, b < 100, what
 # is the maximum digital sum?
 
+import operator
+
 from python_code.decorators import euler_timer
 from python_code.functions import apply_to_list
-import operator
 
 def digit_sum(n):
     return sum([int(dig) for dig in str(n)])

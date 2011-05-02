@@ -12,9 +12,10 @@
 # Which prime, below one-million, can be written as the sum of the
 # most consecutive primes?
 
+from math import sqrt
+
 from python_code.decorators import euler_timer
 from python_code.functions import sieve
-from math import sqrt
 
 def max_prime_length(digits, primes = []):
     """

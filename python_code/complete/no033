@@ -12,9 +12,10 @@
 # If the product of these four fractions is given in its lowest common
 # terms, find the value of the denominator.
 
-from python_code.decorators import euler_timer
 from fractions import gcd
 import operator
+
+from python_code.decorators import euler_timer
 
 def canceled_pair(numer, denom):
     shared = set(str(numer)).intersection(set(str(denom)))

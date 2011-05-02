@@ -2,7 +2,6 @@
 
 from python_code.decorators import euler_timer
 from python_code.functions import recurrence_next
-# def recurrence_next(relation, values):
 
 def zero_absent(relation, initial_values, modulus):
     initial = [value % modulus for value in initial_values]

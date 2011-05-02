@@ -29,9 +29,10 @@
 # direction (up, down, left, right, or diagonally) in
 # the 20 x 20 grid?
 
+import operator
+
 from python_code.decorators import euler_timer
 from python_code.functions import get_data
-import operator
 
 def make_path(point, step, length):
     return [(point[0] + i*step[0], point[1] + i*step[1]) for i in range(length)]

@@ -3,8 +3,9 @@
 # What is the smallest positive number that is evenly divisible
 # by all of the numbers from 1 to 20?
 
-from python_code.decorators import euler_timer
 from fractions import gcd
+
+from python_code.decorators import euler_timer
 
 def min_product(n):
     if n < 2:

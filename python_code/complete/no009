@@ -3,8 +3,9 @@
 # There exists exactly one Pythagorean triplet for which
 # a + b + c = 1000. Find the product abc.
 
-from python_code.decorators import euler_timer
 import operator
+
+from python_code.decorators import euler_timer
 
 def first_triplet(total):
     for a in range(1, total - 1):

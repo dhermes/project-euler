@@ -5,7 +5,9 @@ from python_code.functions import all_subsets
 
 def can_concat(left, right, candidates):
     possible = ['%s%s' % (dig_l, dig_r) for dig_l in left for dig_r in right]
-    possible.extend(['%s%s' % (dig_l, dig_r) for dig_l in right for dig_r in left])
+    for dig_l in right:
+        for dig_r in left:
+            possible.append('%s%s' % (dig_l, dig_r))
     return (len(set(possible).intersection(candidates)) == 9)
 
 @euler_timer(90)

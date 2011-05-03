@@ -10,7 +10,8 @@ from python_code.functions import sieve
 def main():
     problem_max = 10**6
     PRIMES = sieve(problem_max)
-    ratios = [(1, index) for index in range(problem_max + 1)] # ignore zero index
+    # ignore zero index
+    ratios = [(1, index) for index in range(problem_max + 1)]
     for prime in PRIMES:
         ratios[prime::prime] = [((ratio*prime*1.0)/(prime - 1), index)
                                 for ratio, index in ratios[prime::prime]]

@@ -9,7 +9,8 @@
 # 2 + 1 + 1 + 1
 # 1 + 1 + 1 + 1 + 1
 
-# How many different ways can one hundred be written as a sum of at least two positive integers?
+# How many different ways can one hundred be written as a sum of at least
+# two positive integers?
 
 #################################
 # p(k, n) - represents the number of partitions of n using only natural

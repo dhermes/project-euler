@@ -44,7 +44,8 @@ def convert(path, data):
 @euler_timer(11)
 def main():
     DATA = get_data(11)
-    DATA = [[int(entry) for entry in row.split()] for row in DATA.split("\n") if row]
+    DATA = [[int(entry) for entry in row.split()]
+            for row in DATA.split("\n") if row]
 
     # UP/DOWN goes from DATA[x][y] to DATA[x+3][y] where 0 <= x, x+3, y <= 19
     vert = max([convert(make_path((x, y), (1, 0), 4), DATA) for x

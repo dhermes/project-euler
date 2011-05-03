@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
-# What is the value of the first triangle number to have over five hundred divisors?
+# What is the value of the first triangle number to have over
+# five hundred divisors?
 
 from python_code.decorators import euler_timer
 from python_code.functions import prime_factors

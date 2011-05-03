@@ -48,14 +48,14 @@
 
 # Only the corners and the final non-corner have a chance at 3 primes
 # This is because if we are not either, then they are next to 2 consec. #'s,
-# which give a diff. of 1, the other two pairs will give differences that differ
-# by one, so at most 1 of each can be prime
+# which give a diff. of 1, the other two pairs will give differences that
+# differ by one, so at most 1 of each can be prime
 
 ##############################
 # Case1, k neq 1, corner
 ##############################
 # The corner (n, k) is adjacent to
-# (n-1, (k-1)/(n-1)*(n-2) + 1), (n,k-1), (n,k+1)--> don't matter if not end piece,
+# (n-1, (k-1)/(n-1)*(n-2) + 1), (n,k-1), (n,k+1)-->don't matter if not end piece
 # (n+1, (k-1)/(n-1)*n), (n+1, (k-1)/(n-1)*n + 1), (n+1, (k-1)/(n-1)*n + 2),
 # 3*(n - 1)*(n - 2) + 1 + k vs.
 # 3*(n - 2)*(n - 3) + 1 + (k - 1)/(n - 1)*(n - 2) + 1,

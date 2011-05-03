@@ -21,7 +21,7 @@ function unique(arr) {
     }
   }
 
-  result = [];
+  var result = [];
   for(var key in hash) {
     result.push(parseInt(key));
   }
@@ -30,7 +30,7 @@ function unique(arr) {
 
 function sum(arr) {
   //not robust, expects integers or strings
-  result = 0;
+  var result = 0;
   for(var i = 0, val; val = arr[i]; i++) {
     result += val;
   }
@@ -38,9 +38,9 @@ function sum(arr) {
 }
 
 function main() {
-  both_sets = all_multiples(1000, 3).concat(all_multiples(1000, 5));
-  uniq_mults = unique(both_sets);
-  final = sum(uniq_mults);
+  var both_sets = all_multiples(1000, 3).concat(all_multiples(1000, 5)),
+      uniq_mults = unique(both_sets),
+      final = sum(uniq_mults);
   alert("The answer to Euler Project, question 1 is: " + final);
 }
 

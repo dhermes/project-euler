@@ -36,12 +36,14 @@ def extend_matches(value, choices, direction):
     """
     value_digits = set(value)
     if direction == 'right':
-        first_two_match = [choice for choice in choices if choice[:2] == value[-2:]]
+        first_two_match = [choice for choice in choices
+                           if choice[:2] == value[-2:]]
         matches = [choice for choice in first_two_match
                    if value_digits.intersection(choice[2:]) == set()]
         return [value + choice[2:] for choice in matches]
     elif direction == 'left':
-        last_two_match = [choice for choice in choices if choice[-2:] == value[:2]]
+        last_two_match = [choice for choice in choices
+                          if choice[-2:] == value[:2]]
         matches = [choice for choice in last_two_match
                    if value_digits.intersection(choice[:-2]) == set()]
         return [choice[:-2] + value for choice in matches]
@@ -62,7 +64,8 @@ def main():
     for prime in primes:
         mults = [str(number).zfill(3) for number in range(1, 1000)
                  if number % prime == 0]
-        unique_digits[prime] = [number for number in mults if len(set(number)) == 3]
+        unique_digits[prime] = [number for number in mults
+                                if len(set(number)) == 3]
     candidates = [number for number in unique_digits[11] if number[0] == '5']
 
     # We have only covered the 11 case, so we need to include those for the

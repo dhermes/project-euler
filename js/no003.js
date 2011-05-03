@@ -40,7 +40,7 @@ function max_array(arr) {
 }
 
 function main() {
-  result = max_array(prime_factors(600851475143));
+  var result = max_array(prime_factors(600851475143));
   alert("The answer to Euler Project, question 3 is: " + result);
 }
 

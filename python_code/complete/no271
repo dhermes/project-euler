@@ -42,7 +42,9 @@ def find_cube_roots(prime):
         if (i**2 + 3) % prime == 0:
             break
     # So we know i and prime - i are the square roots of 3
-    return sorted([1, ((prime + 1)*(i - 1)/2) % prime, ((prime + 1)*(prime - i - 1))/2 % prime])
+    return sorted([1,
+                   ((prime + 1)*(i - 1)/2) % prime,
+                   ((prime + 1)*(prime - i - 1))/2 % prime])
 
 @euler_timer(271)
 def main():

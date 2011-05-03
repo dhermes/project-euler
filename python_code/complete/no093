@@ -65,7 +65,8 @@ def results(signs, numbers):
     except ZeroDivisionError:
         pass
     try:
-        val = do_operations_no_paren([s3], [do_operations_no_paren([s1, s2], [a, b, c]), d])
+        val = do_operations_no_paren([s3],
+            [do_operations_no_paren([s1, s2], [a, b, c]), d])
         result.append(val)
     except ZeroDivisionError:
         pass
@@ -80,7 +81,8 @@ def results(signs, numbers):
     except ZeroDivisionError:
         pass
     try:
-        val = do_operations_no_paren([s1], [a, do_operations_no_paren([s2, s3], [b, c, d])])
+        val = do_operations_no_paren([s1],
+            [a, do_operations_no_paren([s2, s3], [b, c, d])])
         result.append(val)
     except ZeroDivisionError:
         pass

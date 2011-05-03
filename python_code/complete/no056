@@ -13,7 +13,8 @@ def digit_sum(n):
 
 @euler_timer(56)
 def main():
-    print max([digit_sum(val) for val in apply_to_list(operator.pow, range(1,100))])
+    print max([digit_sum(val)
+               for val in apply_to_list(operator.pow, range(1,100))])
 
 if __name__ == "__main__":
     main()

@@ -44,7 +44,8 @@ def main():
             if date == 0:
                 count += 1
 
-    # The final date will be Jan 1 2001, so we need to disallow it if it was bad
+    # The final date will be Jan 1 2001, so we need to
+    # disallow it if it was bad
     if date == 0:
         count -= 1
     print count

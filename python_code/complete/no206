@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
-# Find the unique positive integer whose square has the form 1_2_3_4_5_6_7_8_9_0,
+# Find the unique positive integer whose square has the form
+# 1_2_3_4_5_6_7_8_9_0,
 # where each "_" is a single digit.
 
 # Since n**2 % 10 == 0, we know n = 10**k, hence

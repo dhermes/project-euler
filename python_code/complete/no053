@@ -9,10 +9,11 @@
 # When n is odd there are (n + 1)/2 values that occur twice
 # 1 4 6 4 1
 # When n is even, the maximum occurs at r = n/2
-# When n is even there are (n - 1)/2 values that occur twice, and one that occurs once
+# When n is even there are (n - 1)/2 values that occur twice, and
+# one that occurs once
 
-# In either case we go up to n/2 (integer division) and then add on the next integer,
-# In the odd case, it is double, in the even case only single
+# In either case we go up to n/2 (integer division) and then add on the
+# next integer, in the odd case, it is double, in the even case only single
 
 # n_C_r --> n_C_(r + 1), n!/(r!(n-r-1)!(n-r)) --> n!/((r+1) r!(n-r-1)!)
 

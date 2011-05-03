@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
-# The "Pentagonal Number Theorem" (a recurrence for the partition function) states:
+# The "Pentagonal Number Theorem" (a recurrence for the
+# partition function) states:
 
 #  p(k) = p(k - 1) + p(k - 2) - p(k - 5) - p(k - 7) + p(k - 12) + p(k - 15)
 

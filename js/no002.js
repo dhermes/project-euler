@@ -21,7 +21,7 @@
 
 function main() {
   var a = 2, b = 8, result = 2, tmp;
-  while ( b < 4000000 ) {
+  while (b < 4000000) {
     result += b;
 
     tmp = a;

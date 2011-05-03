@@ -34,7 +34,8 @@
 # Clearly
 # SP(M) = SP(M - 1) + #{paths of size axbxM with integer shortes path | a<=b<=M}
 
-# Initially SP(1) = 0 since the only cube is 1x1x1 and the min distance is sqrt(5)
+# Initially SP(1) = 0 since the only cube is 1x1x1 and
+# the min distance is sqrt(5)
 
 # The difference SP(M) - SP(M - 1) can be computed with the assumption
 # that c = M (the largest side) hence we need to find all

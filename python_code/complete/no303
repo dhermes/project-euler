@@ -34,8 +34,10 @@ def find(n, value_list):
         actual_list = next
         residue_form = [(residue*val) % n for val in actual_list]
 
-    best_match = min([val for val in actual_list if (residue*val) % n in needed_residues])
-    best_opposites = [val for val in value_list if val % n == (-(best_match*residue)) % n]
+    best_match = min([val for val in actual_list
+                      if (residue*val) % n in needed_residues])
+    best_opposites = [val for val in value_list
+                      if val % n == (-(best_match*residue)) % n]
     return (10**digs)*best_match + min(best_opposites)
 
 @euler_timer(303)

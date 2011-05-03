@@ -37,7 +37,8 @@ def solutions(limit):
     # Where L = x_k
     x_mult, y_mult, relation = get_recurrence([5, -1])
     starting_points = all_values_on_form([5, -1], 1)
-    series = [start_to_series(initial, x_mult, 'x') for initial in starting_points]
+    series = [start_to_series(initial, x_mult, 'x')
+              for initial in starting_points]
     result = [pair[0] for pair in series if pair[0] > 1]
     while len(result) < 2*limit:
         next = [pair[1] for pair in series if pair[1] > 1]

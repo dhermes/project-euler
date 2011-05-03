@@ -57,7 +57,8 @@
 # -> a = floor(1/r_i) = floor(C/(A rt(n) + B))
 # -> r_(i + 1) = (C*A, C*B - a*(n*A**2 - B**2), n*A**2 - B**2)
 # -> r_(i + 1) = (A', B', C') #reduce
-# then r_(i+1) = (C_i*A_i*rt(n) - [C_i*B_i + a_(i+1)*(n*A_i**2 - B_i**2)])/(n*A_i**2 - B_i**2)
+# then r_(i+1) = (C_i*A_i*rt(n) - [C_i*B_i + a_(i+1)*(n*A_i**2 - B_i**2)])
+#                 divided by (n*A_i**2 - B_i**2)
 
 from python_code.decorators import euler_timer
 from python_code.functions import continued_fraction_cycle

@@ -10,7 +10,8 @@
 # It turns out that n = 1155 is the least value which has exactly
 # ten solutions.
 
-# How many values of n less than one million have exactly ten distinct solutions?
+# How many values of n less than one million have exactly
+# ten distinct solutions?
 
 ###############################
 # Positive integers, a > k > 0

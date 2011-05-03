@@ -24,7 +24,11 @@ def main():
         return [(node_x + 1, node_y), (node_x - 1, node_y),
                 (node_x, node_y + 1), (node_x, node_y - 1)]
 
-    print astar(arranged_data, (0, 0), (size - 1, size - 1), heuristic, adjacent)
+    print astar(arranged_data,
+                (0, 0),
+                (size - 1, size - 1),
+                heuristic,
+                adjacent)
 
 if __name__ == "__main__":
     main()

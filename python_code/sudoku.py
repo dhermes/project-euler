@@ -189,22 +189,3 @@ def stack_assumptions(generators, i=0):
         for _ in generators[i]():
             for _ in stack_assumptions(generators, i+1):
                 yield
-
-
-if __name__=="__main__":
-
-
-    data=('006007403'
-          '000906020'
-          '500304006'
-          '740000010'
-          '809000304'
-          '010000057'
-          '200603005'
-          '030208000'
-          '405700200')
-
-    sudoku = Sudoku(data)
-
-    for _ in stack_assumptions(make_generators(sudoku)):
-        print sum([sudoku.board[0][i] for i in range(3)])

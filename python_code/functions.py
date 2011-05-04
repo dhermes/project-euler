@@ -505,11 +505,9 @@ def all_subsets(list_, size, unique=True):
         return [[element] for element in list_]
 
     if not unique:
-        result = []
-        for element in list_:
-            result.extend([[element] + subset for subset in
-                           all_subsets(list_, size - 1, False)])
-        return result
+        return reduce(operator.add, [[[element] + subset for subset in
+                                      all_subsets(list_, size - 1, False)]
+                                     for element in list_])
 
     # We can assume size > 1
     result = []

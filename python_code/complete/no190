@@ -21,8 +21,9 @@
 
 # P_10 = (2/11)**(55)*(1*4*...*(10**10)) = 4112.0850028536197
 
-from math import floor
 import operator
+
+from math import floor
 
 from python_code.decorators import euler_timer
 

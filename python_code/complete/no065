@@ -29,8 +29,9 @@
 # satisfies h_n = a_n h_(n-1) + h_(n-2) (and similar for k) with
 # h_(-1) = 1, h_(-2) = 0, k_(-1) = 0, k_(-2) = 1
 
-from fractions import gcd
 import operator
+
+from fractions import gcd
 
 from python_code.decorators import euler_timer
 from python_code.functions import recurrence_next

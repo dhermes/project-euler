@@ -13,8 +13,9 @@
 # f1*f2 = n**2 and then f1 = f2 = n
 # So we have (F(n) + 1)/2 solutions
 
-from itertools import product as i_product
 import operator
+
+from itertools import product as i_product
 
 from python_code.decorators import euler_timer
 from python_code.functions import power_up_to_digits

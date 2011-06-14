@@ -31,6 +31,7 @@
 # In general, we need to add/subtract back (index - 1 C 3)
 
 import operator
+
 from math import log
 
 from python_code.decorators import euler_timer

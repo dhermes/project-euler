@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import operator
+
 from math import factorial
 
 from python_code.decorators import euler_timer

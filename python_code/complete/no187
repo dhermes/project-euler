@@ -7,8 +7,8 @@
 # How many composite integers, n < 10**8, have precisely two, not necessarily
 # distinct, prime factors?
 
-from math import sqrt
 from bisect import bisect
+from math import sqrt
 
 from python_code.decorators import euler_timer
 from python_code.functions import sieve

@@ -348,14 +348,6 @@ def order_mod_n(value, n, hash_={}, prime_list=[]):
     hash_[n] = lcm(prime_order, quotient_order)
     return hash_[n]
 
-# 48
-def modular_exponentiate(n, exp, modulus):
-    """Raise n to the exp with respect to modulus"""
-    result = 1
-    for i in range(exp):
-        result = (n * result) % modulus
-    return result
-
 def polynomial_roots(coefficients):
     # Assumes coefficients = [a_0, a_1,..., a_n]
     # for f(x) = a_n x^n + ... + a_1 x + a_0

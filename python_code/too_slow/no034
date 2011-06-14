@@ -6,8 +6,9 @@
 # We know if n has d digits, then sum(n) <= d*9! = 362880d and n >= 10*(d-1)
 # hence sum(n) = n implies 3628800d >= 10^d. We must have d <= 7.
 
-from python_code.decorators import euler_timer
 from math import factorial
+
+from python_code.decorators import euler_timer
 
 def fact_sum_digs(n):
     return sum([factorial(int(dig)) for dig in str(n)])

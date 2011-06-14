@@ -23,7 +23,6 @@
 # f(a, k, 1) = 1
 # f(a, k, 2) = a % 2 (since a**P == a mod 2 for all P > 1)
 
-
 from python_code.decorators import euler_timer
 from python_code.functions import order_mod_n
 

@@ -12,8 +12,9 @@
 # If the product of these four fractions is given in its lowest common
 # terms, find the value of the denominator.
 
-from fractions import gcd
 import operator
+
+from fractions import gcd
 
 from python_code.decorators import euler_timer
 

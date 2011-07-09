@@ -1,0 +1,33 @@
+<html>
+  <head>
+    <script type="text/javascript"></script>
+    <script type="text/javascript">
+      function zero_pad(val, total_length) {
+        var result = val.toString();
+        while (result.length < total_length) {
+          result = "0" + result;
+        }
+        return result;
+      }
+ 
+      function load_js(problem_number) {
+        var script = document.getElementsByTagName('script')[0];
+        script.src = "no" + zero_pad(problem_number, 3) + ".js";
+      }
+
+      var url = window.location.toString(),
+          problem_number = url.split("execute.html?question=")[1];
+      load_js(problem_number);
+
+      function print_output() {
+        var statement = ["The answer to Euler Project, question",
+                         problem_number, "is:", main()];
+        var txtNode = document.createTextNode(statement.join(" "));
+        var body = document.getElementsByTagName('body')[0];
+        body.appendChild(txtNode);
+      }
+    </script>
+  </head>
+  <body onload="print_output();">
+  </body>
+</html>

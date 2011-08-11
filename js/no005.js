@@ -27,3 +27,6 @@ function min_product(n) {
 function main() {
     return min_product(20);
 };
+
+timer = require('./timer.js');
+timer.timer(5, main);

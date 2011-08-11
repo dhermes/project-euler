@@ -32,3 +32,6 @@ function main() {
         result = primes[10001-1];
     return result;
 };
+
+timer = require('./timer.js');
+timer.timer(7, main);

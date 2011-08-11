@@ -1,0 +1,3 @@
+Install node (v0.4.9) at https://github.com/joyent/node/wiki/Installation
+
+To run a question, simply execute "node no<problem number>.js"

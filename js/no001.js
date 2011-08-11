@@ -43,3 +43,6 @@ function main() {
 
     return final;
 };
+
+timer = require('./timer.js');
+timer.timer(1, main);

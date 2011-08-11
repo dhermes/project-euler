@@ -41,3 +41,6 @@ function max_array(arr) {
 function main() {
     return max_array(prime_factors(600851475143));
 };
+
+timer = require('./timer.js');
+timer.timer(3, main);

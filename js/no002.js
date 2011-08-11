@@ -30,3 +30,6 @@ function main() {
 
     return result;
 };
+
+timer = require('./timer.js');
+timer.timer(2, main);

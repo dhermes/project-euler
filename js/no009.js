@@ -19,3 +19,6 @@ function main() {
         result = triplet.reduce(function (a, b) { return a*b; }, 1);
     return result;
 };
+
+timer = require('./timer.js');
+timer.timer(9, main);

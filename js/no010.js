@@ -36,3 +36,6 @@ function main() {
         result = sum(primes);
     return result;
 };
+
+timer = require('./timer.js');
+timer.timer(10, main);

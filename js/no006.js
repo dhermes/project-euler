@@ -7,3 +7,6 @@ function main() {
         result = Math.abs(sum_first_100*sum_first_100 - sum_first_100_squares);
     return result;
 };
+
+timer = require('./timer.js');
+timer.timer(6, main);

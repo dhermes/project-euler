@@ -3,13 +3,15 @@
 /* Find the difference between the sum of the squares of the
    first one hundred natural numbers and the square of the sum */
 
-var timer = require('../timer.js');
+var fns = require('../functions.js'),
+    timer = require('../timer.js');
+
+function sumFirstNSq(n) {
+    return n * (n + 1) * (2 * n + 1) / 6;
+};
 
 function main() {
-    var sum_first_100 = 100*(100 + 1)/2,
-        sum_first_100_squares = 100*(100 + 1)*(2*100 + 1)/6,
-        result = Math.abs(sum_first_100*sum_first_100 - sum_first_100_squares);
-    return result;
+    return Math.abs(sumFirstNSq(100) - Math.pow(fns.polygonalNumber(3, 100), 2));
 };
 
 timer.timer(6, main);

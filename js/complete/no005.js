@@ -3,33 +3,21 @@
 /* What is the smallest positive number that is evenly
    divisible by all of the numbers from 1 to 20? */
 
-var timer = require('../timer.js');
+var fns = require('../functions.js'),
+    timer = require('../timer.js');
 
-function gcd(a, b) {
-    var M = Math.max(a, b),
-        m = Math.min(a, b);
-    if (m == 0) {
-        return M;
-    } else if (M == 0) {
-        return m;
-    } else if (M == m) {
-        return M;
-    }
-    return gcd(m, M % m);
-};
-
-function min_product(n) {
+function minProduct(n) {
     if (n < 2) {
         return 1;
     }
 
-    var product = min_product(n - 1),
-        shared_factors = gcd(product, n);
-    return (product*n)/shared_factors;
+    var product = minProduct(n - 1),
+        sharedFactors = fns.gcd(product, n);
+    return (product * n) / sharedFactors;
 };
 
 function main() {
-    return min_product(20);
+    return minProduct(20);
 };
 
 timer.timer(5, main);

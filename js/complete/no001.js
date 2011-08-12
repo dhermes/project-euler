@@ -5,48 +5,27 @@
   
    Find the sum of all the multiples of 3 or 5 below 1000. */
 
-var timer = require('../timer.js');
+var operator = require('../operator.js'),
+    timer = require('../timer.js');
 
-function all_multiples(bound, base) {
-    var result = [];
-    for(var i = 0; base*(i + 1) < bound; i++) {
-        result[i] = base*(i + 1);
-    }
-    return result;
-};
-
-function unique(arr) {
-    var hash = {}
-    for(var i = 0, val; val = arr[i]; i++) {
-        if (hash.hasOwnProperty(val)) {
-            hash[val] += 1;
-        } else {
-            hash[val] = 1;
+function filterHelper(values) {
+    result = function(n) {
+        for(var i = 0, val; value = values[i]; i++) {
+            if (!(n % value)) {
+                return true;
+            }
         }
-    }
+        return false;
+    };
 
-    var result = [];
-    for(var key in hash) {
-        result.push(parseInt(key));
-    }
-    return result;
-};
-
-function sum(arr) {
-    //not robust, expects integers or strings
-    var result = 0;
-    for(var i = 0, val; val = arr[i]; i++) {
-        result += val;
-    }
     return result;
 };
 
 function main() {
-    var both_sets = all_multiples(1000, 3).concat(all_multiples(1000, 5)),
-        uniq_mults = unique(both_sets),
-        final = sum(uniq_mults);
+    var multiples = operator.range(1, 1000);
+    multiples = multiples.filter(filterHelper([3, 5]));
 
-    return final;
+    return operator.sum(multiples);
 };
 
 timer.timer(1, main);

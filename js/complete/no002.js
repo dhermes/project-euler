@@ -20,16 +20,17 @@
             = 3F_{3n+3} + F_{3n+3} + F_{3n}
             = 4F_{3n+3} + F_{3n} */
 
-var timer = require('../timer.js');
+var fns = require('../functions.js'),
+    timer = require('../timer.js');
 
 function main() {
     var a = 2, b = 8, result = 2, tmp;
     while (b < 4000000) {
         result += b;
 
-        tmp = a;
-        a = b;
-        b = 4*b + tmp;
+        var tmp = fns.recurrenceNext([1, 4], [a, b]);
+        a = tmp[0];
+        b = tmp[1];
     }
 
     return result;

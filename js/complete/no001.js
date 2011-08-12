@@ -1,7 +1,12 @@
+#!/usr/local/bin/node
+
 /* If we list all the natural numbers below 10 that are multiples of 3 or 5,
    we get 3, 5, 6 and 9. The sum of these multiples is 23.
   
    Find the sum of all the multiples of 3 or 5 below 1000. */
+
+var timer = require('../timer.js');
+
 function all_multiples(bound, base) {
     var result = [];
     for(var i = 0; base*(i + 1) < bound; i++) {
@@ -44,5 +49,4 @@ function main() {
     return final;
 };
 
-timer = require('./timer.js');
 timer.timer(1, main);

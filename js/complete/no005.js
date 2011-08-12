@@ -1,5 +1,9 @@
+#!/usr/local/bin/node
+
 /* What is the smallest positive number that is evenly
    divisible by all of the numbers from 1 to 20? */
+
+var timer = require('../timer.js');
 
 function gcd(a, b) {
     var M = Math.max(a, b),
@@ -28,5 +32,4 @@ function main() {
     return min_product(20);
 };
 
-timer = require('./timer.js');
 timer.timer(5, main);

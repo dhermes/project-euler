@@ -1,4 +1,8 @@
+#!/usr/local/bin/node
+
 /* What is the largest prime factor of the number 600851475143 */
+
+var timer = require('../timer.js');
 
 function first_prime_divisor(n) {
     if (n === 1) {
@@ -42,5 +46,4 @@ function main() {
     return max_array(prime_factors(600851475143));
 };
 
-timer = require('./timer.js');
 timer.timer(3, main);

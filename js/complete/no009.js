@@ -1,6 +1,11 @@
+#!/usr/local/bin/node
+
 /* There exists exactly one Pythagorean triplet for which
    a + b + c = 1000. Find the product abc. */
 
+var timer = require('../timer.js'),
+    operator = require('../operator.js');
+3
 function first_triplet(total) {
     var c;
     for(var a = 1; a < total - 1; a++) {
@@ -11,14 +16,14 @@ function first_triplet(total) {
             }
         }
     }
-    return [-1, -1, -1]; // None found
+
+    return []; // None found
 };
 
 function main() {
     var triplet = first_triplet(1000),
-        result = triplet.reduce(function (a, b) { return a*b; }, 1);
+        result = triplet.reduce(operator.mul, 1);
     return result;
 };
 
-timer = require('./timer.js');
 timer.timer(9, main);

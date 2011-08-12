@@ -21,7 +21,7 @@ exports.timer = function (problem_number, main) {
     timeElapsed = timeDiff(timeStart, timeEnd);
     var statement = ['The answer to Euler Project, question ',
                      problem_number, ' is: ',
-                     result, '\nThis ran in ', timeElapsed];
+                     result, '\n\nThis solution ran in ', timeElapsed];
 
     console.log(statement.join(''));
 };

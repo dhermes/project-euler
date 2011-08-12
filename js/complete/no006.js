@@ -1,5 +1,9 @@
+#!/usr/local/bin/node
+
 /* Find the difference between the sum of the squares of the
    first one hundred natural numbers and the square of the sum */
+
+var timer = require('../timer.js');
 
 function main() {
     var sum_first_100 = 100*(100 + 1)/2,
@@ -8,5 +12,4 @@ function main() {
     return result;
 };
 
-timer = require('./timer.js');
 timer.timer(6, main);

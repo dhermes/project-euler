@@ -7,7 +7,7 @@ from python_code.functions import sieve
 
 @euler_timer(10)
 def main():
-    print sum(sieve(2000000-1))
+    print sum(sieve(2000000 - 1))
 
 if __name__ == "__main__":
     main()

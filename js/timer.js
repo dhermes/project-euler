@@ -1,10 +1,8 @@
 // To be used with timer = require('./timer.js')
 
 function timeDiff(time1, time2) {
-    var result = 60 * (time1.getMinutes() - time2.getMinutes()) +
-                 (time1.getSeconds() - time2.getSeconds()) +
-                 (time1.getMilliseconds() - time2.getMilliseconds()) / 1000;
-    result = Math.abs(result);
+    // Assumes times are instantiated via new Date()
+    var result = Math.abs(time1 - time2)/1000;
     if (result == 0) {
         return 'less than 0.001 seconds';
     } else if (result == 1) {

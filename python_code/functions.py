@@ -125,8 +125,7 @@ def fill_count(m, n):
             for bottom in range(m, sum_ai/k + 1):
                 for gp_ai in ascending(k, sum_ai, bottom, n + 1):
                     perm_count += total_perms(gp_ai)
-            add_value = perm_count*(factorial(n + 1 - sum_ai))
-            add_value = add_value/(factorial(k)*factorial(n + 1 - sum_ai - k))
+            add_value = perm_count*choose(n + 1 - sum_ai, k)
             count += add_value
     return count
 
@@ -170,6 +169,8 @@ def fibonacci_generator():
 def first_prime_divisor(n, prime_list=[]):
     if n == 1:
         return [1, 1]
+    elif n % 2 == 0:
+        return [2, n/2]
 
     if prime_list != []:
         for p in prime_list:
@@ -182,9 +183,9 @@ def first_prime_divisor(n, prime_list=[]):
         else:
             raise ValueError("Prime list poorly specified")
     else:
-        divisor = 2
+        divisor = 3
         while n % divisor != 0:
-            divisor += 1
+            divisor += 2
         return [divisor, n/divisor]
     raise ValueError("Bad input %s." % n)
 
@@ -234,7 +235,7 @@ def factors(n, factor_hash={}, primes=[]):
     return factor_hash[n]
 
 # 21, 23, 39
-def all_factors(n, hash_ = {1:[1], 2:[1,2], 3:[1,3]}):
+def all_factors(n, hash_={1: [1], 2: [1, 2], 3: [1, 3]}):
     """
     Takes n and optional hash of factors
 
@@ -247,7 +248,7 @@ def all_factors(n, hash_ = {1:[1], 2:[1,2], 3:[1,3]}):
 
     all_primes = sieve(n)
 
-    for i in range(4,n+1):
+    for i in range(4, n + 1):
         if i not in factor_hash:
             reduced = first_prime_divisor(i, all_primes)
             # This will update factor hash
@@ -258,10 +259,7 @@ def all_factors(n, hash_ = {1:[1], 2:[1,2], 3:[1,3]}):
 # 37, 41, 58
 def is_prime(n, primes=[], failure_point=None):
     if n < 10:
-        if n == 2 or n == 3 or n == 5 or n == 7:
-            return True
-        else:
-            return False
+        return n in [2, 3, 5, 7]
 
     # We safely assume n >= 10
     if n % 2 == 0 or n % 3 == 0 or n % 5 == 0 or n % 7 == 0:
@@ -326,8 +324,6 @@ def order_mod_n(value, n, hash_={}, prime_list=[]):
         # at this point, n is not in the hash_ but must be a
         # prime power
         base_residue = value % n
-        if base_residue < 0:
-            base_residue = base_residue + n
 
         residue = base_residue
         exponent = 1
@@ -377,8 +373,8 @@ def reverse_polygonal_number(sides, number, hash_={}):
         result = -1
     else:
         result = int(root_plus)
-    if hash_ != {}:
-        hash_[number] = result
+
+    hash_[number] = result
     return result
 
 # 72

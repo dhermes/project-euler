@@ -1,4 +1,4 @@
-#!/usr/local/bin/node
+#!/usr/bin/env node
 
 /* Find the greatest product of five consecutive
    digits in the 1000-digit number. */
@@ -8,7 +8,7 @@ var fns = require('../functions.js'),
     timer = require('../timer.js');
 
 function productConsecDigits(number, consecutive) {
-    /* Returns the largest product of "consecutive"
+    /* Returns the largest product of 'consecutive'
        consecutive digits from number */
     var digits = number.toString().split(''),
         maxStart = digits.length - consecutive,

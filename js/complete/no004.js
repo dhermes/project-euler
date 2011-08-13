@@ -1,4 +1,4 @@
-#!/usr/local/bin/node
+#!/usr/bin/env node
 
 /* A palindromic number reads the same both ways. The largest
    palindrome made from the product of two 2-digit numbers is

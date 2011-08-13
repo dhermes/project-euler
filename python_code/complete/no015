@@ -4,14 +4,13 @@
 # 6 routes (without backtracking) to the bottom right corner.
 # How many routes are there through a 20 x 20 grid?
 
-from math import factorial
-
 from python_code.decorators import euler_timer
+from python_code.functions import choose
 
 @euler_timer(15)
 def main():
     # In an n x m grid there are (n + m) C m = (n + m) C n such paths.
-    print factorial(20 + 20)/(factorial(20)*factorial(20))
+    print choose(20 + 20, 20)
 
 if __name__ == "__main__":
     main()

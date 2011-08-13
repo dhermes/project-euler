@@ -1,4 +1,7 @@
 Install node (v0.4.9) at https://github.com/joyent/node/wiki/Installation
 
 To run a script, simply execute "no<problem number>.js" or "./no<problem number>.js" on some systems.
-The shebang at the top is conditional on your node install.
+The shebang at the top should work with node installed.
+
+Install bigint
+https://github.com/substack/node-bigint

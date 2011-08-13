@@ -11,8 +11,7 @@ def main():
     number = get_data(13)
     numbers = [int(line) for line in number.split("\n") if line]
     total = sum(numbers)
-    first_digits = int(str(total)[:10])
-    print first_digits
+    print str(total)[:10]
 
 if __name__ == "__main__":
     main()

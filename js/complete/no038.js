@@ -3,36 +3,46 @@
 /* What is the largest 1 to 9 pandigital 9-digit number that can be formed as
    the concatenated product of an integer with (1,2, ... , n) where n > 1? */
 
-var fns = require('../functions.js'),
-    operator = require('../operator.js'),
+var operator = require('../operator.js'),
     timer = require('../timer.js');
 
-// def is_pandigital_9(str_):
-//     for dig in [str(elt) for elt in range(1, 10)]:
-//         if str_.count(dig) != 1:
-//             return False
-//     return True
+function isPandigitalNine(str) {
+    for (var dig = 1; dig < 10; dig++) {
+        if (str.split(dig).length != 2) { // more or less than 1 occurence
+            return false;
+        }
+    }
+    return true;
+};
 
-// def all_pandigitals_1_to_n(n):
-//     to_mult = range(1, n + 1)
-//     multiplier = 1
-//     result = []
+function allPandigitals1ToN(n) {
+    var toMult = operator.range(1, n + 1), multiplier = 1, result = [];
 
-//     curr = "".join([str(multiplier*elt) for elt in to_mult])
-//     while len(curr) < 10:
-//         if is_pandigital_9(curr):
-//             result.append(curr)
-//         multiplier += 1
-//         curr = "".join([str(multiplier*elt) for elt in to_mult])
+    function multipleMap(multiplier) {
+        var result = function(elt) {
+            return multiplier * elt;
+        };
+        return result;
+    };
 
-//     return result
+    var curr = toMult.map(multipleMap(multiplier)).join('');
+    while (curr.length < 10) {
+        if (isPandigitalNine(curr)) {
+            result.push(curr);
+        }
+        multiplier++;
+        curr = toMult.map(multipleMap(multiplier)).join('');
+    }
+
+    return result;
+};
 
 exports.main = function() {
-//     result = []
-//     for n in range(2, 10):
-//         result.extend(all_pandigitals_1_to_n(n))
-//     print max([int(elt) for elt in result])
-    return 1;
+    var result = [];
+    for (var n = 2; n < 10; n++) {
+        result = result.concat(allPandigitals1ToN(n));
+    }
+    return Math.max.apply(Math, result.map(Number));
 };
 
 if (require.main === module) {

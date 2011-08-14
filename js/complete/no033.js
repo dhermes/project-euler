@@ -16,38 +16,48 @@ var fns = require('../functions.js'),
     operator = require('../operator.js'),
     timer = require('../timer.js');
 
-// import operator
-// from fractions import gcd
+function canceledPair(numer, denom) {
+    var shared = [],
+        numerStr = numer.toString().split(''), 
+        denomStr = denom.toString().split(''),
+        numerCopy = numerStr, denomIndex;
+    for (var i = 0, digit; digit = numerStr[i]; i++) {
+        denomIndex = operator.inArray(digit, denomStr);
+        if (denomIndex != -1 && operator.inArray(digit, shared) == -1) {
+            shared.push(digit);
+            denomStr = denomStr.slice(0, denomIndex).concat(denomStr.slice(denomIndex + 1));
+            // Can't remove from numerStr while looping through it, use copy
+            numerCopy = numerCopy.slice(0, i).concat(numerCopy.slice(i + 1));
+        }
+    }
+    numerStr = numerCopy.length ? Number(numerCopy.join('')) : 0;
+    denomStr = denomStr.length ? Number(denomStr.join('')) : 0;
+    return [numerStr, denomStr];
+};
 
-// def canceled_pair(numer, denom):
-//     shared = set(str(numer)).intersection(set(str(denom)))
-//     result_n = [dig for dig in str(numer)]
-//     result_d = [dig for dig in str(denom)]
-//     for dig in shared:
-//         result_n.remove(dig) # Only removes first instance
-//         result_d.remove(dig) # Only removes first instance
-//     result_n = int("".join(result_n)) if result_n else 0
-//     result_d = int("".join(result_d)) if result_d else 0
-//     return result_n, result_d
-
-// def equals_canceled_pair(numer, denom):
-//     c_num, c_denom = canceled_pair(numer, denom)
-//     if c_num == numer and c_denom == denom:
-//         return False
-//     elif 10*c_num == numer:
-//         return False
-//     elif c_num == 0 and c_denom == 0:
-//         return False
-//     return (c_num*denom == c_denom*numer)
+function equalsCanceledPair(numer, denom) {
+    var canceled = canceledPair(numer, denom),
+        cNum = canceled[0], cDenom = canceled[1];
+    if ((cNum == numer && cDenom == denom) || 
+        (10 * cNum == numer) || (cNum == 0 && cDenom == 0)) {
+       return false;
+    }
+    return (cNum * denom == cDenom * numer);
+};
 
 exports.main = function() {
-//     pairs = [(numer, denom) for numer in range(10,99)
-//                             for denom in range(numer + 1, 100)
-//                             if equals_canceled_pair(numer, denom)]
-//     num = reduce(operator.mul, [pair[0] for pair in pairs])
-//     denom = reduce(operator.mul, [pair[1] for pair in pairs])
-//     print denom/(gcd(num,denom))
-    return 1;
+    var pairsNumer = [], pairsDenom = [], denom;
+    for (var numer = 10; numer < 99; numer++) {
+        for (denom = numer + 1; denom < 100; denom++) {
+            if (equalsCanceledPair(numer, denom)) {
+                pairsNumer.push(numer);
+                pairsDenom.push(denom);
+            }
+        }
+    }
+    var numer = pairsNumer.reduce(operator.mul),
+        denom = pairsDenom.reduce(operator.mul);
+    return denom / fns.gcd(numer, denom);
 };
 
 if (require.main === module) {

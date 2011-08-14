@@ -10,48 +10,51 @@
    value of the following expression.
    d_1 X d_10 X d_100 X d_1000 X d_10000 X d_100000 X d_1000000 */
 
-var fns = require('../functions.js'),
-    operator = require('../operator.js'),
+var operator = require('../operator.js'),
     timer = require('../timer.js');
 
-// import operator
+function numDigsWithUpToDDigits(d) {
+    /* The smallest number with d + 1 digits is 10**d
+       S = sum_(i = 1)^d i*9*10**(i - 1) = 0.9 * sum_(i = 1)^d i 10**i
+       10S - S = 0.9 sum_(i = 1)^d i 10**(i + 1) - 0.9 sum_(i = 1)^d i 10**i
+       10S = sum_(i = 2)^(d + 1) (i - 1) 10**i - sum_(i = 1)^d i 10**i
+       10S = d*10**(d + 1) - sum_(i = 1)^d 10**i
+       90S = 9*d*10**(d + 1) - 10**(d + 1) + 10
+       9S = (9*d - 1)*10**d + 1 */
+    return ((9 * d - 1) * Math.pow(10, d) + 1) / 9;
+};
 
-// def num_digs_with_up_to_d_digits(d):
-//     # The smallest number with d + 1 digits is 10**d
-//     # S = sum_(i = 1)^d i*9*10**(i - 1) = 0.9 * sum_(i = 1)^d i 10**i
-//     # 10S - S = 0.9 sum_(i = 1)^d i 10**(i + 1) - 0.9 sum_(i = 1)^d i 10**i
-//     # 10S = sum_(i = 2)^(d + 1) (i - 1) 10**i - sum_(i = 1)^d i 10**i
-//     # 10S = d*10**(d + 1) - sum_(i = 1)^d 10**i
-//     # 90S = 9*d*10**(d + 1) - 10**(d + 1) + 10
-//     # 9S = (9*d - 1)*10**d + 1
-//     return ((9*d - 1)*10**d + 1)/9
+function nthDigitOfFracPart(n) {
+    var numDigits = 1;
+    while (numDigsWithUpToDDigits(numDigits) < n) {
+        numDigits++;
+    }
 
-// def nth_digit_of_frac_part(n):
-//     num_digits = 1
-//     while num_digs_with_up_to_d_digits(num_digits) < n:
-//         num_digits += 1
+    /* We know the nth digit occurs in the block of integers with num_digits
+       digits. We want to determine which digit in the block it is */
+    var placeInDigits = n - numDigsWithUpToDDigits(numDigits - 1),
+        digitPlaceInNumber = ((placeInDigits - 1) % numDigits) + 1,
+        numbersPrior = Math.floor((placeInDigits - 1) / numDigits);
 
-//     # We know the nth digit occurs in the block of integers with num_digits
-//     # digits. We want to determine which digit in the block it is
-//     place_in_digits = n - num_digs_with_up_to_d_digits(num_digits - 1)
-//     digit_place_in_number = (place_in_digits - 1) % num_digits + 1
-//     # intended to be integer division
-//     numbers_prior = (place_in_digits - 1)/num_digits
-
-//     # Since there are numbers_prior numbers of num_digits digits prior to
-//     # the number we are interested in, we need to calculate which number it is
-//     # The smallest number with num_digits digits is 10**(num_digits - 1)
-//     num_of_interest = str(10**(num_digits - 1) + numbers_prior)
-//     return int(num_of_interest[digit_place_in_number - 1])
+    /* Since there are numbers_prior numbers of num_digits digits prior to
+       the number we are interested in, we need to calculate which number it is
+       The smallest number with num_digits digits is 10**(num_digits - 1) */
+    var numOfInterest = (Math.pow(10, numDigits - 1) + numbersPrior).toString();
+    return Number(numOfInterest[digitPlaceInNumber - 1]);
+};
 
 exports.main = function() {
-//     # d_1 X d_10 X d_100 X d_1000 X d_10000 X d_100000 X d_1000000
-//     result = [nth_digit_of_frac_part(10**exponent) for exponent in range(7)]
-//     digit_display = ["d_%s = %s" % (10**i, digit)
-//                      for i, digit in enumerate(result)]
-//     print "%s.\nThe digits are as follows: %s" % (reduce(operator.mul, result),
-//         ", ".join(digit_display))
-    return 1;
+    // d_1 X d_10 X d_100 X d_1000 X d_10000 X d_100000 X d_1000000
+    function mapPower10(exponent) {
+        return Math.pow(10, exponent);
+    };
+    var result = operator.range(7).map(mapPower10).map(nthDigitOfFracPart),
+        digitDisplay = [];
+    for (var i = 0, digit; digit = result[i]; i++) {
+        digitDisplay.push('d_' + Math.pow(10, i) + ' = ' + digit);
+    }
+    return [result.reduce(operator.mul), '.\nThe digits are as follows: ',
+            digitDisplay.join(', '), '.'].join('');
 };
 
 if (require.main === module) {

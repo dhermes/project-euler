@@ -8,7 +8,7 @@ var bigint = require('bigint'),
 ////////////////////////////////////////////////////////////
 
 // Helper for sieve
-function filledArray(size, value) {
+exports.filledArray = function(size, value) {
     // Returns [value, value, ..., value] (of size size)
     var result = [];
     for (var i = 0; i < size; i++) {
@@ -77,7 +77,7 @@ exports.getData = function(problemNumber) {
     return data.toString('utf8');
 };
 
-function robustDivide(n, quotient, includeCount) {
+exports.robustDivide = function(n, quotient, includeCount) {
     if (typeof includeCount == 'undefined') {
         includeCount = false;
     }
@@ -204,8 +204,8 @@ exports.primeDividesRepunitPower10 = function(prime, cap) {
     if (operator.inArray(prime, [2, 3, 5]) != -1) {
         return false;
     }
-    var countTwo = robustDivide(prime - 1, 2, true),
-        countFive = robustDivide(prime - 1, 5, true);
+    var countTwo = exports.robustDivide(prime - 1, 2, true),
+        countFive = exports.robustDivide(prime - 1, 5, true);
     countTwo = countTwo[1];
     countFive = countFive[1];
 
@@ -292,7 +292,7 @@ exports.primeFactors = function(n, unique, hash) {
     var divisionPair = firstPrimeDivisor(n),
         prime = divisionPair[0],
         quotient = divisionPair[1],
-        robustPair = robustDivide(n, prime, true),
+        robustPair = exports.robustDivide(n, prime, true),
         remaining = robustPair[0],
         count = robustPair[1];
 
@@ -300,7 +300,7 @@ exports.primeFactors = function(n, unique, hash) {
     if (unique) {
         result = [prime].concat(exports.primeFactors(remaining, unique, hash));
     } else {
-        result = filledArray(count, prime).concat(exports.primeFactors(remaining, unique, hash));
+        result = exports.filledArray(count, prime).concat(exports.primeFactors(remaining, unique, hash));
     }
 
     hash[n] = result;
@@ -415,7 +415,7 @@ exports.sieve = function(n) {
      *
      * Returns all primes <= n
     */
-    var toCheck = filledArray(n + 1, true);
+    var toCheck = exports.filledArray(n + 1, true);
         result = [];
     for (var i = 2; i <= n; i++) {
         if (toCheck[i]) {
@@ -451,7 +451,7 @@ exports.orderModN = function(value, n, hash, primeList) {
 
     var divis = firstPrimeDivisor(n, primeList),
         prime = divis[0],
-        quotient = robustDivide(n, prime);
+        quotient = exports.robustDivide(n, prime);
     if (quotient == 1) {
         /* at this point, n is not in the hash_ but must be a
            prime power */
@@ -509,7 +509,7 @@ exports.reversePolygonalNumber = function(sides, number, hash) {
         return hash[number];
     }
 
-    var roots = polynomial_roots([-2 * number, 4 - sides, sides - 2]),
+    var roots = exports.polynomialRoots([-2 * number, 4 - sides, sides - 2]),
         rootPlus = roots[0], result;
     if (rootPlus != Math.floor(rootPlus)) {
         result = -1;
@@ -591,6 +591,73 @@ exports.applyToList = function(fn, arr, nonMatch) {
         }
     }
 
+    return result;
+};
+
+exports.allPermutations = function(arr) {
+    var result = [[]], extended, j, perm, position;
+    for (var i = 0; i < arr.length; i++) {
+        extended = [];
+        for (j = 0; perm = result[j]; j++) {
+            for (position = 0; position <= i; position++) {
+                extended.push(perm.slice(0, position).concat(arr[i]).concat(perm.slice(position)));
+            }
+        }
+        result = extended;
+    }
+    return result;
+};
+
+exports.allPermutationsDigits = function(n) {
+    var digs = n.toString().split(''),
+        result = exports.allPermutations(digs);
+
+    function bindMap(arr) {
+        return Number(arr.join(''));
+    }
+    return result.map(bindMap);
+};
+
+exports.allSubsets = function(arr, size, unique) {
+    if (typeof unique == 'undefined') {
+        unique = true;
+    }
+
+    if (arr.length < size && unique) {
+	return; // List too small
+    }
+
+    // Base case
+    function arrayMap(elt) {
+        return [elt];
+    }
+    if (size == 1) {
+        if (unique) {
+            return operator.uniqSorted(arr).map(arrayMap);
+        } else {
+            return arr.map(arrayMap);
+        }
+    }
+
+    var result = [], i, subset, j, element, sub;
+    // We can assume size > 1
+    if (unique) {
+        var curr;
+        for(i = 0; i <= arr.length - size; i++) {
+            curr = arr.slice(i + 1);
+            subs = exports.allSubsets(curr, size - 1);
+            for (j = 0; subset = subs[j]; j++) {
+                result.push(subset.concat(arr[j]));
+            }
+        }
+    } else {
+        subs = exports.allSubsets(arr, size - 1, false);
+        for (i = 0; subset = subs[i]; i++) {
+            for (j = 0; element = arr[j]; j++) {
+                result.push(subset.concat(element));
+            }
+        }
+    }
     return result;
 };
 

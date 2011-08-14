@@ -5,55 +5,55 @@
 
    subsets of cardinality 5,6 */
 
-var fns = require('../functions.js'),
-    operator = require('../operator.js'),
+var operator = require('../operator.js'),
     timer = require('../timer.js');
 
-// def all_orderings(list_):
-//     if len(list_) == 1:
-//         return [list_]
+function allOrderings(arr) {
+    if (arr.length == 1) {
+        return [arr];
+    }
 
-//     result = []
-//     for elt in list_:
-//         sublist = list_[:]
-//         sublist.remove(elt)
-//         result.extend([[elt] + ordering
-//                        for ordering in all_orderings(sublist)])
+    var result = [], sublist;
+    for (var i = 0; i < arr.length; i++) {
+        sublist = arr.slice(0, i).concat(arr.slice(i + 1));
+        function addEltMap(ordering) {
+            return ordering.concat(arr[i]);
+        };
+        result = result.concat(allOrderings(sublist).map(addEltMap));
+    }
+    return result;
+};
 
-//     return result
+/* Will take a list and break it at various places, returning
+   the product of the integers formed */
+function possibleProducts(arr) {
+    var result = [], left, right;
+    for (var i = 1; i < arr.length; i++) { 
+        left = arr.slice(0, i).join('');
+        right = arr.slice(i).join('');
+        result.push(Number(left) * Number(right));
+    }
 
-// # Will take a list and break it at various places, returning
-// # the product of the integers formed
-// def possible_products(list_):
-//     result = []
-
-//     for i in range(1,len(list_)):
-//         left = list_[:i]
-//         left = int("".join([str(elt) for elt in left]))
-//         right = list_[i:]
-//         right = int("".join([str(elt) for elt in right]))
-//         result.append(left*right)
-
-//     return result
+    return result;
+};
 
 exports.main = function() {
-//     products = set()
-//     candidates = all_orderings(range(1,10))
-//     for candidate in candidates:
-//         prods = possible_products(candidate[:5])
-//         last4 = candidate[-4:]
-//         last4 = int("".join([str(elt) for elt in last4]))
-//         if last4 in prods:
-//             products.add(last4)
+    var products = [], candidates = allOrderings(operator.range(1, 10)), prods, last4, last3;
+    for (var i = 0, candidate; candidate = candidates[i]; i++) {
+        prods = possibleProducts(candidate.slice(0, 5));
+        last4 = Number(candidate.slice(-4).join(''));
+        if (operator.inArray(last4, prods) != -1 && operator.inArray(last4, products) == -1) {
+            products.push(last4);
+        }
 
-//         prods = possible_products(candidate[:6])
-//         last3 = candidate[-3:]
-//         last3 = int("".join([str(elt) for elt in last3]))
-//         if last3 in prods:
-//             products.add(last3)
+        prods = possibleProducts(candidates.slice(0, 6));
+        last3 = Number(candidate.slice(-3).join(''));
+        if (operator.inArray(last3, prods) != -1 && operator.inArray(last3, products) == -1) {
+            products.push(last3);
+        }
+    }
 
-//     print sum(products)
-    return 1;
+    return operator.sum(products);
 };
 
 if (require.main === module) {

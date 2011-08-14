@@ -2,7 +2,7 @@
 
 # Triangular: T_n = n(n+1)/2
 # Pentagonal: P_n = n(3n-1)/2
-#  Hexagonal: H_n = n(2n-1)
+# Hexagonal: H_n = n(2n-1)
 
 # T_285 = P_165 = H_143
 # Find the next such Triangular number.

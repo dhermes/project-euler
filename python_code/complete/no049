@@ -43,7 +43,7 @@ def main():
         if len(candidate) >= 3:
             soln = find_arithmetic(candidate)
             if soln:
-                result.append("".join([str(num) for num in soln]))
+                result.append("".join([str(num) for num in sorted(soln)]))
     print result[0]
 
 if __name__ == "__main__":

@@ -12,19 +12,25 @@
    What is the total of all the name scores in the file? */
 
 var fns = require('../functions.js'),
-    operator = require('../operator.js'),
     timer = require('../timer.js');
 
-// from python_code.functions import get_data
-
-// def name_score(name):
-//     return sum([(ord(letter.upper()) - ord('A') + 1) for letter in name])
+function nameScore(name) {
+    name = name.toUpperCase();
+    var baseVal = 'A'.charCodeAt(0) - 1, result = 0;
+    for (var i = 0; i < name.length; i++) {
+        result += name.charCodeAt(i) - baseVal;
+    }
+    return result;
+};
 
 exports.main = function() {
-//     # The name file is a comma separated file with quotes
-//     names = sorted(get_data(22).strip('"').split('","'))
-//     print sum([(i + 1)*name_score(name) for i, name in enumerate(names)])
-    return 1;
+    // The name file is a comma separated file with quotes
+    var names = fns.getData(22).slice(1, -1).split('","'), result = 0;
+    names.sort();
+    for (var i = 0, name; name = names[i]; i++) {
+        result += (i + 1) * nameScore(name);
+    }
+    return result;
 };
 
 if (require.main === module) {

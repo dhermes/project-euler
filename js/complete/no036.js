@@ -7,40 +7,41 @@ var fns = require('../functions.js'),
     operator = require('../operator.js'),
     timer = require('../timer.js');
 
-// from python_code.functions import is_palindrome
+function binaryIncrementer(str) {
+    var digs = str.split('').map(Number), tmp;
+    digs[digs.length - 1]++;
+    for (var i = digs.length - 1; i >= 0; i--) {
+        if (digs[i] > 1) {
+            tmp = digs[i];
+            digs[i] = tmp % 2;
+            if (i) {
+                digs[i - 1] += Math.floor(tmp / 2);
+            } else {
+                digs = [Math.floor(tmp / 2)].concat(digs);
+            }
+        } else {
+            break;
+        }
+    }
+    return digs.join('');
+};
 
-// def binary_incrementer(str_):
-//     digs = [int(dig) for dig in str_]
-//     digs[-1] += 1
-//     for i in range(len(digs) - 1, -1, -1):
-//         if digs[i] > 1:
-//             temp = digs[i]
-//             digs[i] = temp % 2
-//             if i == 0:
-//                 digs = [temp/2] + digs
-//             else:
-//                 digs[i - 1] += temp/2 # int division intended
-//         else:
-//             break
-//     return "".join([str(dig) for dig in digs])
-
-// def all_base10_base2_palindromes(n):
-//     result = []
-//     base_10 = 1
-//     base_2 = "1"
-
-//     while base_10 < n:
-//         if is_palindrome(base_10) and is_palindrome(base_2):
-//             result.append(base_10)
-//         base_10 += 1
-//         base_2 = binary_incrementer(base_2)
-//     return result
+function allBase10Base2Palindromes(n) {
+    var result = [], base10 = 1, base2 = '1';
+    while (base10 < n) {
+        if (fns.isPalindrome(base10) && fns.isPalindrome(base2)) {
+            result.push(base10);
+        }
+        base10++;
+        base2 = binaryIncrementer(base2);
+    }
+    return result;
+};
 
 exports.main = function() {
-//     ans = all_base10_base2_palindromes(10**6)
-//     print "%s.\nThe full list of palindromes is: %s" % (sum(ans),
-//         ", ".join([str(number) for number in ans]))
-    return 1;
+    var ans = allBase10Base2Palindromes(Math.pow(10, 6));
+    return [operator.sum(ans), '.\nThe full list of palindromes is: ',
+            ans.join(', '), '.'].join('');
 };
 
 if (require.main === module) {

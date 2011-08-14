@@ -12,33 +12,47 @@ var fns = require('../functions.js'),
     operator = require('../operator.js'),
     timer = require('../timer.js');
 
-// def polynomial_add(left, right):
-//     max_len = max(len(left), len(right))
-//     to_add_left = [0]*(max_len - len(left)) + left[:]
-//     to_add_right = [0]*(max_len - len(right)) + right[:]
-//     return [to_add_left[i] + to_add_right[i] for i in range(max_len)]
+function polynomialAdd(left, right) {
+    var maxLen = Math.max(left.length, right.length),
+        toAddLeft = fns.filledArray(maxLen - left.length, 0).concat(left),
+        toAddRight = fns.filledArray(maxLen - right.length, 0).concat(right);
+    function toAddMap(index) {
+        return toAddLeft[index] + toAddRight[index];
+    };
+    return operator.range(maxLen).map(toAddMap);
+};
 
-// # represent ax^n + bx^(n-1) + ... + c as [c,...b,a]
-// # 1 + 2x + x^2 + 2x^3 = (1+2x)*(1+x^2) =
-// # [1,2]*[1,0,1] = [1,0,1,0] + [2,0,2] = [1,2,1,2]
-// def polynomial_mult(f, g):
-//     result = []
-//     for ind in range(len(f)):
-//         to_add = [f[-ind - 1]*coeff for coeff in g] + [0] * ind
-//         result = polynomial_add(result, to_add)
-//     return result
+/* represent ax^n + bx^(n-1) + ... + c as [c,...b,a]
+   1 + 2x + x^2 + 2x^3 = (1+2x)*(1+x^2) =
+   [1,2]*[1,0,1] = [1,0,1,0] + [2,0,2] = [1,2,1,2] */
+function polynomialMult(f, g) {
+    var result = [], toAdd;
+    for (var ind = 0; ind < f.length; ind++) {
+        function multEltMap(coeff) {
+            return f[f.length - ind - 1] * coeff;
+        };
+        toAdd = g.map(multEltMap).concat(fns.filledArray(ind, 0));
+        result = polynomialAdd(result, toAdd);
+    }
+    return result;
+};
 
-// def generating_poly(max_power, base):
-//     add_on = [0]*(base - 1) + [1]
-//     return [1] + add_on * (max_power/base)
+function generatingPoly(maxPower, base) {
+    var addOn = fns.filledArray(base - 1, 0).concat(1),
+        result = [1];
+    for (var i = 0; i < Math.floor(maxPower /  base); i++) {
+        result = result.concat(addOn);
+    }
+    return result;
+};
 
 exports.main = function() {
-//     prod = generating_poly(200,1)
-//     coins = [2, 5, 10, 20, 50, 100, 200]
-//     for coin in coins:
-//         prod = polynomial_mult(prod, generating_poly(200,coin))
-//     print prod[200]
-    return 1;
+    var prod = generatingPoly(200, 1),
+        coins = [2, 5, 10, 20, 50, 100, 200];
+    for (var i = 0, coin; coin = coins[i]; i++) {
+        prod = polynomialMult(prod, generatingPoly(200, coin));
+    }
+    return prod[200];
 };
 
 if (require.main === module) {

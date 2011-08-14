@@ -16,28 +16,29 @@ var fns = require('../functions.js'),
     operator = require('../operator.js'),
     timer = require('../timer.js');
 
-// import string
-// from python_code.functions import get_data
-// from python_code.functions import reverse_polygonal_number
+function wordToValue(word) {
+    var letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    function indexToVal(letter) {
+        return operator.inArray(letter, letters) + 1;
+    };
+    return operator.sum(word.split('').map(indexToVal));
+};
 
-// def word_to_value(word):
-//     letters = string.uppercase
-//     return sum([letters.find(letter) + 1 for letter in word])
-
-// def num_triangle():
-//     # Assumes file is "A","ABILITIY","ABLE",...
-//     words = get_data(42).strip('"').split('","')
-//     vals = [word_to_value(word) for word in words]
-//     triangle_hash = {}
-//     count = 0
-//     for val in vals:
-//         if reverse_polygonal_number(3, val, triangle_hash) != -1:
-//             count += 1
-//     return count
+function numTriangle() {
+    // Assumes file is "A","ABILITIY","ABLE",...
+    var words = fns.getData(42).slice(1, -1).split('","'),
+        vals = words.map(wordToValue),
+        triangleHash = {}, count = 0;
+    for (var i = 0, val; val = vals[i]; i++) {
+        if (fns.reversePolygonalNumber(3, val, triangleHash) != -1) {
+            count++;
+        }
+    }
+    return count;
+};
 
 exports.main = function() {
-//     print num_triangle()
-    return 1;
+    return numTriangle();
 };
 
 if (require.main === module) {

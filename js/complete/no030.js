@@ -7,22 +7,26 @@
    so sum(n) = n implies 10*(9**5 d) >= 10**d,
    ln(10 * 9**5) + ln(d) >= d ln(10), so d <= 6 */
 
-var fns = require('../functions.js'),
-    operator = require('../operator.js'),
+var operator = require('../operator.js'),
     timer = require('../timer.js');
 
-// def sum_of_digits_powers(n, power):
-//     return sum([int(dig)**power for dig in str(n)])
+function sumOfDigitsPowers(n, power) {
+    function mapPower(dig) {
+        return Math.pow(Number(dig), power);
+    };
+    return operator.sum(n.toString().split('').map(mapPower));
+};
 
 exports.main = function() {
-//     valid = []
-//     for i in xrange(2,999999 + 1):
-//         if sum_of_digits_powers(i, 5) == i:
-//             valid.append(i)
+    var valid = [];
+    for (var i = 2; i < 1000000; i++) {
+        if (sumOfDigitsPowers(i, 5) == i) {
+            valid.push(i);
+        }
+    }
 
-//     print "%s.\nThe numbers satisfying this property are: %s." % (sum(valid),
-//         ", ".join([str(num) for num in valid]))
-    return 1;
+    return [operator.sum(valid), '.\nThe numbers satisfying this property are: ',
+            valid.join(', '), '.'].join('');
 };
 
 if (require.main === module) {

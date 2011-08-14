@@ -12,14 +12,14 @@ def all_triples(p, factors_hash={}):
     if p/2 in factors_hash:
         choices_k = factors_hash[p/2]
     else:
-        choices_k = all_factors(p/2)[p/2]
+        choices_k = all_factors(p/2, factors_hash)[p/2]
 
     result = []
     for k in choices_k:
         if p/(2*k) in factors_hash:
             choices_m = factors_hash[p/(2*k)]
         else:
-            choices_m = all_factors(p/(2*k))[p/(2*k)]
+            choices_m = all_factors(p/(2*k), factors_hash)[p/(2*k)]
 
         # 2*k*m*(m + n) = p
         for m in choices_m:
@@ -49,14 +49,21 @@ def all_triangles_up_to_n(n):
 
 @euler_timer(39)
 def main():
-    all = all_triangles_up_to_n(1000)
+    all_tri = all_triangles_up_to_n(1000)
     lengths = {}
-    for key in all:
-        lengths[key] = len(all[key])
-        max_keys = [key for key, value in lengths.items()
-                    if value == max(lengths.values())]
+    max_val = -1
+    max_keys = []
+    for key, value in all_tri.iteritems():
+        curr_length = len(value)
+        if curr_length > max_val:
+            max_keys = [key]
+            max_val = curr_length
+        elif curr_length == max_val:
+            max_keys.append(key)
+
     if len(max_keys) != 1:
         raise("Keys are not unique")
+
     print max_keys[0]
 
 if __name__ == "__main__":

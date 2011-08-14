@@ -56,12 +56,14 @@ var fns = require('../functions.js'),
     timer = require('../timer.js');
 
 exports.main = function() {
-//     a, b = 1, 3
-//     for i in range(8):
-//         a, b = b, 4*b - a
-//     # Now b = x_9
-//     print (b**2 - 1)/8
-    return 1;
+    var a = 1, b = 3, tmp;
+    for (var i = 0; i < 8; i++) {
+        tmp = b;
+        b = 4*b - a;
+        a = tmp;
+    }
+    // Now b = x_9
+    return (b * b - 1) / 8;
 };
 
 if (require.main === module) {

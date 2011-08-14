@@ -16,38 +16,49 @@ var fns = require('../functions.js'),
     operator = require('../operator.js'),
     timer = require('../timer.js');
 
-// from python_code.functions import all_subsets
-// from python_code.functions import sieve
+function findArithmetic(arr) {
+    if (arr.length < 3) {
+        return; // List wrong size.
+    }
 
-// def find_arithmetic(list_):
-//     if len(list_) < 3:
-//         raise ValueError("List wrong size.")
-
-//     candidates = all_subsets(list_, 3)
-//     for cand in candidates:
-//         if cand[0] + cand[2] == 2*cand[1]:
-//             return cand
-//     return []
+    var candidates = fns.allSubsets(arr, 3);
+    for (var i = 0, cand; cand = candidates[i]; i++) {
+        if (cand[0] + cand[2] == 2 * cand[1]) {
+            return cand;
+        }
+    }
+    return [];
+};
 
 exports.main = function() {
-//     primes = [prime for prime in sieve(10000) if prime > 999]
-//     primes_by_digits = {}
-//     for prime in primes:
-//         key = "".join(sorted([digit for digit in str(prime)]))
-//         if key in primes_by_digits:
-//             primes_by_digits[key].append(prime)
-//         else:
-//             primes_by_digits[key] = [prime]
+    function geValFilter(val) {
+        var result = function(number) {
+            return number > val;
+        };
+        return result;
+    };
+    var primes = fns.sieve(10000).filter(geValFilter(999)),
+        primesByDigits = {}, key;
+    for (var i = 0, prime; prime = primes[i]; i++) {
+        key = prime.toString().split('').sort().join(''); //
+        if (key in primesByDigits) {
+            primesByDigits[key].push(prime);
+        } else {
+            primesByDigits[key] = [prime];
+        }
+    }
 
-//     result = []
-//     for key in primes_by_digits:
-//         candidate = primes_by_digits[key]
-//         if len(candidate) >= 3:
-//             soln = find_arithmetic(candidate)
-//             if soln:
-//                 result.append("".join([str(num) for num in soln]))
-//     print result[0]
-    return 1;
+    var result = [], candidate, soln;
+    for (key in primesByDigits) {
+        candidate = primesByDigits[key];
+        if (candidate.length > 2) {
+            soln = findArithmetic(candidate);
+            if (soln.length) {
+                result.push(operator.uniqSorted(soln).join(''));
+            }
+        }
+    }
+    return result[0]; // No solution found
 };
 
 if (require.main === module) {

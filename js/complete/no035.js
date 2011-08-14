@@ -9,40 +9,64 @@ var fns = require('../functions.js'),
     operator = require('../operator.js'),
     timer = require('../timer.js');
 
-// from python_code.functions import sieve
+function containsOnlyDigits(n, digits) {
+    var nDigits = n.toString().split('').map(Number);
+    for (var i = 0, dig; dig = nDigits[i]; i++) {
+        if (operator.inArray(dig, digits) == -1) {
+            return false;
+        }
+    }
+    return true;
+};
 
-// def contains_only_digits(n, digits):
-//     n_digits = [int(dig) for dig in str(n)]
-//     return set(n_digits) <= set(digits)
+function allCircularPerms(arr) {
+    var n = arr.length, result = [], indices;
 
-// def all_circular_perms(list_):
-//     n = len(list_)
-//     result = []
-//     for lead in range(n):
-//         indices = [index % n for index in range(lead, lead + n)]
-//         result.append([list_[index] for index in indices])
-//     return result
+    function modularIndexLookupMap(index) {
+        return arr[index % n];
+    };
 
-// def all_circular_perms_int(n):
-//     digs = [dig for dig in str(n)]
-//     return [int(''.join(perm)) for perm in all_circular_perms(digs)]
+    for (var lead = 0; lead < n; lead++) {
+        result.push(operator.range(lead, lead + n).map(modularIndexLookupMap));
+    }
+    return result;
+};
 
-// def all_circular_perm_in(prime, primes):
-//     perms = all_circular_perms_int(prime)
-//     return set(perms) <= set(primes)
+function allCircularPermsInt(n) {
+    var digs = n.toString().split('');
+    function permJoinMap(perm) {
+        return Number(perm.join(''));
+    };
+    return allCircularPerms(digs).map(permJoinMap);
+};
 
-// def all_circular(n):
-//     # the number of digits limits the size of all permutations
-//     digs = len(str(n))
-//     possible_primes = [2, 5] + \
-//         [prime for prime in sieve(10**digs - 1)
-//          if contains_only_digits(prime, [1, 3, 7, 9])]
-//     return [prime for prime in possible_primes if prime <= n
-//              and all_circular_perm_in(prime, possible_primes)]
+function allCircularPermIn(prime, primes) {
+    var perms = allCircularPermsInt(prime);
+    for (var i = 0, perm; perm = perms[i]; i++) {
+        if (operator.inArray(perm, primes) == -1) {
+            return false;
+        }
+    }
+    return true;
+};
+
+function allCircular(n) {
+    // the number of digits limits the size of all permutations
+    var digs = n.toString().length;
+    function sieveFilter(prime) {
+        return containsOnlyDigits(prime, [1, 3, 7, 9]);
+    };
+    var possiblePrimes = fns.sieve(Math.pow(10, digs) - 1).filter(sieveFilter).concat([2, 5]);
+
+    function possiblePrimesFilter(prime) {
+        return (prime <= n && allCircularPermIn(prime, possiblePrimes));
+    };
+    return possiblePrimes.filter(possiblePrimesFilter);
+};
 
 exports.main = function() {
-    //    print len(all_circular(10**6 - 1))
-    return 1;
+    var result = allCircular(Math.pow(10, 6) - 1);
+    return result.length;
 };
 
 if (require.main === module) {

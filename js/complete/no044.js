@@ -20,49 +20,51 @@ var fns = require('../functions.js'),
     operator = require('../operator.js'),
     timer = require('../timer.js');
 
-// from python_code.functions import polygonal_number
-// from python_code.functions import reverse_polygonal_number
-
-// def increment_pair(pair):
-//     """
-//     Increments pair by traversing through all
-//     k for a given j until 1 is reached, then starting
-//     back up with the next highest value for j
-
-//     E.G. [1,2]-->[2,3]-->[1,3]-->[3,4]-->[2,4]-->...
-//     """
-//     k, j = pair
-//     k -= 1
-//     if k > 0:
-//         return [k, j]
-//     else:
-//         return [j, j + 1]
+function incrementPair(pair) {
+    /**
+     * Increments pair by traversing through all
+     * k for a given j until 1 is reached, then starting
+     * back up with the next highest value for j
+     *
+     * E.G. [1,2]-->[2,3]-->[1,3]-->[3,4]-->[2,4]-->...
+     */
+    var k = pair[0], j = pair[1];
+    k--;
+    if (k > 0) {
+        return [k, j];
+    } else {
+        return [j, j + 1];
+    }
+};
 
 exports.main = function() {
-//     # Not only finds the minimum, but also checks to make sure
-//     # it is the smallest. Since P_j - P_k >= P_j - P_(j-1) = 3j - 2
-//     # If 3j - 2 > D, then P_j - P_k > D, and we not longer need to
-//     # check the minimum
-//     pair = [1, 2]
-//     D = -1
-//     while D == -1 or 3*pair[1] - 2 <= D:
-//         vals = [polygonal_number(5, val) for val in pair]
-//         difference = abs(vals[0] - vals[1])
-//         if D != -1 and difference > D:
-//             # since increment decreases the first argument, if
-//             # we go past the difference, we can stop checking
-//             # [k, j] for a fixed j, and we just bypass
-//             # by incrementing j
-//             last = pair[1]
-//             pair = [last, last + 1]
-//         else:
-//             if reverse_polygonal_number(5, difference) != -1:
-//                 if reverse_polygonal_number(5, sum(vals)) != -1:
-//                     if D == -1 or difference < D:
-//                         D = difference
-//             pair = increment_pair(pair)
-//     print D
-    return 1;
+    /* Not only finds the minimum, but also checks to make sure
+       it is the smallest. Since P_j - P_k >= P_j - P_(j-1) = 3j - 2
+       If 3j - 2 > D, then P_j - P_k > D, and we not longer need to
+       check the minimum */
+    var pair = [1, 2], D = -1, vals, difference, last;
+    while (D == -1 || 3 * pair[1] - 2 <= D) {
+        vals = [fns.polygonalNumber(5, pair[0]), fns.polygonalNumber(5, pair[1])];
+        difference = Math.abs(vals[0] - vals[1]);
+        if (D != -1 && difference > D) {
+            /* since increment decreases the first argument, if
+               we go past the difference, we can stop checking
+               [k, j] for a fixed j, and we just bypass
+               by incrementing j */
+            last = pair[1];
+            pair = [last, last + 1];
+        } else {
+            if (fns.reversePolygonalNumber(5, difference) != -1) {
+                if (fns.reversePolygonalNumber(5, operator.sum(vals)) != -1) {
+                    if (D == -1 || difference < D) {
+                        D = difference;
+                    }
+                }
+            }
+            pair = incrementPair(pair);
+        }
+    }
+    return D;
 };
 
 if (require.main === module) {

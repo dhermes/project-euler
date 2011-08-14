@@ -14,6 +14,10 @@ exports.sum = function(arr) {
     return arr.reduce(exports.add, 0);
 };
 
+exports.bigIntPow = function(a, b) {
+    return bigint(a).pow(b).toString();
+};
+
 exports.bigintSum = function(arr) {
     // assumes arr is full of strings
     var result = bigint('0');
@@ -66,14 +70,23 @@ exports.sortNumber = function(a, b) {
     return a - b;
 };
 
-exports.uniqSorted = function(arr) {
+exports.uniqSorted = function(arr, isNumber) {
+    if (typeof isNumber == 'undefined') {
+        isNumber = true;
+    }
+
     var result = [];
     for (var i = 0, val; val = arr[i]; i++) {
         if (exports.inArray(val, result) == -1) {
             result.push(val);
         }
     }
-    result.sort(exports.sortNumber);
+
+    if (isNumber) {
+        result.sort(exports.sortNumber);
+    } else {
+        result.sort();
+    }
     return result;
 };
 
@@ -84,4 +97,17 @@ exports.extend = function(destination, source) {
         }
     }
     return destination;
+};
+
+exports.arrCompare = function(arr1, arr2) {
+    if (arr1.length != arr2.length) {
+        return false;
+    }
+
+    for (var i = 0; i < arr1.length; i++) {
+        if (arr1[i] != arr2[i]) {
+            return false;
+        }
+    }
+    return true;
 };

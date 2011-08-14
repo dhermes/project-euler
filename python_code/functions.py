@@ -490,7 +490,10 @@ def all_subsets(list_, size, unique=True):
 
     # Base case
     if size == 1:
-        return [[element] for element in list_]
+        if unique:
+            return [[element] for element in set(list_)]
+        else:
+            return [[element] for element in list_]
 
     if not unique:
         return reduce(operator.add, [[[element] + subset for subset in

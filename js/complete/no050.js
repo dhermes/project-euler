@@ -16,82 +16,118 @@ var fns = require('../functions.js'),
     operator = require('../operator.js'),
     timer = require('../timer.js');
 
-// from math import sqrt
-// from python_code.functions import sieve
+function maxPrimeLength(digits, primes) {
+    /**
+     * Returns the length of the longest string of primes
+     * (starting at 2,3,5,...) that will sum to less 10**digits
+     */
+    if (typeof primes == 'undefined') {
+        primes = [];
+    }
+    var cap = Math.pow(10, digits);
+    if (primes.length == 0) {
+        primes = fns.sieve(Math.floor(4 * Math.sqrt(cap)));
+    }
+    var count = 0, numPrimes = 0;
+    for (var i = 0, prime; prime = primes[i]; i++) {
+        if (count + prime < cap) {
+            count += prime;
+            numPrimes++;
+        } else {
+            return numPrimes;
+        }
+    }
+    return; // maxPrimeLength failed logic.
+};
 
-// def max_prime_length(digits, primes = []):
-//     """
-//     Returns the length of the longest string of primes
-//     (starting at 2,3,5,...) that will sum to less 10**digits
-//     """
-//     cap = 10**digits
-//     if primes == []:
-//         primes = sieve(int(4*sqrt(cap)))
-//     count = 0
-//     num_primes = 0
-//     for prime in primes:
-//         if count + prime < cap:
-//             count += prime
-//             num_primes += 1
-//         else:
-//             return num_primes
-//     raise ValueError("max_prime_length failed logic.")
+function allPrimeSeqs(length, digits, primes) {
+    /**
+     * Returns all sequences of primes of
+     *
+     * Assumes length <= max_prime_length(digits)
+     */
+    if (typeof primes == 'undefined') {
+        primes = [];
+    }
 
-// def all_prime_seqs(length, digits, primes = []):
-//     """
-//     Returns all sequences of primes of
+    var cap = Math.pow(10, digits);
+    if (primes.length == 0) {
+        primes = fns.sieve(cap);
+    }
 
-//     Assumes length <= max_prime_length(digits)
-//     """
-//     cap = 10**digits
-//     if primes == []:
-//         primes = sieve(cap)
+    var result = [], finalIndex = length - 1,
+        curr = primes.slice(finalIndex - length + 1, finalIndex + 1),
+        runningSum = operator.sum(curr);
+    while (runningSum < cap) {
+        runningSum -= curr[0]; // remove the smallest value from the sum
+        result.push(curr);
+        finalIndex++;
+        curr = primes.slice(finalIndex - length + 1, finalIndex + 1),
+        runningSum += curr[curr.length - 1]; // add the new largest
+    }
+    return result;
+};
 
-//     result = []
-//     final_index = length - 1
-//     curr = primes[final_index - length + 1:final_index + 1]
-//     running_sum = sum(curr)
-//     while running_sum < cap:
-//         running_sum -= curr[0] # remove the smallest value from the sum
-//         result.append(curr)
-//         final_index += 1
-//         curr = primes[final_index - length + 1:final_index + 1]
-//         running_sum += curr[-1] # add the new largest
-//     return result
+function primeSequenceExists(length, digits, primes) {
+    /**
+     * Returns True if a sequence of length consecutive primes which sums
+     * to less than 10**digits also sums to a prime number
+     */
+    if (typeof primes == 'undefined') {
+        primes = [];
+    }
 
-// def prime_sequence_exists(length, digits, primes = []):
-//     """
-//     Returns True if a sequence of length consecutive primes which sums
-//     to less than 10**digits also sums to a prime number
-//     """
-//     cap = 10**digits
-//     if primes == []:
-//         primes = sieve(cap)
-//     sums = [sum(seq) for seq in all_prime_seqs(length, digits, primes)]
-//     return (set(sums).intersection(primes) != set())
+    var cap = Math.pow(10, digits);
+    if (primes.length == 0) {
+        primes = fns.sieve(cap);
+    }
+    var sums = allPrimeSeqs(length, digits, primes).map(operator.sum);
+    for (var i = 0, sum; sum = sums[i]; i++) {
+        if (operator.inArray(sum, primes) != -1) {
+            return true;
+        }
+    }
+    return false;
+};
 
-// def longest_prime_sequence(digits, primes = []):
-//     """
-//     Returns the length of the most consecutive primes which sum
-//     to a prime and sum to less then 10**digits
-//     """
-//     if primes == []:
-//         primes = sieve(10**digits)
-//     max_length = max_prime_length(digits, primes)
-//     for length in range(max_length, 0, -1):
-//         if prime_sequence_exists(length, digits, primes):
-//             return length
-//     raise ValueError("Algorithm failed")
+function longestPrimeSequence(digits, primes) {
+    /**
+     * Returns the length of the most consecutive primes which sum
+     * to a prime and sum to less then 10**digits
+     */
+    if (typeof primes == 'undefined') {
+        primes = [];
+    }
 
-// def longest_prime(digits):
-//     primes = sieve(10**digits)
-//     length = longest_prime_sequence(digits, primes)
-//     sums = [sum(seq) for seq in all_prime_seqs(length, digits, primes)]
-//     return max(set(sums).intersection(primes))
+    if (primes.length == 0) {
+        primes = fns.sieve(Math.pow(10, digits));
+    }
+    var maxLength = maxPrimeLength(digits, primes);
+    for (var length = maxLength; length > 0; length--) {
+        if (primeSequenceExists(length, digits, primes)) {
+            return length;
+        }
+    }
+
+    return; // Algorithm failed
+};
+
+function longestPrime(digits) {
+    var primes = fns.sieve(Math.pow(10, digits)),
+        length = longestPrimeSequence(digits, primes),
+        sums = allPrimeSeqs(length, digits, primes).map(operator.sum),
+        intersect = [];
+
+    for (var i = 0, sum; sum = sums[i]; i++) {
+        if (operator.inArray(sum, primes) != -1) {
+            intersect.push(sum);
+        }
+    }
+    return Math.max.apply(Math, intersect);
+};
 
 exports.main = function() {
-//     print longest_prime(6)
-    return 1;
+    return longestPrime(6);
 };
 
 if (require.main === module) {

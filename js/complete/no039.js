@@ -1,0 +1,68 @@
+#!/usr/bin/env node
+
+/* For p, we seek k, m, n > 0 such that n < m and 2*k*m*(m + n) = p */
+
+var fns = require('../functions.js'),
+    operator = require('../operator.js'),
+    timer = require('../timer.js');
+
+// from python_code.functions import all_factors
+
+// def all_triples(p, factors_hash={}):
+//     if p % 2 == 1 or p < 2 or type(p) is not int:
+//         return []
+
+//     if p/2 in factors_hash:
+//         choices_k = factors_hash[p/2]
+//     else:
+//         choices_k = all_factors(p/2)[p/2]
+
+//     result = []
+//     for k in choices_k:
+//         if p/(2*k) in factors_hash:
+//             choices_m = factors_hash[p/(2*k)]
+//         else:
+//             choices_m = all_factors(p/(2*k))[p/(2*k)]
+
+//         # 2*k*m*(m + n) = p
+//         for m in choices_m:
+//             n = p/(2*k*m) - m
+//             if n > 0 and m > n:
+//                 result.append((k,m,n))
+
+//     return result
+
+// def convert_to_triangle(triple):
+//     k, m, n = triple
+//     a = k*(m**2 - n**2)
+//     b = k*(2*m*n)
+//     c = k*(m**2 + n**2)
+//     return tuple(sorted((a, b, c)))
+
+// def all_triangles(p, factors_hash={}):
+//     triples = all_triples(p, factors_hash)
+//     return list(set([convert_to_triangle(triple) for triple in triples]))
+
+// def all_triangles_up_to_n(n):
+//     factors_hash = all_factors(n)
+//     result = {}
+//     for p in range(2, n + 1, 2):
+//         result[p] = all_triangles(p, factors_hash)
+//     return result
+
+exports.main = function() {
+//     all = all_triangles_up_to_n(1000)
+//     lengths = {}
+//     for key in all:
+//         lengths[key] = len(all[key])
+//         max_keys = [key for key, value in lengths.items()
+//                     if value == max(lengths.values())]
+//     if len(max_keys) != 1:
+//         raise("Keys are not unique")
+//     print max_keys[0]
+    return 1;
+};
+
+if (require.main === module) {
+    timer.timer(39, exports.main);
+}

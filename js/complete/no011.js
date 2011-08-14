@@ -50,7 +50,7 @@ function convert(path, data) {
     return path.map(pointMap).reduce(operator.mul, 1);
 };
 
-function main() {
+exports.main = function() {
     var arrIntMap = function(arrStr) {
         var arr = arrStr.split(' ');
         return arr.map(Number);
@@ -93,4 +93,6 @@ function main() {
     return Math.max(vert, horiz, diagLR, diagRL);
 };
 
-timer.timer(11, main);
+if (require.main === module) {
+    timer.timer(11, exports.main);
+}

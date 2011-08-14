@@ -20,10 +20,12 @@ function firstTriplet(total) {
     return []; // None found
 };
 
-function main() {
+exports.main = function() {
     var triplet = firstTriplet(1000),
         result = triplet.reduce(operator.mul, 1);
     return result;
 };
 
-timer.timer(9, main);
+if (require.main === module) {
+    timer.timer(9, exports.main);
+}

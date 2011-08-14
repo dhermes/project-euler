@@ -16,8 +16,10 @@ function minProduct(n) {
     return (product * n) / sharedFactors;
 };
 
-function main() {
+exports.main = function() {
     return minProduct(20);
 };
 
-timer.timer(5, main);
+if (require.main === module) {
+    timer.timer(5, exports.main);
+}

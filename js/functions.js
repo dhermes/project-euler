@@ -527,7 +527,7 @@ exports.mu = function(n, hash, primes) {
     }
 
     var divis = firstPrimeDivisor(n, primes),
-        prime = divis[0],
+        prime = divis[0];
     if (n % Math.pow(prime, 2) == 0) {
         hash[n] = 0;
     } else {

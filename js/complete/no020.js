@@ -6,9 +6,11 @@ var fns = require('../functions.js'),
     operator = require('../operator.js'),
     timer = require('../timer.js');
 
-function main() {
+exports.main = function() {
     // Sum will cast to Number
     return operator.sum(fns.factorial(100, true).split(''));
 };
 
-timer.timer(20, main);
+if (require.main === module) {
+    timer.timer(20, exports.main);
+}

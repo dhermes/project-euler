@@ -7,9 +7,11 @@ How many routes are there through a 20 x 20 grid? */
 var fns = require('../functions.js'),
     timer = require('../timer.js');
 
-function main() {
+exports.main = function() {
     // In an n x m grid there are (n + m) C m = (n + m) C n such paths.
     return fns.choose(20 + 20, 20);
 };
 
-timer.timer(15, main);
+if (require.main === module) {
+    timer.timer(15, exports.main);
+}

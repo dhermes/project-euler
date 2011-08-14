@@ -6,10 +6,12 @@ var bigint = require('bigint'),
     operator = require('../operator.js'),
     timer = require('../timer.js');
 
-function main() {
+exports.main = function() {
     var power = bigint('2').pow(1000).toString(),
         digitArray = power.split('');
     return operator.sum(digitArray);
 };
 
-timer.timer(16, main);
+if (require.main === module) {
+    timer.timer(16, exports.main);
+}

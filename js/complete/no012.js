@@ -40,7 +40,7 @@ function numFactorsNthTriangular(n, hash) {
     }
 };
 
-function main() {
+exports.main = function() {
     var n = 1, h = {},
         numFac = numFactorsNthTriangular(n, h);
 
@@ -54,4 +54,6 @@ function main() {
     return result;
 };
 
-timer.timer(12, main);
+if (require.main === module) {
+    timer.timer(12, exports.main);
+}

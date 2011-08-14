@@ -23,7 +23,7 @@
 var fns = require('../functions.js'),
     timer = require('../timer.js');
 
-function main() {
+exports.main = function() {
     var a = 2, b = 8, result = 2, tmp;
     while (b < 4000000) {
         result += b;
@@ -36,4 +36,6 @@ function main() {
     return result;
 };
 
-timer.timer(2, main);
+if (require.main === module) {
+    timer.timer(2, exports.main);
+}

@@ -11,11 +11,13 @@ var fns = require('../functions.js'),
     operator = require('../operator.js'),
     timer = require('../timer.js');
 
-function main() {
+exports.main = function() {
     var products = fns.applyToList(operator.mul, operator.range(100, 1000));
     
     products = products.filter(fns.isPalindrome);
     return Math.max.apply(Math, products);
 };
 
-timer.timer(4, main);
+if (require.main === module) {
+    timer.timer(4, exports.main);
+}

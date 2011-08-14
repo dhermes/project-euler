@@ -5,7 +5,7 @@
 var fns = require('../functions.js'),
     timer = require('../timer.js');
 
-function main() {
+exports.main = function() {
     /* By the prime number theorem, pi(x) =~ x/ln(x)
        pi(x) >= 10001 when x >= 10001 ln(x)
        To be safe, we'll double it and solve
@@ -16,4 +16,6 @@ function main() {
     return result;
 };
 
-timer.timer(7, main);
+if (require.main === module) {
+    timer.timer(7, exports.main);
+}

@@ -63,8 +63,10 @@ function numLettersInWord(n) {
     return result.length;
 };
 
-function main() {
+exports.main = function() {
     return operator.sum(operator.range(1, 1001).map(numLettersInWord));
 };
 
-timer.timer(17, main);
+if (require.main === module) {
+    timer.timer(17, exports.main);
+}

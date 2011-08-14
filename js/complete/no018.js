@@ -28,7 +28,7 @@ Find the maximum total from top to bottom of the triangle below:
 var fns = require('../functions.js'),
     timer = require('../timer.js');
 
-function main() {
+exports.main = function() {
     function nonEmptyFilter(str) {
         return (str != '');
     };
@@ -42,4 +42,6 @@ function main() {
     return fns.maxSum(triangleMat);
 };
 
-timer.timer(18, main);
+if (require.main === module) {
+    timer.timer(18, exports.main);
+}

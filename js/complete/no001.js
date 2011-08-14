@@ -21,11 +21,13 @@ function filterHelper(values) {
     return result;
 };
 
-function main() {
+exports.main = function() {
     var multiples = operator.range(1, 1000);
     multiples = multiples.filter(filterHelper([3, 5]));
 
     return operator.sum(multiples);
 };
 
-timer.timer(1, main);
+if (require.main === module) {
+    timer.timer(1, exports.main);
+}

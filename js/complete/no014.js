@@ -40,10 +40,12 @@ function maxCollatzLengthUpToN(n, hash) {
     return [maxLengthAt, maxLength];
 };
 
-function main() {
+exports.main = function() {
     var ans = maxCollatzLengthUpToN(999999);
     return [ans[0], '.\nThe Collatz chain at ', ans[0],
             ' has length ', ans[1], '.'].join('');
 };
 
-timer.timer(14, main);
+if (require.main === module) {
+    timer.timer(14, exports.main);
+}

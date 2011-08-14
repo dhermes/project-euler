@@ -5,8 +5,10 @@
 var fns = require('../functions.js'),
     timer = require('../timer.js');
 
-function main() {
+exports.main = function() {
     return Math.max.apply(Math, fns.primeFactors(600851475143));
 };
 
-timer.timer(3, main);
+if (require.main === module) {
+    timer.timer(3, exports.main);
+}

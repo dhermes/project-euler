@@ -7,7 +7,7 @@ var fns = require('../functions.js'),
     operator = require('../operator.js'),
     timer = require('../timer.js');
 
-function main() {
+exports.main = function() {
     function nonEmptyFilter(str) {
         return (str != '');
     };
@@ -16,4 +16,6 @@ function main() {
     return String(total).slice(0, 10);
 };
 
-timer.timer(13, main);
+if (require.main === module) {
+    timer.timer(13, exports.main);
+}

@@ -23,10 +23,12 @@ function productConsecDigits(number, consecutive) {
     return result;
 };
 
-function main() {
+exports.main = function() {
     var data = fns.getData(8).split('\n').join(''),
         products = productConsecDigits(data, 5);
     return Math.max.apply(Math, products);
 };
 
-timer.timer(8, main);
+if (require.main === module) {
+    timer.timer(8, exports.main);
+}

@@ -5,7 +5,8 @@ from fractions import gcd
 from math import factorial
 from math import log
 from math import sqrt
-from os import path as opath
+
+from path import DATA_PATH
 
 ############################################################
 ##################### HELPER FUNCTIONS #####################
@@ -27,16 +28,9 @@ def get_data(problem_number):
     to be named no---.txt where --- is the zero padded
     problem number
     """
-    path = opath.abspath(opath.dirname(sys.argv[0]))
-
-    relative_filename = 'no%s.txt' % str(problem_number).zfill(3)
-    relative_path = "/".join(["..",
-                              "..",
-                              "problem_data",
-                              relative_filename])
-
-    filename = opath.join(path, relative_path)
-    with open(filename) as fh:
+    filename = 'no%s.txt' % str(problem_number).zfill(3)
+    absolute_path = '%s/%s' % (DATA_PATH, filename)
+    with open(absolute_path) as fh:
         # fails if file doesn't exist
         result = fh.read()
     return result

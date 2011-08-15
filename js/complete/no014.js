@@ -40,10 +40,18 @@ function maxCollatzLengthUpToN(n, hash) {
     return [maxLengthAt, maxLength];
 };
 
-exports.main = function() {
+exports.main = function(verbose) {
+    if (typeof verbose == 'undefined') {
+        verbose = false;
+    }
     var ans = maxCollatzLengthUpToN(999999);
-    return [ans[0], '.\nThe Collatz chain at ', ans[0],
-            ' has length ', ans[1], '.'].join('');
+
+    if (verbose) {
+        return [ans[0], '.\nThe Collatz chain at ', ans[0],
+                ' has length ', ans[1], '.'].join('');
+    } else {
+        return ans[0];
+    }
 };
 
 if (require.main === module) {

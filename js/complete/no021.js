@@ -4,7 +4,10 @@ var fns = require('../functions.js'),
     operator = require('../operator.js'),
     timer = require('../timer.js');
 
-exports.main = function() {
+exports.main = function(verbose) {
+    if (typeof verbose == 'undefined') {
+        verbose = false;
+    }
     var n = 10000,
         factors = fns.allFactors(n - 1);
 
@@ -33,8 +36,12 @@ exports.main = function() {
         }
     }
 
-    return [operator.sum(result), '.\nThe full list of such amicable numbers is ',
-            result.join(', '), '.'].join('');
+    if (verbose) {
+        return [operator.sum(result), '.\nThe full list of such amicable numbers is ',
+                result.join(', '), '.'].join('');
+    } else {
+        return operator.sum(result);
+    }
 };
 
 if (require.main === module) {

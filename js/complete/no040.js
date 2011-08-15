@@ -43,8 +43,11 @@ function nthDigitOfFracPart(n) {
     return Number(numOfInterest[digitPlaceInNumber - 1]);
 };
 
-exports.main = function() {
+exports.main = function(verbose) {
     // d_1 X d_10 X d_100 X d_1000 X d_10000 X d_100000 X d_1000000
+    if (typeof verbose == 'undefined') {
+        verbose = false;
+    }
     function mapPower10(exponent) {
         return Math.pow(10, exponent);
     };
@@ -53,8 +56,13 @@ exports.main = function() {
     for (var i = 0, digit; digit = result[i]; i++) {
         digitDisplay.push('d_' + Math.pow(10, i) + ' = ' + digit);
     }
-    return [result.reduce(operator.mul), '.\nThe digits are as follows: ',
-            digitDisplay.join(', '), '.'].join('');
+
+    if (verbose) {
+        return [result.reduce(operator.mul), '.\nThe digits are as follows: ',
+                digitDisplay.join(', '), '.'].join('');
+    } else {
+        return result.reduce(operator.mul);
+    }
 };
 
 if (require.main === module) {

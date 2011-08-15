@@ -17,7 +17,10 @@ function sumOfDigitsPowers(n, power) {
     return operator.sum(n.toString().split('').map(mapPower));
 };
 
-exports.main = function() {
+exports.main = function(verbose) {
+    if (typeof verbose == 'undefined') {
+        verbose = false;
+    }
     var valid = [];
     for (var i = 2; i < 1000000; i++) {
         if (sumOfDigitsPowers(i, 5) == i) {
@@ -25,8 +28,12 @@ exports.main = function() {
         }
     }
 
-    return [operator.sum(valid), '.\nThe numbers satisfying this property are: ',
-            valid.join(', '), '.'].join('');
+    if (verbose) {
+        return [operator.sum(valid), '.\nThe numbers satisfying this property are: ',
+                valid.join(', '), '.'].join('');
+    } else {
+        return operator.sum(valid);
+    }
 };
 
 if (require.main === module) {

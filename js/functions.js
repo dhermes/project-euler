@@ -1,7 +1,8 @@
 // To be used with timer = require('./functions.js')
 
 var bigint = require('bigint'),
-    operator = require('./operator.js');
+    operator = require('./operator.js'),
+    path = require('./path.js');
 
 ////////////////////////////////////////////////////////////
 ///////////////////// HELPER FUNCTIONS /////////////////////
@@ -69,10 +70,11 @@ exports.getData = function(problemNumber) {
     var filename = 'no' + exports.zeroPad(problemNumber, 3) + '.txt',
         /* This need to be set differently (currently is based
            on import location */
-        path = '../../problem_data/' + filename;
+        // path = '../../problem_data/' + filename;
+        absolutePath = path.DATA_PATH + '/' + filename;
 
     var fs = require('fs'),
-        data = fs.readFileSync(path);
+        data = fs.readFileSync(absolutePath);
  
     return data.toString('utf8');
 };

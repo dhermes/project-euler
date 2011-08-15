@@ -40,7 +40,11 @@ function numFactorsNthTriangular(n, hash) {
     }
 };
 
-exports.main = function() {
+exports.main = function(verbose) {
+    if (typeof verbose == 'undefined') {
+        verbose = false;
+    }
+
     var n = 1, h = {},
         numFac = numFactorsNthTriangular(n, h);
 
@@ -49,9 +53,12 @@ exports.main = function() {
         numFac = numFactorsNthTriangular(n, h);
     }
 
-    var result = [n * (n + 1) / 2, '.\nIt is the ', n, 'th triangular number and has ',
-                  numFac, ' divisors.'].join('');
-    return result;
+    if (verbose) {
+        return [n * (n + 1) / 2, '.\nIt is the ', n, 'th triangular number and has ',
+                numFac, ' divisors.'].join('');
+    } else {
+        return n * (n + 1) / 2;
+    }
 };
 
 if (require.main === module) {

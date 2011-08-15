@@ -75,10 +75,18 @@ function findFirstNTruncatable(n, maxN) {
     return result;
 };
 
-exports.main = function() {
+exports.main = function(verbose) {
+    if (typeof verbose == 'undefined') {
+        verbose = false;
+    }
     var ans = findFirstNTruncatable(11, Math.pow(10, 6));
-    return [operator.sum(ans), '.\nThe primes are: ',
-            ans.join(', '), '.'].join('');
+
+    if (verbose) {
+        return [operator.sum(ans), '.\nThe primes are: ',
+                ans.join(', '), '.'].join('');
+    } else {
+        return operator.sum(ans);
+    }
 };
 
 if (require.main === module) {

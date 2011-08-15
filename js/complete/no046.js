@@ -7,29 +7,37 @@ var fns = require('../functions.js'),
     operator = require('../operator.js'),
     timer = require('../timer.js');
 
-// from python_code.functions import is_power
-// from python_code.functions import sieve
+function isPossible(n, primes) {
+    if (n % 2 == 0 || operator.inArray(n, primes) != -1) {
+        return; // Value poorly specified
+    }
 
-// def is_possible(n, primes):
-//     if n % 2 == 0 or n in primes:
-//         raise Error("Value poorly specified")
-
-//     primes_less = [prime for prime in primes if prime < n and prime != 2]
-//     for prime in primes_less:
-//         if is_power((n - prime)/2.0, 2):
-//             return True
-//     return False
+    function valFilter(val) {
+        var result = function(number) {
+            return (number < val & number != 2);
+        };
+        return result;
+    };
+    var primesLess = primes.filter(valFilter(n));
+    for (var i = 0, prime; prime = primesLess[i]; i++) {
+        if (fns.isPower((n - prime) / 2, 2)) {
+            return true;
+        }
+    }
+    return false;
+};
 
 exports.main = function() {
-//     # sieve(6000) will do it (answer is 5777)
-//     curr = 9
-//     primes = sieve(5777)
-//     while is_possible(curr, primes):
-//         curr += 2
-//         while curr in primes:
-//             curr += 2
-//     print curr
-    return 1;
+    // sieve(6000) will do it (answer is 5777)
+    var curr = 9,
+        primes = fns.sieve(5777);
+    while (isPossible(curr, primes)) {
+        curr += 2;
+        while (operator.inArray(curr, primes) != -1) {
+            curr += 2;
+        }
+    }
+    return curr;
 };
 
 if (require.main === module) {

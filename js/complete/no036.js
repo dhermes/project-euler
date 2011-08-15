@@ -38,10 +38,18 @@ function allBase10Base2Palindromes(n) {
     return result;
 };
 
-exports.main = function() {
+exports.main = function(verbose) {
+    if (typeof verbose == 'undefined') {
+        verbose = false;
+    }
+
     var ans = allBase10Base2Palindromes(Math.pow(10, 6));
-    return [operator.sum(ans), '.\nThe full list of palindromes is: ',
-            ans.join(', '), '.'].join('');
+    if (verbose) {
+        return [operator.sum(ans), '.\nThe full list of palindromes is: ',
+                ans.join(', '), '.'].join('');
+    } else {
+        return operator.sum(ans);
+    }
 };
 
 if (require.main === module) {

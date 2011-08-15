@@ -14,7 +14,7 @@ function timeDiff(time1, time2) {
 
 exports.timer = function (problemNumber, main) {
     var timeStart = new Date(),
-        result = main(),
+        result = main(true),
         timeEnd = new Date(),
     timeElapsed = timeDiff(timeStart, timeEnd);
     var statement = ['The answer to Euler Project, question ',

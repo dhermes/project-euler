@@ -36,5 +36,5 @@ def num_triangle():
 def main(verbose=False):
     return num_triangle()
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(42)(main)(verbose=True)

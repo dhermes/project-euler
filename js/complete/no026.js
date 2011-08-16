@@ -6,7 +6,10 @@
 var fns = require('../functions.js'),
     timer = require('../timer.js');
 
-exports.main = function() {
+exports.main = function(verbose) {
+    if (typeof verbose == 'undefined') {
+        verbose = false;
+    }
     var maxIndex = -1, maxBlockSize = -1, strippedVal, blockSize;
     for (var i = 1; i < 1000; i++) {
         strippedVal = fns.robustDivide(fns.robustDivide(i, 2), 5);

@@ -97,5 +97,5 @@ def main(verbose=False):
     initial = [[0, 1]]
     return squarefree_sum(initial, primes)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(273)(main)(verbose=True)

@@ -23,7 +23,10 @@
 var fns = require('../functions.js'),
     timer = require('../timer.js');
 
-exports.main = function() {
+exports.main = function(verbose) {
+    if (typeof verbose == 'undefined') {
+        verbose = false;
+    }
     var a = 2, b = 8, result = 2, tmp;
     while (b < 4000000) {
         result += b;

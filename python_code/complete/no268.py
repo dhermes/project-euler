@@ -72,5 +72,5 @@ def main(verbose=False):
 
     return result
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(268)(main)(verbose=True)

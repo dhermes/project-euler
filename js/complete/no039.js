@@ -75,7 +75,10 @@ function allTrianglesUpToN(n) {
     return result;
 };
 
-exports.main = function() {
+exports.main = function(verbose) {
+    if (typeof verbose == 'undefined') {
+        verbose = false;
+    }
     var allTri = allTrianglesUpToN(1000), lengths = {}, maxVal = -1, maxKeys = [], key;
     for (key in allTri) {
         currLength = allTri[key].length;

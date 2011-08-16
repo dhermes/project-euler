@@ -56,5 +56,5 @@ def main(verbose=False):
     reduced = h_99/(gcd(h_99, k_99))
     return sum([int(dig) for dig in str(reduced)])
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(65)(main)(verbose=True)

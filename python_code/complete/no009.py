@@ -19,5 +19,5 @@ def first_triplet(total):
 def main(verbose=False):
     return reduce(operator.mul, first_triplet(1000))
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(9)(main)(verbose=True)

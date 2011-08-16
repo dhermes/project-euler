@@ -25,5 +25,5 @@ def main(verbose=False):
                 return candidate
     raise ValueError("No prime was found, algorithm busted.")
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(41)(main)(verbose=True)

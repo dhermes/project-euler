@@ -37,5 +37,5 @@ def main(verbose=False):
                 max_a = curr_order
     return n
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(129)(main)(verbose=True)

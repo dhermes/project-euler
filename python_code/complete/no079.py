@@ -26,5 +26,5 @@ def main(verbose=False):
         raise Exception("No match found")
     return ''.join([str(key) for key in password])
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(79)(main)(verbose=True)

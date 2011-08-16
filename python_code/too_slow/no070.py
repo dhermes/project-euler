@@ -26,5 +26,5 @@ def main(verbose=False):
     problem_max = 10**7
     return matches(problem_max)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(70)(main)(verbose=True)

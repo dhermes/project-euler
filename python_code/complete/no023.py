@@ -12,7 +12,6 @@ import operator
 
 from python_code.decorators import euler_timer
 from python_code.functions import all_factors
-from python_code.functions import apply_to_list
 
 def abundant_numbers(n):
     factor_hash = all_factors(n)
@@ -21,9 +20,18 @@ def abundant_numbers(n):
 
 def main(verbose=False):
     abundants = abundant_numbers(28123)
-    sums = sorted(set(apply_to_list(operator.add, abundants)))
-    bad_ones = [i for i in range(28123 + 1) if i not in sums]
+    sums = [False] * (28123 + 1)
+
+    length = len(abundants)
+    for index in range(length):
+        for second_index in range(index, length):
+            val1 = abundants[index]
+            val2 = abundants[second_index]
+            if (val1 + val2 <= 28123):
+                sums[val1 + val2] = True
+
+    bad_ones = [i for i, bool_val in enumerate(sums) if not bool_val]
     return sum(bad_ones)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(23)(main)(verbose=True)

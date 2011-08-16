@@ -74,5 +74,5 @@ def main(verbose=False):
 
     return last5(10**12)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(160)(main)(verbose=True)

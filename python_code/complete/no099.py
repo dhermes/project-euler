@@ -18,5 +18,5 @@ def main(verbose=False):
 
     return winner + 1 # account for 0 vs. 1 initial index
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(99)(main)(verbose=True)

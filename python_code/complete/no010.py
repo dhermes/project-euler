@@ -8,5 +8,5 @@ from python_code.functions import sieve
 def main(verbose=False):
     return sum(sieve(2000000 - 1))
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(10)(main)(verbose=True)

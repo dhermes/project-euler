@@ -32,5 +32,5 @@ def main(verbose=False):
             if match_count == 8:
                 return prime
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(51)(main)(verbose=True)

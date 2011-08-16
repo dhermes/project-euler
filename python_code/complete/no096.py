@@ -26,5 +26,5 @@ def main(verbose=False):
                for index in range(50)]
     return sum([corner_sum(puzzle) for puzzle in puzzles])
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(96)(main)(verbose=True)

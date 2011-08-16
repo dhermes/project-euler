@@ -71,5 +71,5 @@ def main(verbose=False):
                      for num in non_squares]
     return len([num for num in cycle_lengths if num % 2 == 1])
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(64)(main)(verbose=True)

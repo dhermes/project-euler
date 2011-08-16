@@ -36,5 +36,5 @@ def main(verbose=False):
 
     return max_sum(TRIANGLE_MAT)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(18)(main)(verbose=True)

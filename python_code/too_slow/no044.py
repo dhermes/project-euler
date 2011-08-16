@@ -60,5 +60,5 @@ def main(verbose=False):
             pair = increment_pair(pair)
     return D
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(44)(main)(verbose=True)

@@ -21,7 +21,10 @@ function filterHelper(values) {
     return result;
 };
 
-exports.main = function() {
+exports.main = function(verbose) {
+    if (typeof verbose == 'undefined') {
+        verbose = false;
+    }
     var multiples = operator.range(1, 1000);
     multiples = multiples.filter(filterHelper([3, 5]));
 

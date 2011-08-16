@@ -66,5 +66,5 @@ def main(verbose=False):
         result += num_blocks_ending[key][10]
     return result
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(215)(main)(verbose=True)

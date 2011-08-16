@@ -37,7 +37,10 @@ function incrementPair(pair) {
     }
 };
 
-exports.main = function() {
+exports.main = function(verbose) {
+    if (typeof verbose == 'undefined') {
+        verbose = false;
+    }
     /* Not only finds the minimum, but also checks to make sure
        it is the smallest. Since P_j - P_k >= P_j - P_(j-1) = 3j - 2
        If 3j - 2 > D, then P_j - P_k > D, and we not longer need to

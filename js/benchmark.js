@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var fns = require('./functions.js'),
     fs = require('fs'), 
     path, stats, main, timeStart, result, timeEnd;

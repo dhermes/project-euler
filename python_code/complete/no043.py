@@ -83,5 +83,5 @@ def main(verbose=False):
                   for candidate in candidates]
     return sum(candidates)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(43)(main)(verbose=True)

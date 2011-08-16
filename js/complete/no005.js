@@ -16,7 +16,10 @@ function minProduct(n) {
     return (product * n) / sharedFactors;
 };
 
-exports.main = function() {
+exports.main = function(verbose) {
+    if (typeof verbose == 'undefined') {
+        verbose = false;
+    }
     return minProduct(20);
 };
 

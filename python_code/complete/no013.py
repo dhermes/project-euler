@@ -12,5 +12,5 @@ def main(verbose=False):
     total = sum(numbers)
     return str(total)[:10]
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(13)(main)(verbose=True)

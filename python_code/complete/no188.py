@@ -39,5 +39,5 @@ def hyper_exponentiate(a, b, modulus):
 def main(verbose=False):
     return hyper_exponentiate(1777, 1855, 10**8)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(188)(main)(verbose=True)

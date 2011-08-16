@@ -130,5 +130,5 @@ def main(verbose=False):
             max_tuple = dig_cand
     return ''.join([str(int(n)) for n in max_tuple])
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(93)(main)(verbose=True)

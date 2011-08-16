@@ -50,5 +50,5 @@ def main(verbose=False):
         # This sets the value in chains
     return len([n for n in range(1, 10**6) if len(chains[n]) == 60])
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(74)(main)(verbose=True)

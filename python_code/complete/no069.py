@@ -17,5 +17,5 @@ def main(verbose=False):
     ratios.sort(key=lambda pair: pair[0], reverse=True)
     return ratios[0][1]
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(69)(main)(verbose=True)

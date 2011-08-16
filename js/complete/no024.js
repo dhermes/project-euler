@@ -28,7 +28,10 @@ function lex(arr, perm) {
     return [arr[index]].concat(lex(arrRemoved, remaining));
 };
 
-exports.main = function() {
+exports.main = function(verbose) {
+    if (typeof verbose == 'undefined') {
+        verbose = false;
+    }
     var arr = operator.range(10),
         // Our indexing begins at 0
         perm = Math.pow(10, 6) - 1;

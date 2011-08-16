@@ -65,5 +65,5 @@ def main(verbose=False):
 
     return max_keys[0]
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(39)(main)(verbose=True)

@@ -31,5 +31,5 @@ def main(verbose=False):
         result.extend(all_pandigitals_1_to_n(n))
     return max([int(elt) for elt in result])
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(38)(main)(verbose=True)

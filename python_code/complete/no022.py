@@ -22,5 +22,5 @@ def main(verbose=False):
     names = sorted(get_data(22).strip('"').split('","'))
     return sum([(i + 1)*name_score(name) for i, name in enumerate(names)])
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(22)(main)(verbose=True)

@@ -34,5 +34,5 @@ def main(verbose=False):
     even_sum = sum([val**2 - 2*val for val in evens])
     return odd_sum + even_sum
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(120)(main)(verbose=True)

@@ -37,5 +37,5 @@ def main(verbose=False):
     unit_five_null_two = unit_a_null_b(5**10, 2**10)
     return (1*unit_two_null_five + residue*unit_five_null_two) % 10**10
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(97)(main)(verbose=True)

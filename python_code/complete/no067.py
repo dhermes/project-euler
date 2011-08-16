@@ -29,5 +29,5 @@ def main(verbose=False):
                     for line in triangle.split("\n") if line]
     return max_sum(TRIANGLE_MAT)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(67)(main)(verbose=True)

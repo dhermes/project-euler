@@ -57,5 +57,5 @@ def main(verbose=False):
                          for i in range(4) ]
     return smallest
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(47)(main)(verbose=True)

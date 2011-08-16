@@ -48,5 +48,5 @@ def main(verbose=False):
         cubes = all_cubes(digits)
     return has_k_perms(digits, 5, cubes)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(62)(main)(verbose=True)

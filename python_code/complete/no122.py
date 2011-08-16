@@ -19,5 +19,5 @@ def main(verbose=False):
 
     return sum(len(chain[0]) - 1 for chain in optimal_chains.values())
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(122)(main)(verbose=True)

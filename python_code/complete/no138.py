@@ -50,5 +50,5 @@ def main(verbose=False):
     smallest = solutions(12)
     return sum(smallest)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(138)(main)(verbose=True)

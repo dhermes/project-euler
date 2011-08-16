@@ -10,6 +10,10 @@ exports.add = function(a, b) {
     return Number(a) + Number(b);
 };
 
+exports.arrAdd = function(a, b) {
+    return a.concat(b);
+};
+
 exports.sum = function(arr) {
     return arr.reduce(exports.add, 0);
 };

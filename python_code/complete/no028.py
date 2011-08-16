@@ -45,5 +45,5 @@ def spiral_sum(n):
 def main(verbose=False):
     return spiral_sum(1001)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(28)(main)(verbose=True)

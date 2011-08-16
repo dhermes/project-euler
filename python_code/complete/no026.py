@@ -22,5 +22,5 @@ def main(verbose=False):
 
     return max_index
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(26)(main)(verbose=True)

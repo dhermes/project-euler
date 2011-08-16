@@ -13,5 +13,5 @@ def sum_first_n_sq(n):
 def main(verbose=False):
     return abs(sum_first_n_sq(100) - polygonal_number(3, 100)**2)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(6)(main)(verbose=True)

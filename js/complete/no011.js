@@ -50,7 +50,10 @@ function convert(path, data) {
     return path.map(pointMap).reduce(operator.mul, 1);
 };
 
-exports.main = function() {
+exports.main = function(verbose) {
+    if (typeof verbose == 'undefined') {
+        verbose = false;
+    }
     var arrIntMap = function(arrStr) {
         var arr = arrStr.split(' ');
         return arr.map(Number);

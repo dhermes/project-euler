@@ -54,5 +54,5 @@ def max_payout(n):
 def main(verbose=False):
     return max_payout(15)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(121)(main)(verbose=True)

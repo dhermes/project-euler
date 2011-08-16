@@ -23,7 +23,7 @@ def main(verbose=False):
         a, b = recurrence_next([1,4], [a,b])
     return running_sum
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(2)(main)(verbose=True)
 
 

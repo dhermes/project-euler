@@ -55,5 +55,5 @@ def find_residue(residue):
 def main(verbose=False):
     return find_residue(10**6)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(78)(main)(verbose=True)

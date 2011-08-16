@@ -62,5 +62,5 @@ def main(verbose=False):
     index = 10**4
     return sorted_radicals(MAX_n)[index - 1]
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(124)(main)(verbose=True)

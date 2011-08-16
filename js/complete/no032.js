@@ -37,7 +37,10 @@ function possibleProducts(arr) {
     return result;
 };
 
-exports.main = function() {
+exports.main = function(verbose) {
+    if (typeof verbose == 'undefined') {
+        verbose = false;
+    }
     var products = [], candidates = allOrderings(operator.range(1, 10)), prods, last4, last3;
     for (var i = 0, candidate; candidate = candidates[i]; i++) {
         prods = possibleProducts(candidate.slice(0, 5));

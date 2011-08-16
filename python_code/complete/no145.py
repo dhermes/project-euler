@@ -96,5 +96,5 @@ def main(verbose=False):
                 running_sum += choice_to_count(choice, digits)
     return running_sum
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(145)(main)(verbose=True)

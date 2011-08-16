@@ -21,5 +21,5 @@ def main(verbose=False):
         count += factorial(blocks)/(factorial(black)*factorial(blue/4))
     return count
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(116)(main)(verbose=True)

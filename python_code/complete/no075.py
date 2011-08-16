@@ -85,5 +85,5 @@ def main(verbose=False):
 
     return len([val for val in number_solutions.values() if val == 1])
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(75)(main)(verbose=True)

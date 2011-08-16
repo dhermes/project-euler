@@ -29,7 +29,10 @@ function monthLengths(year) {
     return result;
 };
 
-exports.main = function() {
+exports.main = function(verbose) {
+    if (typeof verbose == 'undefined') {
+        verbose = false;
+    }
     /* We call the days of the week 0 - Sunday,...,6 - Saturday modulo 7
        1 Jan 1900 was a Monday. i.e. equal to 1 */
     var janFirst1901 = (1 + operator.sum(monthLengths(1900))) % 7,

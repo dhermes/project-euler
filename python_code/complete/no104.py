@@ -36,5 +36,5 @@ def main(verbose=False):
             k += 1
     return k
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(104)(main)(verbose=True)

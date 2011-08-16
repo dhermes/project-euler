@@ -39,5 +39,5 @@ def main(verbose=False):
 
     return count
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(57)(main)(verbose=True)

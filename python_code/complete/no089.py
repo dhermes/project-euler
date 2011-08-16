@@ -57,5 +57,5 @@ def main(verbose=False):
     best = [to_roman(actual(numeral)) for numeral in data]
     return original_digits - len("".join([number for number in best]))
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(89)(main)(verbose=True)

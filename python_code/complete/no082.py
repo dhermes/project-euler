@@ -33,5 +33,5 @@ def main(verbose=False):
 
     return column_by_column(data)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(82)(main)(verbose=True)

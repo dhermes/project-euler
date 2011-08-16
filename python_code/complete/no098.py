@@ -65,5 +65,5 @@ def main(verbose=False):
             return max_val
     raise Exception("Program failed to find solution")
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(98)(main)(verbose=True)

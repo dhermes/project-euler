@@ -64,5 +64,5 @@ def main(verbose=False):
                 solutions += unique_pairs(inferior_sum, M)
     return M
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(86)(main)(verbose=True)

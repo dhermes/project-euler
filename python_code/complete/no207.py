@@ -33,5 +33,5 @@ def main(verbose=False):
             return n*(n + 1)
     raise Exception("Program failed to find solution")
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(207)(main)(verbose=True)

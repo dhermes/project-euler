@@ -52,5 +52,5 @@ def main(verbose=False):
     return (p_4*inverse_mod_n(3, modulus) - \
             p_3*inverse_mod_n(2, modulus) + p_2) % (modulus)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(335)(main)(verbose=True)

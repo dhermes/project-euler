@@ -27,5 +27,5 @@ def main(verbose=False):
 
     return round(winning_outcomes*1.0/((4**9)*(6**6)), 7)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(205)(main)(verbose=True)

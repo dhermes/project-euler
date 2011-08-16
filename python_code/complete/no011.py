@@ -64,5 +64,5 @@ def main(verbose=False):
 
     return max(vert, horiz, diag_l_r, diag_r_l)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(11)(main)(verbose=True)

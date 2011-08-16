@@ -26,5 +26,5 @@ def main(verbose=False):
     MAX_n = int((1 - log(9)/log(10))**(-1))
     return sum([num_n_digits(i) for i in range(1, MAX_n + 1)])
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(63)(main)(verbose=True)

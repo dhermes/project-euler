@@ -15,5 +15,5 @@ def main(verbose=False):
     return max([digit_sum(val)
                 for val in apply_to_list(operator.pow, range(1,100))])
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(56)(main)(verbose=True)

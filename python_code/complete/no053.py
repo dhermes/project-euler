@@ -51,5 +51,5 @@ def all_over_limit(n_max, limit):
 def main(verbose=False):
     return all_over_limit(100, 10**6)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(53)(main)(verbose=True)

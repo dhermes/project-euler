@@ -90,5 +90,5 @@ def longest_prime(digits):
 def main(verbose=False):
     return longest_prime(6)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(50)(main)(verbose=True)

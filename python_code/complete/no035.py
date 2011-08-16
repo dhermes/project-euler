@@ -40,6 +40,6 @@ def all_circular(n):
 def main(verbose=False):
     return len(all_circular(10**6 - 1))
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(35)(main)(verbose=True)
 

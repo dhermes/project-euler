@@ -11,5 +11,5 @@ def main(verbose=False):
     # In an n x m grid there are (n + m) C m = (n + m) C n such paths.
     return choose(20 + 20, 20)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(15)(main)(verbose=True)

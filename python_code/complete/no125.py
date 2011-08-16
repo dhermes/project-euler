@@ -40,5 +40,5 @@ def main(verbose=False):
     PROBLEM_MAX = 10**8
     return sum(palindromic_square_sums(PROBLEM_MAX))
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(125)(main)(verbose=True)

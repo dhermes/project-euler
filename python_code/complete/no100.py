@@ -44,5 +44,5 @@ def main(verbose=False):
     min_x = sqrt((1 + y**2)/2)
     return int((min_x + 1)/2)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(100)(main)(verbose=True)

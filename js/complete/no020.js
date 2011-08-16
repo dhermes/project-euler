@@ -6,7 +6,10 @@ var fns = require('../functions.js'),
     operator = require('../operator.js'),
     timer = require('../timer.js');
 
-exports.main = function() {
+exports.main = function(verbose) {
+    if (typeof verbose == 'undefined') {
+        verbose = false;
+    }
     // Sum will cast to Number
     return operator.sum(fns.factorial(100, true).split(''));
 };

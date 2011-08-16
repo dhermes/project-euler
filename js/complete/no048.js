@@ -5,7 +5,10 @@
 var bigint = require('bigint'),
     timer = require('../timer.js');
 
-exports.main = function() {
+exports.main = function(verbose) {
+    if (typeof verbose == 'undefined') {
+        verbose = false;
+    }
     var result = bigint(0), modulus = Math.pow(10, 10);
     for (var i = 1; i <= 1000; i++) {
 	result = result.add(bigint(i).powm(i, modulus)).mod(modulus);

@@ -50,5 +50,5 @@ def main(verbose=False):
 
     return max_prod
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(110)(main)(verbose=True)

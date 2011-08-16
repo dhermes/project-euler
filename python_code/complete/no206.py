@@ -18,5 +18,5 @@ def main(verbose=False):
             if str(val)[::2] == '123456789':
                 return 10*n
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(206)(main)(verbose=True)

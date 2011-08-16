@@ -55,7 +55,10 @@ var fns = require('../functions.js'),
     operator = require('../operator.js'),
     timer = require('../timer.js');
 
-exports.main = function() {
+exports.main = function(verbose) {
+    if (typeof verbose == 'undefined') {
+        verbose = false;
+    }
     var a = 1, b = 3, tmp;
     for (var i = 0; i < 8; i++) {
         tmp = b;

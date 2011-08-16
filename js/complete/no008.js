@@ -23,7 +23,10 @@ function productConsecDigits(number, consecutive) {
     return result;
 };
 
-exports.main = function() {
+exports.main = function(verbose) {
+    if (typeof verbose == 'undefined') {
+        verbose = false;
+    }
     var data = fns.getData(8).split('\n').join(''),
         products = productConsecDigits(data, 5);
     return Math.max.apply(Math, products);

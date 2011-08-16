@@ -60,5 +60,5 @@ def main(verbose=False):
     # Now b = x_9
     return (b**2 - 1)/8
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(45)(main)(verbose=True)

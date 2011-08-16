@@ -28,7 +28,10 @@ Find the maximum total from top to bottom of the triangle below:
 var fns = require('../functions.js'),
     timer = require('../timer.js');
 
-exports.main = function() {
+exports.main = function(verbose) {
+    if (typeof verbose == 'undefined') {
+        verbose = false;
+    }
     function nonEmptyFilter(str) {
         return (str != '');
     };

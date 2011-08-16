@@ -39,6 +39,6 @@ def main(verbose=False):
         product = 2*(prime_index*prime)
     return prime_index
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(123)(main)(verbose=True)
 

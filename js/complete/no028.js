@@ -44,7 +44,10 @@ function spiralSum(n) {
     return total;
 };
 
-exports.main = function() {
+exports.main = function(verbose) {
+    if (typeof verbose == 'undefined') {
+        verbose = false;
+    }
     return spiralSum(1001);
 };
 

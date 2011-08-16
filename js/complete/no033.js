@@ -45,7 +45,10 @@ function equalsCanceledPair(numer, denom) {
     return (cNum * denom == cDenom * numer);
 };
 
-exports.main = function() {
+exports.main = function(verbose) {
+    if (typeof verbose == 'undefined') {
+        verbose = false;
+    }
     var pairsNumer = [], pairsDenom = [], denom;
     for (var numer = 10; numer < 99; numer++) {
         for (denom = numer + 1; denom < 100; denom++) {

@@ -53,5 +53,5 @@ def main(verbose=False):
     first = solutions(10**9)
     return sum(first)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(94)(main)(verbose=True)

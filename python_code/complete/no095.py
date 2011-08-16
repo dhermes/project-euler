@@ -61,5 +61,5 @@ def main(verbose=False):
 
     return min(longest_chain)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(95)(main)(verbose=True)

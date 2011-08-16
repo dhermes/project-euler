@@ -51,5 +51,5 @@ def prize_strings(n):
 def main(verbose=False):
     return prize_strings(30)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(191)(main)(verbose=True)

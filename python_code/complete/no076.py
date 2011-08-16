@@ -41,5 +41,5 @@ def partitions(n):
 def main(verbose=False):
     return partitions(100) - 1
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(76)(main)(verbose=True)

@@ -23,7 +23,10 @@ function nameScore(name) {
     return result;
 };
 
-exports.main = function() {
+exports.main = function(verbose) {
+    if (typeof verbose == 'undefined') {
+        verbose = false;
+    }
     // The name file is a comma separated file with quotes
     var names = fns.getData(22).slice(1, -1).split('","'), result = 0;
     names.sort();

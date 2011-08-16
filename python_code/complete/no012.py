@@ -42,7 +42,7 @@ def main(verbose=False):
         return "%s.\nIt is the %sth triangular number and has %s divisors." % (
             (n*(n + 1))/2, n, num_fac)
     else:
-        return n*(n + 1))/2
+        return (n*(n + 1))/2
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(12)(main)(verbose=True)

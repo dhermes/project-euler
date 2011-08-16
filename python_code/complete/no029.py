@@ -10,5 +10,5 @@ def main(verbose=False):
     powers = apply_to_list(operator.pow, range(2, n + 1))
     return len(set(powers))
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(29)(main)(verbose=True)

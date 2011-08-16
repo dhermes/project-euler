@@ -54,5 +54,5 @@ def num_letters_in_word(n):
 def main(verbose=False):
     return sum([num_letters_in_word(i) for i in range(1, 1001)])
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(17)(main)(verbose=True)

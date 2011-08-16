@@ -37,7 +37,10 @@ function numTriangle() {
     return count;
 };
 
-exports.main = function() {
+exports.main = function(verbose) {
+    if (typeof verbose == 'undefined') {
+        verbose = false;
+    }
     return numTriangle();
 };
 

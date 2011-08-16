@@ -5,7 +5,10 @@
 var fns = require('../functions.js'),
     timer = require('../timer.js');
 
-exports.main = function() {
+exports.main = function(verbose) {
+    if (typeof verbose == 'undefined') {
+        verbose = false;
+    }
     /* By the prime number theorem, pi(x) =~ x/ln(x)
        pi(x) >= 10001 when x >= 10001 ln(x)
        To be safe, we'll double it and solve

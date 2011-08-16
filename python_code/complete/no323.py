@@ -27,5 +27,5 @@ def main(verbose=False):
 
     return round(expected_hash[32], 10)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(323)(main)(verbose=True)

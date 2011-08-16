@@ -20,7 +20,10 @@ function firstTriplet(total) {
     return []; // None found
 };
 
-exports.main = function() {
+exports.main = function(verbose) {
+    if (typeof verbose == 'undefined') {
+        verbose = false;
+    }
     var triplet = firstTriplet(1000),
         result = triplet.reduce(operator.mul, 1);
     return result;

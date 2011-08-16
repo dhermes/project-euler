@@ -52,5 +52,5 @@ def main(verbose=False):
 
     return sum(products)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(32)(main)(verbose=True)

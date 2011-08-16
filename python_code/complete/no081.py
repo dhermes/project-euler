@@ -28,6 +28,6 @@ def main(verbose=False):
                  heuristic,
                  adjacent)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(81)(main)(verbose=True)
 

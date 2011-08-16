@@ -23,5 +23,5 @@ def main(verbose=False):
 
     return max(product_consec_digits(n, 5))
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(8)(main)(verbose=True)

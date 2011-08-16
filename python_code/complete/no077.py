@@ -98,5 +98,5 @@ def main(verbose=False):
         curr_val = pp[(0, n)]
     return n
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(77)(main)(verbose=True)

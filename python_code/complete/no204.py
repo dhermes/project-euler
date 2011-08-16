@@ -26,6 +26,6 @@ def main(verbose=False):
     PRIMES = sieve(100)
     return hamming_type(10**9, PRIMES)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(204)(main)(verbose=True)
 

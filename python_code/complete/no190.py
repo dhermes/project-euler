@@ -34,5 +34,5 @@ def P(m):
 def main(verbose=False):
     return int(sum([floor(P(n)) for n in range(2, 16)]))
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(190)(main)(verbose=True)

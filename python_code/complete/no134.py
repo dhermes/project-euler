@@ -17,5 +17,5 @@ def main(verbose=False):
         running_sum += int('%s%s' % (k, p_1))
     return running_sum
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(134)(main)(verbose=True)

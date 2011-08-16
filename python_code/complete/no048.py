@@ -10,5 +10,5 @@ def main(verbose=False):
         result = (result + pow(i, i, 10**10)) % 10**10
     return result
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(48)(main)(verbose=True)

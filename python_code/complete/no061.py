@@ -128,5 +128,5 @@ def main(verbose=False):
     else:
         return sum([int(match[0]) for match in result])
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(61)(main)(verbose=True)

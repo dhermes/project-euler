@@ -5,7 +5,10 @@
 var bigint = require('bigint'),
     timer = require('../timer.js');
 
-exports.main = function() {
+exports.main = function(verbose) {
+    if (typeof verbose == 'undefined') {
+        verbose = false;
+    }
     var fibIndex = 1, last = bigint('0'), curr = bigint('1'), tmp;
     while (curr.toString().length < 1000) {
         tmp = curr.add(last);

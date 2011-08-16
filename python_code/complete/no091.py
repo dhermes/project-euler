@@ -36,5 +36,5 @@ def main(verbose=False):
                 result.add((p,q))
     return len(result)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(91)(main)(verbose=True)

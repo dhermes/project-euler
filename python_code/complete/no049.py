@@ -45,5 +45,5 @@ def main(verbose=False):
                 result.append("".join([str(num) for num in sorted(soln)]))
     return result[0]
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(49)(main)(verbose=True)

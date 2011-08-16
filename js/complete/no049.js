@@ -30,7 +30,10 @@ function findArithmetic(arr) {
     return [];
 };
 
-exports.main = function() {
+exports.main = function(verbose) {
+    if (typeof verbose == 'undefined') {
+        verbose = false;
+    }
     function geValFilter(val) {
         var result = function(number) {
             return number > val;

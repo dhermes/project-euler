@@ -21,5 +21,5 @@ def main(verbose=False):
             running_sum += inverse_mod_n(10, prime)
     return running_sum
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(274)(main)(verbose=True)

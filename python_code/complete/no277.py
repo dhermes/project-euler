@@ -46,5 +46,5 @@ def main(verbose=False):
 
     return ((3**p_3)*y + c)/P_2
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(277)(main)(verbose=True)

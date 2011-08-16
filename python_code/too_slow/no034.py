@@ -25,5 +25,5 @@ def main(verbose=False):
     else:
         return sum(result)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(34)(main)(verbose=True)

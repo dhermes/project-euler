@@ -47,5 +47,5 @@ def main(verbose=False):
             result.append(to_add)
     return max([int(concat) for concat in result if len(concat) == 16])
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(68)(main)(verbose=True)

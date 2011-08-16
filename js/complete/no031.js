@@ -46,7 +46,10 @@ function generatingPoly(maxPower, base) {
     return result;
 };
 
-exports.main = function() {
+exports.main = function(verbose) {
+    if (typeof verbose == 'undefined') {
+        verbose = false;
+    }
     var prod = generatingPoly(200, 1),
         coins = [2, 5, 10, 20, 50, 100, 200];
     for (var i = 0, coin; coin = coins[i]; i++) {

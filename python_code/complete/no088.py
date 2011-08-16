@@ -39,5 +39,5 @@ def main(verbose=False):
             final_list.append(value_hash[desired])
     return sum(final_list)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(88)(main)(verbose=True)

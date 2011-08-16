@@ -93,5 +93,5 @@ def main(verbose=False):
     side_length = 2*layer - 1 # 2*(layer - 1) + 1
     return side_length
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(58)(main)(verbose=True)

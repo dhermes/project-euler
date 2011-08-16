@@ -27,7 +27,10 @@ function isPossible(n, primes) {
     return false;
 };
 
-exports.main = function() {
+exports.main = function(verbose) {
+    if (typeof verbose == 'undefined') {
+        verbose = false;
+    }
     // sieve(6000) will do it (answer is 5777)
     var curr = 9,
         primes = fns.sieve(5777);

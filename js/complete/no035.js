@@ -64,7 +64,10 @@ function allCircular(n) {
     return possiblePrimes.filter(possiblePrimesFilter);
 };
 
-exports.main = function() {
+exports.main = function(verbose) {
+    if (typeof verbose == 'undefined') {
+        verbose = false;
+    }
     var result = allCircular(Math.pow(10, 6) - 1);
     return result.length;
 };

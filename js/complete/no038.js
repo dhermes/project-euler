@@ -37,7 +37,10 @@ function allPandigitals1ToN(n) {
     return result;
 };
 
-exports.main = function() {
+exports.main = function(verbose) {
+    if (typeof verbose == 'undefined') {
+        verbose = false;
+    }
     var result = [];
     for (var n = 2; n < 10; n++) {
         result = result.concat(allPandigitals1ToN(n));

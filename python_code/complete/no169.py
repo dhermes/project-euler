@@ -26,5 +26,5 @@ def main(verbose=False):
     f_hash = {}
     return f(10**25, f_hash)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(169)(main)(verbose=True)

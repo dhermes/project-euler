@@ -126,7 +126,10 @@ function longestPrime(digits) {
     return Math.max.apply(Math, intersect);
 };
 
-exports.main = function() {
+exports.main = function(verbose) {
+    if (typeof verbose == 'undefined') {
+        verbose = false;
+    }
     return longestPrime(6);
 };
 

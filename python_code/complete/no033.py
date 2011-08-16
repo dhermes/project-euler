@@ -47,5 +47,5 @@ def main(verbose=False):
     denom = reduce(operator.mul, [pair[1] for pair in pairs])
     return denom/(gcd(num,denom))
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(33)(main)(verbose=True)

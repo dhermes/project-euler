@@ -27,5 +27,5 @@ def relevant_triples(n):
 def main(verbose=False):
     return len(relevant_triples(5*10**7))
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(87)(main)(verbose=True)

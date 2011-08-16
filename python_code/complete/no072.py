@@ -55,5 +55,5 @@ def main(verbose=False):
     # They don't include 0/1 or 1/1 so we subtract 2
     return ((3 + running_sum)/2 - 2)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(72)(main)(verbose=True)

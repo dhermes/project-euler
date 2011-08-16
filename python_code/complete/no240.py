@@ -31,5 +31,5 @@ def main(verbose=False):
             count += total_perms(curr)
     return count
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print euler_timer(240)(main)(verbose=True)

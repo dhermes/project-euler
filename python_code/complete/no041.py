@@ -16,7 +16,9 @@ from python_code.functions import sieve
 def main(verbose=False):
     MAX_n = 987654321
     PRIMES = sieve(int(sqrt(MAX_n)))
-    for i in range(9, 1, -1):
+    # A 9 digit pandigital will have digit sum 45, so can't be prime
+    # must be divisible by 9
+    for i in range(8, 1, -1):
         cand = [str(dig) for dig in range(1, i + 1)]
         cand = int("".join(cand))
         candidates = sorted(all_permutations_digits(cand))[::-1]

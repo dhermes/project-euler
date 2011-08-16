@@ -691,7 +691,7 @@ exports.ascending = function(num, numSum, minNum, probMax) {
         return [];
     }
 
-    if (numSum == 1) {
+    if (num == 1) {
         if (numSum == minNum) {
             return [[numSum]];
         } else {
@@ -701,14 +701,18 @@ exports.ascending = function(num, numSum, minNum, probMax) {
 
     var nextSum = numSum - minNum,
         biggest = Math.min(Math.floor(nextSum / (num - 1)), probMax),
-       result = [], asc;
+        result = [], asc;
 
+
+    function candidateMap(minNum) {
+        var result = function(candidate) {
+            return [minNum].concat(candidate);
+        };
+        return result;
+    };
     for (var nextMin = minNum; nextMin <= biggest; nextMin++) {
         asc = exports.ascending(num - 1, nextSum, nextMin, probMax);
-        function candidateMap(candidate) {
-            return [minNum].concat(candidate);
-        }
-        result = result.concat(asc.map(candidateMap));
+        result = result.concat(asc.map(candidateMap(minNum)));
     }
 
     return result;

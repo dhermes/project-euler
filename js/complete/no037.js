@@ -38,7 +38,7 @@ function truncatedList(n, fromLeft) {
 
 function truncatedAll(n) {
   var result = truncatedList(n, true).concat(truncatedList(n, false));
-  return operator.uniqSorted(result);
+  return operator.uniq(result);
 };
 
 function isTruncatablePrime(n, primes) {

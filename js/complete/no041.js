@@ -22,7 +22,7 @@ exports.main = function(verbose) {
      must be divisible by 9 */
   for (var i = 8; i > 1; i--) {
     cand = Number(operator.range(1, i + 1).join(''));
-    candidates = operator.uniqSorted(fns.allPermutationsDigits(cand)).reverse();
+    candidates = operator.uniq(fns.allPermutationsDigits(cand)).reverse();
     for (j = 0; candidate = candidates[j]; j++) {
       if (fns.isPrime(candidate, primes, maxN)) {
         return candidate;

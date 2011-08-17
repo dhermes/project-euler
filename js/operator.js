@@ -74,17 +74,25 @@ exports.sortNumber = function(a, b) {
   return a - b;
 };
 
+exports.uniq = function(arr) {
+  if (typeof isNumber == 'undefined') {
+    isNumber = true;
+  }
+
+  var result = {};
+  for (var i = 0, val; val = arr[i]; i++) {
+    result[val] = true;
+  }
+
+  return Object.keys(result);
+};
+
 exports.uniqSorted = function(arr, isNumber) {
   if (typeof isNumber == 'undefined') {
     isNumber = true;
   }
 
-  var result = [];
-  for (var i = 0, val; val = arr[i]; i++) {
-    if (exports.inArray(val, result) == -1) {
-      result.push(val);
-    }
-  }
+  var result = exports.uniq(arr);
 
   if (isNumber) {
     result.sort(exports.sortNumber);

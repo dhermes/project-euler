@@ -48,7 +48,7 @@ function convertToTriangle(triple) {
       a = k * (m * m - n * n),
       b = k * (2 * m * n),
       c = k * (m * m + n * n);
-  return operator.uniqSorted([a, b, c]);
+  return [a, b, c].sort(operator.sortNumber);
 };
 
 function allTriangles(p, factorsHash) {
@@ -64,7 +64,7 @@ function allTriangles(p, factorsHash) {
   function undoStringMap(str) {
     return str.split(', ').map(Number);
   };
-  return operator.uniqSorted(triples.map(convertToTriangle).map(stringMap), false).map(undoStringMap);
+  return operator.uniq(triples.map(convertToTriangle).map(stringMap), false).map(undoStringMap);
 };
 
 function allTrianglesUpToN(n) {

@@ -9,7 +9,8 @@ exports.main = function(verbose) {
     verbose = false;
   }
   var n = 100, powers = fns.applyToList(operator.bigIntPow, operator.range(2, n + 1));
-  powers = operator.uniqSorted(powers, false);
+
+  powers = operator.uniq(powers);
   return powers.length;
 };
 

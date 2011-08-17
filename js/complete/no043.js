@@ -34,7 +34,7 @@ function extendMatches(value, choices, direction) {
    * 1) ends in the same 2 digits that value begins with
    * 2) has remaining digit(s) unique from those in value
    */
-  var valueDigits = operator.uniqSorted(value.split('')), matches;
+  var valueDigits = operator.uniq(value.split('')), matches;
   if (direction == 'right') {
     function firstTwoFilter(choice) {
       return (choice.slice(0, 2) == value.slice(-2));
@@ -112,7 +112,7 @@ exports.main = function(verbose) {
   };
 
   function threeDigitsUniqueFilter(number) {
-    return (operator.uniqSorted(number.split('')).length == 3);
+    return (operator.uniq(number.split('')).length == 3);
   };
 
   var allVals = operator.range(1, 1000);

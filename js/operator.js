@@ -75,10 +75,6 @@ exports.sortNumber = function(a, b) {
 };
 
 exports.uniq = function(arr) {
-  if (typeof isNumber == 'undefined') {
-    isNumber = true;
-  }
-
   var result = {};
   for (var i = 0, val; val = arr[i]; i++) {
     result[val] = true;

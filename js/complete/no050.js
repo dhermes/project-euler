@@ -17,122 +17,122 @@ var fns = require('../functions.js'),
     timer = require('../timer.js');
 
 function maxPrimeLength(digits, primes) {
-    /**
-     * Returns the length of the longest string of primes
-     * (starting at 2,3,5,...) that will sum to less 10**digits
-     */
-    if (typeof primes == 'undefined') {
-        primes = [];
+  /**
+   * Returns the length of the longest string of primes
+   * (starting at 2,3,5,...) that will sum to less 10**digits
+   */
+  if (typeof primes == 'undefined') {
+    primes = [];
+  }
+  var cap = Math.pow(10, digits);
+  if (primes.length == 0) {
+    primes = fns.sieve(Math.floor(4 * Math.sqrt(cap)));
+  }
+  var count = 0, numPrimes = 0;
+  for (var i = 0, prime; prime = primes[i]; i++) {
+    if (count + prime < cap) {
+      count += prime;
+      numPrimes++;
+    } else {
+      return numPrimes;
     }
-    var cap = Math.pow(10, digits);
-    if (primes.length == 0) {
-        primes = fns.sieve(Math.floor(4 * Math.sqrt(cap)));
-    }
-    var count = 0, numPrimes = 0;
-    for (var i = 0, prime; prime = primes[i]; i++) {
-        if (count + prime < cap) {
-            count += prime;
-            numPrimes++;
-        } else {
-            return numPrimes;
-        }
-    }
-    return; // maxPrimeLength failed logic.
+  }
+  return; // maxPrimeLength failed logic.
 };
 
 function allPrimeSeqs(length, digits, primes) {
-    /**
-     * Returns all sequences of primes of
-     *
-     * Assumes length <= max_prime_length(digits)
-     */
-    if (typeof primes == 'undefined') {
-        primes = [];
-    }
+  /**
+   * Returns all sequences of primes of
+   *
+   * Assumes length <= max_prime_length(digits)
+   */
+  if (typeof primes == 'undefined') {
+    primes = [];
+  }
 
-    var cap = Math.pow(10, digits);
-    if (primes.length == 0) {
-        primes = fns.sieve(cap);
-    }
+  var cap = Math.pow(10, digits);
+  if (primes.length == 0) {
+    primes = fns.sieve(cap);
+  }
 
-    var result = [], finalIndex = length - 1,
-        curr = primes.slice(finalIndex - length + 1, finalIndex + 1),
-        runningSum = operator.sum(curr);
-    while (runningSum < cap) {
-        runningSum -= curr[0]; // remove the smallest value from the sum
-        result.push(curr);
-        finalIndex++;
-        curr = primes.slice(finalIndex - length + 1, finalIndex + 1),
-        runningSum += curr[curr.length - 1]; // add the new largest
-    }
-    return result;
+  var result = [], finalIndex = length - 1,
+      curr = primes.slice(finalIndex - length + 1, finalIndex + 1),
+      runningSum = operator.sum(curr);
+  while (runningSum < cap) {
+    runningSum -= curr[0]; // remove the smallest value from the sum
+    result.push(curr);
+    finalIndex++;
+    curr = primes.slice(finalIndex - length + 1, finalIndex + 1),
+    runningSum += curr[curr.length - 1]; // add the new largest
+  }
+  return result;
 };
 
 function primeSequenceExists(length, digits, primes) {
-    /**
-     * Returns True if a sequence of length consecutive primes which sums
-     * to less than 10**digits also sums to a prime number
-     */
-    if (typeof primes == 'undefined') {
-        primes = [];
-    }
+  /**
+   * Returns True if a sequence of length consecutive primes which sums
+   * to less than 10**digits also sums to a prime number
+   */
+  if (typeof primes == 'undefined') {
+    primes = [];
+  }
 
-    var cap = Math.pow(10, digits);
-    if (primes.length == 0) {
-        primes = fns.sieve(cap);
+  var cap = Math.pow(10, digits);
+  if (primes.length == 0) {
+    primes = fns.sieve(cap);
+  }
+  var sums = allPrimeSeqs(length, digits, primes).map(operator.sum);
+  for (var i = 0, sum; sum = sums[i]; i++) {
+    if (operator.inArray(sum, primes) != -1) {
+      return true;
     }
-    var sums = allPrimeSeqs(length, digits, primes).map(operator.sum);
-    for (var i = 0, sum; sum = sums[i]; i++) {
-        if (operator.inArray(sum, primes) != -1) {
-            return true;
-        }
-    }
-    return false;
+  }
+  return false;
 };
 
 function longestPrimeSequence(digits, primes) {
-    /**
-     * Returns the length of the most consecutive primes which sum
-     * to a prime and sum to less then 10**digits
-     */
-    if (typeof primes == 'undefined') {
-        primes = [];
-    }
+  /**
+   * Returns the length of the most consecutive primes which sum
+   * to a prime and sum to less then 10**digits
+   */
+  if (typeof primes == 'undefined') {
+    primes = [];
+  }
 
-    if (primes.length == 0) {
-        primes = fns.sieve(Math.pow(10, digits));
+  if (primes.length == 0) {
+    primes = fns.sieve(Math.pow(10, digits));
+  }
+  var maxLength = maxPrimeLength(digits, primes);
+  for (var length = maxLength; length > 0; length--) {
+    if (primeSequenceExists(length, digits, primes)) {
+      return length;
     }
-    var maxLength = maxPrimeLength(digits, primes);
-    for (var length = maxLength; length > 0; length--) {
-        if (primeSequenceExists(length, digits, primes)) {
-            return length;
-        }
-    }
+  }
 
-    return; // Algorithm failed
+  return; // Algorithm failed
 };
 
 function longestPrime(digits) {
-    var primes = fns.sieve(Math.pow(10, digits)),
-        length = longestPrimeSequence(digits, primes),
-        sums = allPrimeSeqs(length, digits, primes).map(operator.sum),
-        intersect = [];
+  var primes = fns.sieve(Math.pow(10, digits)),
+      length = longestPrimeSequence(digits, primes),
+      sums = allPrimeSeqs(length, digits, primes).map(operator.sum),
+      intersect = [];
 
-    for (var i = 0, sum; sum = sums[i]; i++) {
-        if (operator.inArray(sum, primes) != -1) {
-            intersect.push(sum);
-        }
+  for (var i = 0, sum; sum = sums[i]; i++) {
+    if (operator.inArray(sum, primes) != -1) {
+      intersect.push(sum);
     }
-    return Math.max.apply(Math, intersect);
+  }
+  return Math.max.apply(Math, intersect);
 };
 
 exports.main = function(verbose) {
-    if (typeof verbose == 'undefined') {
-        verbose = false;
-    }
-    return longestPrime(6);
+  if (typeof verbose == 'undefined') {
+    verbose = false;
+  }
+  return longestPrime(6);
 };
 
 if (require.main === module) {
-    timer.timer(50, exports.main);
+  timer.timer(50, exports.main);
 }

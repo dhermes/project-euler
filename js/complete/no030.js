@@ -11,31 +11,31 @@ var operator = require('../operator.js'),
     timer = require('../timer.js');
 
 function sumOfDigitsPowers(n, power) {
-    function mapPower(dig) {
-        return Math.pow(Number(dig), power);
-    };
-    return operator.sum(n.toString().split('').map(mapPower));
+  function mapPower(dig) {
+    return Math.pow(Number(dig), power);
+  };
+  return operator.sum(n.toString().split('').map(mapPower));
 };
 
 exports.main = function(verbose) {
-    if (typeof verbose == 'undefined') {
-        verbose = false;
+  if (typeof verbose == 'undefined') {
+    verbose = false;
+  }
+  var valid = [];
+  for (var i = 2; i < 1000000; i++) {
+    if (sumOfDigitsPowers(i, 5) == i) {
+      valid.push(i);
     }
-    var valid = [];
-    for (var i = 2; i < 1000000; i++) {
-        if (sumOfDigitsPowers(i, 5) == i) {
-            valid.push(i);
-        }
-    }
+  }
 
-    if (verbose) {
-        return [operator.sum(valid), '.\nThe numbers satisfying this property are: ',
-                valid.join(', '), '.'].join('');
-    } else {
-        return operator.sum(valid);
-    }
+  if (verbose) {
+    return [operator.sum(valid), '.\nThe numbers satisfying this property are: ',
+            valid.join(', '), '.'].join('');
+  } else {
+    return operator.sum(valid);
+  }
 };
 
 if (require.main === module) {
-    timer.timer(30, exports.main);
+  timer.timer(30, exports.main);
 }

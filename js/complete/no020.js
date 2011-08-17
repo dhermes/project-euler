@@ -7,13 +7,13 @@ var fns = require('../functions.js'),
     timer = require('../timer.js');
 
 exports.main = function(verbose) {
-    if (typeof verbose == 'undefined') {
-        verbose = false;
-    }
-    // Sum will cast to Number
-    return operator.sum(fns.factorial(100, true).split(''));
+  if (typeof verbose == 'undefined') {
+    verbose = false;
+  }
+  // Sum will cast to Number (second argument for using bigint)
+  return operator.sum(fns.factorial(100, true).split(''));
 };
 
 if (require.main === module) {
-    timer.timer(20, exports.main);
+  timer.timer(20, exports.main);
 }

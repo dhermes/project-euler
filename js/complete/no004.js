@@ -12,15 +12,15 @@ var fns = require('../functions.js'),
     timer = require('../timer.js');
 
 exports.main = function(verbose) {
-    if (typeof verbose == 'undefined') {
-        verbose = false;
-    }
-    var products = fns.applyToList(operator.mul, operator.range(100, 1000));
-    
-    products = products.filter(fns.isPalindrome);
-    return Math.max.apply(Math, products);
+  if (typeof verbose == 'undefined') {
+    verbose = false;
+  }
+  var products = fns.applyToList(operator.mul, operator.range(100, 1000));
+
+  products = products.filter(fns.isPalindrome);
+  return Math.max.apply(Math, products);
 };
 
 if (require.main === module) {
-    timer.timer(4, exports.main);
+  timer.timer(4, exports.main);
 }

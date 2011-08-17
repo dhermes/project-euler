@@ -17,53 +17,53 @@ var fns = require('../functions.js'),
     timer = require('../timer.js');
 
 function findArithmetic(arr) {
-    if (arr.length < 3) {
-        return; // List wrong size.
-    }
+  if (arr.length < 3) {
+    return; // List wrong size.
+  }
 
-    var candidates = fns.allSubsets(arr, 3);
-    for (var i = 0, cand; cand = candidates[i]; i++) {
-        if (cand[0] + cand[2] == 2 * cand[1]) {
-            return cand;
-        }
+  var candidates = fns.allSubsets(arr, 3);
+  for (var i = 0, cand; cand = candidates[i]; i++) {
+    if (cand[0] + cand[2] == 2 * cand[1]) {
+      return cand;
     }
-    return [];
+  }
+  return [];
 };
 
 exports.main = function(verbose) {
-    if (typeof verbose == 'undefined') {
-        verbose = false;
-    }
-    function geValFilter(val) {
-        var result = function(number) {
-            return number > val;
-        };
-        return result;
+  if (typeof verbose == 'undefined') {
+    verbose = false;
+  }
+  function geValFilter(val) {
+    var result = function(number) {
+      return number > val;
     };
-    var primes = fns.sieve(10000).filter(geValFilter(999)),
-        primesByDigits = {}, key;
-    for (var i = 0, prime; prime = primes[i]; i++) {
-        key = prime.toString().split('').sort().join(''); //
-        if (key in primesByDigits) {
-            primesByDigits[key].push(prime);
-        } else {
-            primesByDigits[key] = [prime];
-        }
+    return result;
+  };
+  var primes = fns.sieve(10000).filter(geValFilter(999)),
+      primesByDigits = {}, key;
+  for (var i = 0, prime; prime = primes[i]; i++) {
+    key = prime.toString().split('').sort().join(''); //
+    if (key in primesByDigits) {
+      primesByDigits[key].push(prime);
+    } else {
+      primesByDigits[key] = [prime];
     }
+  }
 
-    var result = [], candidate, soln;
-    for (key in primesByDigits) {
-        candidate = primesByDigits[key];
-        if (candidate.length > 2) {
-            soln = findArithmetic(candidate);
-            if (soln.length) {
-                result.push(operator.uniqSorted(soln).join(''));
-            }
-        }
+  var result = [], candidate, soln;
+  for (key in primesByDigits) {
+    candidate = primesByDigits[key];
+    if (candidate.length > 2) {
+      soln = findArithmetic(candidate);
+      if (soln.length) {
+        result.push(operator.uniqSorted(soln).join(''));
+      }
     }
-    return result[0]; // No solution found
+  }
+  return result[0]; // No solution found
 };
 
 if (require.main === module) {
-    timer.timer(49, exports.main);
+  timer.timer(49, exports.main);
 }

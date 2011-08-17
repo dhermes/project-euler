@@ -7,14 +7,14 @@ var fns = require('../functions.js'),
     timer = require('../timer.js');
 
 exports.main = function(verbose) {
-    if (typeof verbose == 'undefined') {
-        verbose = false;
-    }
-    var primes = fns.sieve(2000000),
-        result = operator.sum(primes);
-    return result;
+  if (typeof verbose == 'undefined') {
+    verbose = false;
+  }
+  var primes = fns.sieve(2000000),
+      result = operator.sum(primes);
+  return result;
 };
 
 if (require.main === module) {
-    timer.timer(10, exports.main);
+  timer.timer(10, exports.main);
 }

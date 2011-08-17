@@ -17,33 +17,33 @@ var fns = require('../functions.js'),
     timer = require('../timer.js');
 
 function wordToValue(word) {
-    var letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    function indexToVal(letter) {
-        return operator.inArray(letter, letters) + 1;
-    };
-    return operator.sum(word.split('').map(indexToVal));
+  var letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  function indexToVal(letter) {
+    return operator.inArray(letter, letters) + 1;
+  };
+  return operator.sum(word.split('').map(indexToVal));
 };
 
 function numTriangle() {
-    // Assumes file is "A","ABILITIY","ABLE",...
-    var words = fns.getData(42).slice(1, -1).split('","'),
-        vals = words.map(wordToValue),
-        triangleHash = {}, count = 0;
-    for (var i = 0, val; val = vals[i]; i++) {
-        if (fns.reversePolygonalNumber(3, val, triangleHash) != -1) {
-            count++;
-        }
+  // Assumes file is "A","ABILITIY","ABLE",...
+  var words = fns.getData(42).slice(1, -1).split('","'),
+      vals = words.map(wordToValue),
+      triangleHash = {}, count = 0;
+  for (var i = 0, val; val = vals[i]; i++) {
+    if (fns.reversePolygonalNumber(3, val, triangleHash) != -1) {
+      count++;
     }
-    return count;
+  }
+  return count;
 };
 
 exports.main = function(verbose) {
-    if (typeof verbose == 'undefined') {
-        verbose = false;
-    }
-    return numTriangle();
+  if (typeof verbose == 'undefined') {
+    verbose = false;
+  }
+  return numTriangle();
 };
 
 if (require.main === module) {
-    timer.timer(42, exports.main);
+  timer.timer(42, exports.main);
 }

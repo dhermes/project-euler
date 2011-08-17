@@ -8,41 +8,41 @@ var fns = require('../functions.js'),
     timer = require('../timer.js');
 
 function isPossible(n, primes) {
-    if (n % 2 == 0 || operator.inArray(n, primes) != -1) {
-        return; // Value poorly specified
-    }
+  if (n % 2 == 0 || operator.inArray(n, primes) != -1) {
+    return; // Value poorly specified
+  }
 
-    function valFilter(val) {
-        var result = function(number) {
-            return (number < val & number != 2);
-        };
-        return result;
+  function valFilter(val) {
+    var result = function(number) {
+      return (number < val & number != 2);
     };
-    var primesLess = primes.filter(valFilter(n));
-    for (var i = 0, prime; prime = primesLess[i]; i++) {
-        if (fns.isPower((n - prime) / 2, 2)) {
-            return true;
-        }
+    return result;
+  };
+  var primesLess = primes.filter(valFilter(n));
+  for (var i = 0, prime; prime = primesLess[i]; i++) {
+    if (fns.isPower((n - prime) / 2, 2)) {
+      return true;
     }
-    return false;
+  }
+  return false;
 };
 
 exports.main = function(verbose) {
-    if (typeof verbose == 'undefined') {
-        verbose = false;
+  if (typeof verbose == 'undefined') {
+    verbose = false;
+  }
+  // sieve(6000) will do it (answer is 5777)
+  var curr = 9,
+      primes = fns.sieve(5777);
+  while (isPossible(curr, primes)) {
+    curr += 2;
+    while (operator.inArray(curr, primes) != -1) {
+      curr += 2;
     }
-    // sieve(6000) will do it (answer is 5777)
-    var curr = 9,
-        primes = fns.sieve(5777);
-    while (isPossible(curr, primes)) {
-        curr += 2;
-        while (operator.inArray(curr, primes) != -1) {
-            curr += 2;
-        }
-    }
-    return curr;
+  }
+  return curr;
 };
 
 if (require.main === module) {
-    timer.timer(46, exports.main);
+  timer.timer(46, exports.main);
 }

@@ -21,13 +21,13 @@
 
    Base solution (x,y) = (1,1), if we view the river of the form
    f((x,y)) = 3x^2 - y^2 with u_0 = (1,0) and v_0 = (0,1) we have
-   f(u_0) = 3, f(v_0) = -1 we have the general transformation along the 
+   f(u_0) = 3, f(v_0) = -1 we have the general transformation along the
    river u_{n+1} = 2u_n + 3v_n, v_{n+1} = u_n + 2v_n
-   which gives u_{n+2} - 2u_{n+1} - 2(u_{n+1} - 2u_n) 
+   which gives u_{n+2} - 2u_{n+1} - 2(u_{n+1} - 2u_n)
    = 3v_{n+1} - 2(3v_n) = 3u_n which implies
    u_{n+2} - 4u_{n+1} + u_n = 0 (and similarly for v_n)
    We know also that since u + v gives the solutions to 3x^2 - y^2 = 2
-   that the solutions we want also follow this recurrence. 
+   that the solutions we want also follow this recurrence.
    Let s_0 = (1,1) and s_1 = (3,5)
    We seek solutions s_n such that s_n(x) = 3 mod 4 and s_n(y) = 5 mod 6.
 
@@ -56,19 +56,19 @@ var fns = require('../functions.js'),
     timer = require('../timer.js');
 
 exports.main = function(verbose) {
-    if (typeof verbose == 'undefined') {
-        verbose = false;
-    }
-    var a = 1, b = 3, tmp;
-    for (var i = 0; i < 8; i++) {
-        tmp = b;
-        b = 4*b - a;
-        a = tmp;
-    }
-    // Now b = x_9
-    return (b * b - 1) / 8;
+  if (typeof verbose == 'undefined') {
+    verbose = false;
+  }
+  var a = 1, b = 3, tmp;
+  for (var i = 0; i < 8; i++) {
+    tmp = b;
+    b = 4*b - a;
+    a = tmp;
+  }
+  // Now b = x_9
+  return (b * b - 1) / 8;
 };
 
 if (require.main === module) {
-    timer.timer(45, exports.main);
+  timer.timer(45, exports.main);
 }

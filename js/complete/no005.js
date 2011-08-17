@@ -7,22 +7,22 @@ var fns = require('../functions.js'),
     timer = require('../timer.js');
 
 function minProduct(n) {
-    if (n < 2) {
-        return 1;
-    }
+  if (n < 2) {
+    return 1;
+  }
 
-    var product = minProduct(n - 1),
-        sharedFactors = fns.gcd(product, n);
-    return (product * n) / sharedFactors;
+  var product = minProduct(n - 1),
+      sharedFactors = fns.gcd(product, n);
+  return (product * n) / sharedFactors;
 };
 
 exports.main = function(verbose) {
-    if (typeof verbose == 'undefined') {
-        verbose = false;
-    }
-    return minProduct(20);
+  if (typeof verbose == 'undefined') {
+    verbose = false;
+  }
+  return minProduct(20);
 };
 
 if (require.main === module) {
-    timer.timer(5, exports.main);
+  timer.timer(5, exports.main);
 }

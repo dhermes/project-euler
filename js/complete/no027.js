@@ -24,46 +24,46 @@ var fns = require('../functions.js'),
     timer = require('../timer.js');
 
 function polynomialConsecutivePrimes(a, b, primes) {
-    // f(n + 1) = f(n) + 1 + a + 2n
-    var current = b, index = 0;
-    while (operator.inArray(current, primes) != -1) {
-        current += 1 + a + 2 * index;
-        index += 1;
-    }
-    return index;
+  // f(n + 1) = f(n) + 1 + a + 2n
+  var current = b, index = 0;
+  while (operator.inArray(current, primes) != -1) {
+    current += 1 + a + 2 * index;
+    index += 1;
+  }
+  return index;
 };
 
 exports.main = function(verbose) {
-    if (typeof verbose == 'undefined') {
-        verbose = false;
-    }
-    var primes = fns.sieve(86238);
-    function lessThan1000(prime) {
-        return prime < 1000;
-    };
-    var bChoices = primes.filter(lessThan1000), maxVal = -1,
-        maxA, maxB, candidate, a;
+  if (typeof verbose == 'undefined') {
+    verbose = false;
+  }
+  var primes = fns.sieve(86238);
+  function lessThan1000(prime) {
+    return prime < 1000;
+  };
+  var bChoices = primes.filter(lessThan1000), maxVal = -1,
+      maxA, maxB, candidate, a;
 
-    // Algorithm different than python due to memory constraints
-    for (var i = 0, b; b = bChoices[i]; i++) {
-        for (a = -999; a < 1000; a++) {
-            candidate = polynomialConsecutivePrimes(a, b, primes);
-            if (candidate > maxVal) {
-                maxVal = candidate;
-                maxA = a;
-                maxB = b;
-            }
-        }
+  // Algorithm different than python due to memory constraints
+  for (var i = 0, b; b = bChoices[i]; i++) {
+    for (a = -999; a < 1000; a++) {
+      candidate = polynomialConsecutivePrimes(a, b, primes);
+      if (candidate > maxVal) {
+        maxVal = candidate;
+        maxA = a;
+        maxB = b;
+      }
     }
+  }
 
-    if (verbose) {
-        return [maxA * maxB, '.\nSetting a = ', maxA, ' and b = ', maxB,
-                ' produces ', maxVal, ' consecutive primes.'].join('');
-    } else {
-        return maxA * maxB;
-    }
+  if (verbose) {
+    return [maxA * maxB, '.\nSetting a = ', maxA, ' and b = ', maxB,
+            ' produces ', maxVal, ' consecutive primes.'].join('');
+  } else {
+    return maxA * maxB;
+  }
 };
 
 if (require.main === module) {
-    timer.timer(27, exports.main);
+  timer.timer(27, exports.main);
 }

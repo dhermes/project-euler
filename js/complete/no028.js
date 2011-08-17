@@ -16,41 +16,41 @@ var timer = require('../timer.js');
 
 // 1, 1, 2, 2, 3, 3, 4, 4, etc., every 2 is a corner
 function spiralSum(n) {
-    if (n % 2 == 0) {
-        return; // Spiral only occurs on odds.
+  if (n % 2 == 0) {
+    return; // Spiral only occurs on odds.
+  }
+
+  var currVal = 1, total = 0,
+      /* as we move along the corners on the spiral, the number of
+         steps (i.e. number of corners) dictates the size of each
+         new step. In almost all cases, the step increases by one
+         but every four, when the next corner wraps a new layer,
+         it does not increase */
+      stepNum = 0, stepSize = 0;
+
+  while (currVal <= Math.pow(n, 2)) {
+    if (stepNum % 2 == 0) {
+      stepSize++;
     }
-
-    var currVal = 1, total = 0,
-       /* as we move along the corners on the spiral, the number of
-          steps (i.e. number of corners) dictates the size of each
-          new step. In almost all cases, the step increases by one
-          but every four, when the next corner wraps a new layer,
-          it does not increase */
-        stepNum = 0, stepSize = 0;
-
-    while (currVal <= Math.pow(n, 2)) {
-        if (stepNum % 2 == 0) {
-            stepSize++;
-        }
-        currVal += stepSize;
-        if (stepNum % 4 == 0) {
-            total += currVal - 1;
-        } else {
-            total += currVal;
-        }
-        stepNum++;
+    currVal += stepSize;
+    if (stepNum % 4 == 0) {
+      total += currVal - 1;
+    } else {
+      total += currVal;
     }
+    stepNum++;
+  }
 
-    return total;
+  return total;
 };
 
 exports.main = function(verbose) {
-    if (typeof verbose == 'undefined') {
-        verbose = false;
-    }
-    return spiralSum(1001);
+  if (typeof verbose == 'undefined') {
+    verbose = false;
+  }
+  return spiralSum(1001);
 };
 
 if (require.main === module) {
-    timer.timer(28, exports.main);
+  timer.timer(28, exports.main);
 }

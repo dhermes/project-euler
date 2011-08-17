@@ -15,27 +15,27 @@ var fns = require('../functions.js'),
     timer = require('../timer.js');
 
 function nameScore(name) {
-    name = name.toUpperCase();
-    var baseVal = 'A'.charCodeAt(0) - 1, result = 0;
-    for (var i = 0; i < name.length; i++) {
-        result += name.charCodeAt(i) - baseVal;
-    }
-    return result;
+  name = name.toUpperCase();
+  var baseVal = 'A'.charCodeAt(0) - 1, result = 0;
+  for (var i = 0; i < name.length; i++) {
+    result += name.charCodeAt(i) - baseVal;
+  }
+  return result;
 };
 
 exports.main = function(verbose) {
-    if (typeof verbose == 'undefined') {
-        verbose = false;
-    }
-    // The name file is a comma separated file with quotes
-    var names = fns.getData(22).slice(1, -1).split('","'), result = 0;
-    names.sort();
-    for (var i = 0, name; name = names[i]; i++) {
-        result += (i + 1) * nameScore(name);
-    }
-    return result;
+  if (typeof verbose == 'undefined') {
+    verbose = false;
+  }
+  // The name file is a comma separated file with quotes
+  var names = fns.getData(22).slice(1, -1).split('","'), result = 0;
+  names.sort();
+  for (var i = 0, name; name = names[i]; i++) {
+    result += (i + 1) * nameScore(name);
+  }
+  return result;
 };
 
 if (require.main === module) {
-    timer.timer(22, exports.main);
+  timer.timer(22, exports.main);
 }

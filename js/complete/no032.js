@@ -9,56 +9,56 @@ var operator = require('../operator.js'),
     timer = require('../timer.js');
 
 function allOrderings(arr) {
-    if (arr.length == 1) {
-        return [arr];
-    }
+  if (arr.length == 1) {
+    return [arr];
+  }
 
-    var result = [], sublist;
-    for (var i = 0; i < arr.length; i++) {
-        sublist = arr.slice(0, i).concat(arr.slice(i + 1));
-        function addEltMap(ordering) {
-            return ordering.concat(arr[i]);
-        };
-        result = result.concat(allOrderings(sublist).map(addEltMap));
-    }
-    return result;
+  var result = [], sublist;
+  for (var i = 0; i < arr.length; i++) {
+    sublist = arr.slice(0, i).concat(arr.slice(i + 1));
+    function addEltMap(ordering) {
+      return ordering.concat(arr[i]);
+    };
+    result = result.concat(allOrderings(sublist).map(addEltMap));
+  }
+  return result;
 };
 
 /* Will take a list and break it at various places, returning
    the product of the integers formed */
 function possibleProducts(arr) {
-    var result = [], left, right;
-    for (var i = 1; i < arr.length; i++) { 
-        left = arr.slice(0, i).join('');
-        right = arr.slice(i).join('');
-        result.push(Number(left) * Number(right));
-    }
+  var result = [], left, right;
+  for (var i = 1; i < arr.length; i++) {
+    left = arr.slice(0, i).join('');
+    right = arr.slice(i).join('');
+    result.push(Number(left) * Number(right));
+  }
 
-    return result;
+  return result;
 };
 
 exports.main = function(verbose) {
-    if (typeof verbose == 'undefined') {
-        verbose = false;
-    }
-    var products = [], candidates = allOrderings(operator.range(1, 10)), prods, last4, last3;
-    for (var i = 0, candidate; candidate = candidates[i]; i++) {
-        prods = possibleProducts(candidate.slice(0, 5));
-        last4 = Number(candidate.slice(-4).join(''));
-        if (operator.inArray(last4, prods) != -1 && operator.inArray(last4, products) == -1) {
-            products.push(last4);
-        }
-
-        prods = possibleProducts(candidates.slice(0, 6));
-        last3 = Number(candidate.slice(-3).join(''));
-        if (operator.inArray(last3, prods) != -1 && operator.inArray(last3, products) == -1) {
-            products.push(last3);
-        }
+  if (typeof verbose == 'undefined') {
+    verbose = false;
+  }
+  var products = [], candidates = allOrderings(operator.range(1, 10)), prods, last4, last3;
+  for (var i = 0, candidate; candidate = candidates[i]; i++) {
+    prods = possibleProducts(candidate.slice(0, 5));
+    last4 = Number(candidate.slice(-4).join(''));
+    if (operator.inArray(last4, prods) != -1 && operator.inArray(last4, products) == -1) {
+      products.push(last4);
     }
 
-    return operator.sum(products);
+    prods = possibleProducts(candidates.slice(0, 6));
+    last3 = Number(candidate.slice(-3).join(''));
+    if (operator.inArray(last3, prods) != -1 && operator.inArray(last3, products) == -1) {
+      products.push(last3);
+    }
+  }
+
+  return operator.sum(products);
 };
 
 if (require.main === module) {
-    timer.timer(32, exports.main);
+  timer.timer(32, exports.main);
 }

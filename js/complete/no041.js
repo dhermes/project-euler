@@ -13,25 +13,25 @@ var fns = require('../functions.js'),
 // This is marked too slow because the worst case (8 digits), has
 // an array of size 40320 and takes forever
 exports.main = function(verbose) {
-    if (typeof verbose == 'undefined') {
-        verbose = false;
+  if (typeof verbose == 'undefined') {
+    verbose = false;
+  }
+  var maxN = 987654321, primes = fns.sieve(Math.floor(Math.sqrt(maxN))),
+      cand, candidate, candidates, j;
+  /* A 9 digit pandigital will have digit sum 45, so can't be prime
+     must be divisible by 9 */
+  for (var i = 8; i > 1; i--) {
+    cand = Number(operator.range(1, i + 1).join(''));
+    candidates = operator.uniqSorted(fns.allPermutationsDigits(cand)).reverse();
+    for (j = 0; candidate = candidates[j]; j++) {
+      if (fns.isPrime(candidate, primes, maxN)) {
+        return candidate;
+      }
     }
-    var maxN = 987654321, primes = fns.sieve(Math.floor(Math.sqrt(maxN))),
-    cand, candidate, candidates, j;
-    /* A 9 digit pandigital will have digit sum 45, so can't be prime
-       must be divisible by 9 */
-    for (var i = 8; i > 1; i--) {
-        cand = Number(operator.range(1, i + 1).join(''));
-        candidates = operator.uniqSorted(fns.allPermutationsDigits(cand)).reverse();
-        for (j = 0; candidate = candidates[j]; j++) {
-            if (fns.isPrime(candidate, primes, maxN)) {
-                return candidate;
-            }
-        }
-    }
-    return; // No prime was found, algorithm busted
+  }
+  return; // No prime was found, algorithm busted
 };
 
 if (require.main === module) {
-    timer.timer(41, exports.main);
+  timer.timer(41, exports.main);
 }

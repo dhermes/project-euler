@@ -7,14 +7,14 @@ var bigint = require('bigint'),
     timer = require('../timer.js');
 
 exports.main = function(verbose) {
-    if (typeof verbose == 'undefined') {
-        verbose = false;
-    }
-    var power = bigint('2').pow(1000).toString(),
-        digitArray = power.split('');
-    return operator.sum(digitArray);
+  if (typeof verbose == 'undefined') {
+    verbose = false;
+  }
+  var power = bigint('2').pow(1000).toString(),
+      digitArray = power.split('');
+  return operator.sum(digitArray);
 };
 
 if (require.main === module) {
-    timer.timer(16, exports.main);
+  timer.timer(16, exports.main);
 }

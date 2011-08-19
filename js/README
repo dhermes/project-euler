@@ -8,3 +8,6 @@ The shebang at the top should work with node installed.
 
 Install bigint
 https://github.com/substack/node-bigint
+
+Install optimist
+https://github.com/substack/node-optimist

@@ -1,10 +1,28 @@
 #!/usr/bin/env node
 
 var fns = require('./functions.js'),
-    fs = require('fs'), 
-    path, stats, main, timeStart, result, timeEnd;
+    fs = require('fs'),
+    operator = require('./operator.js'),
+    path, stats, main, timeStart, result, timeEnd, timeTotal;
 
-for (var problemNumber = 1; problemNumber <= 50; problemNumber++) {
+var argv = require('optimist')
+    .usage('Usage: $0 [--sum] [--iterations <num>] [--fast]')
+    .boolean('sum')
+    .boolean('fast')
+    .default('sum', false)
+    .default('iterations', 1)
+    .default('fast', false)
+    .argv;
+
+var problemList;
+if (argv.fast) {
+    problemList = [1, 2, 3, 5, 6, 8, 13, 15, 16, 18, 19, 20, 24, 28, 40, 45];
+} else {
+    problemList = operator.range(1, 50 + 1);
+}
+
+var j;
+for (var i = 0, problemNumber; problemNumber = problemList[i]; i++) {
     path = './complete/no' + fns.zeroPad(problemNumber, 3) + '.js';
     try {
         stats = fs.statSync(path);
@@ -13,9 +31,18 @@ for (var problemNumber = 1; problemNumber <= 50; problemNumber++) {
     }    
 
     main = require(path);
+
     timeStart = new Date();
-    result = main.main();
+    for (j = 0; j < argv.iterations; j++) {
+        result = main.main();
+    }
     timeEnd = new Date();
     // Time in milliseconds
-    console.log(problemNumber + ': ' + result + ', ' + Math.abs(timeStart - timeEnd) + 'ms');
+    timeTotal = timeEnd - timeStart;
+
+    if (!argv.sum) {
+        timeTotal = Math.floor(timeTotal / argv.iterations);
+    }
+
+    console.log(problemNumber + ': ' + result + ', ' + timeTotal + 'ms');
 }

@@ -1,1 +1,1 @@
-var SECRET = 'Nnkrndkmn978489MDkjw';
+var SECRET = 'SECRET';

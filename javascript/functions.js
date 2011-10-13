@@ -74,7 +74,7 @@ exports.getData = function(problemNumber) {
 
   var fs = require('fs'),
       data = fs.readFileSync(absolutePath);
- 
+
   return data.toString('utf8');
 };
 
@@ -141,7 +141,7 @@ exports.isPower = function(n, exponent) {
 exports.maxSum = function(triangleMatrix) {
   /**
    * Finds maximum sum of path from top of triangle down to bottom
-   * 
+   *
    * Input: Matrix of triangle e.g.
    * 1
    * 3 5
@@ -325,7 +325,7 @@ exports.factors = function(n, factorHash, primes) {
     factorHash[n] = [1, n];
     return [1, n];
   }
-    
+
   var divis = firstPrimeDivisor(n, primes),
       prime = divis[0],
       quotient = divis[1],
@@ -552,7 +552,7 @@ exports.extendedEuclid = function(a, b) {
     next = last[0] % curr[0];
     factor = (last[0] - next) / curr[0];
 
-    tmp = [next, [last[1][0] - factor * curr[1][0], 
+    tmp = [next, [last[1][0] - factor * curr[1][0],
                   last[1][1] - factor * curr[1][1]]];
     last = curr;
     curr = tmp;

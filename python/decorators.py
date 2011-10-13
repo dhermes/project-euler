@@ -8,7 +8,7 @@ def euler_timer(problem_number):
         def timed_method(*args, **kwargs):
             result = ('The answer to Euler Project,'
                       ' question %s is:' % problem_number)
-                      
+
             start_time = time.time()
             method_result = method(*args, **kwargs)
             finish_time = time.time()

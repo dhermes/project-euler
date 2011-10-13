@@ -28,7 +28,7 @@ for (var i = 0, problemNumber; problemNumber = problemList[i]; i++) {
         stats = fs.statSync(path);
     } catch (e) {
         path = './too_slow/no' + fns.zeroPad(problemNumber, 3) + '.js';
-    }    
+    }
 
     main = require(path);
 

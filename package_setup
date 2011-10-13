@@ -3,7 +3,7 @@
 import os
 
 curr_file = os.path.abspath(__file__)
-if not curr_file.endswith('set_paths'):
+if not curr_file.endswith('package_setup'):
   raise Exception('Unexpected error occurred; wrong file called')
 
 base_path = os.path.abspath(os.path.join(curr_file, '..'))

@@ -6,8 +6,8 @@ I'll be changing this stupid dependency at some point.
 
 The shebang at the top should work with node installed.
 
-Install bigint
+Install bigint (via `npm install bigint`, requires libgmp)
 https://github.com/substack/node-bigint
 
-Install optimist
+Install optimist (via `npm install optimist`)
 https://github.com/substack/node-optimist

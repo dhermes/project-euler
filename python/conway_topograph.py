@@ -182,7 +182,7 @@ def get_recurrence(form):
     """
     Input: quadratic form [a,b]
 
-    Output: (y_mult, y_mult, relation) where y_mult is the coefficients
+    Output: (x_mult, y_mult, relation) where y_mult is the coefficients
     of x and y (respectively) that lead to the recurrence on the
     lattice to the next x value (from a previous (x,y) tuple),
     y_mult is the analogue for the y value and relation is

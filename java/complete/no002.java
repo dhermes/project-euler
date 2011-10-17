@@ -41,7 +41,7 @@ class no002 {
 
   public static void main(String[] args) { 
     try {
-      System.out.println(main());
+      System.out.println(main(true));
     } catch (Exception exc) {
       exc.printStackTrace();
     }   

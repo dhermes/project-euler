@@ -166,7 +166,7 @@ class no003 {
     }
 
     if (hash_ != null) {
-      return hash_.put(Long.toString(n), result);
+      hash_.put(Long.toString(n), result);
     }
 
     return result;
@@ -200,6 +200,6 @@ class no003 {
   }
 
   public static void main(String[] args) {
-    System.out.println(main());
+    System.out.println(main(true));
   }
 }

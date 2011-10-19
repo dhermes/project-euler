@@ -101,7 +101,7 @@ class no003 {
     if (quotient == 1 || quotient == -1) {
       throw new Exception("Please don't use " + quotient + " as a quotient.");
     }
-    
+
     // Since method can only return one type, we assume include_count is
     // always true, and throw an error otherwise
     if (!include_count) {

@@ -20,8 +20,8 @@ class no017 {
     String[] teens = new String[] {"ten", "eleven", "twelve", "thirteen",
                                    "fourteen", "fifteen", "sixteen", "seventeen",
                                    "eighteen", "nineteen"};
-    String[] ones = new String[] {"zero_index_filler", "one", "two", "three", 
-                                  "four", "five", "six", "seven", 
+    String[] ones = new String[] {"zero_index_filler", "one", "two", "three",
+                                  "four", "five", "six", "seven",
                                   "eight", "nine"};
 
     if (n == 1000) {

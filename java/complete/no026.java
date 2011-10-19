@@ -118,7 +118,7 @@ class no026 {
 
   public static long order_mod_n(long value, long n, HashMap<Integer, Integer> hash_, long[] prime_list) throws Exception {
     if (hash_ != null && hash_.containsKey(n)) {
-	return hash_.get((int) n);
+      return hash_.get((int) n);
     }
 
     if (gcd(value, n) != 1 || n == 1) {
@@ -158,18 +158,18 @@ class no026 {
   }
 
   public static long order_mod_n(long value, long n, long[] prime_list) throws Exception {
-    return order_mod_n(value, n, new HashMap(), prime_list);
+    return order_mod_n(value, n, new HashMap<Integer, Integer>(), prime_list);
   }
 
   public static long order_mod_n(long value, long n) throws Exception {
-    return order_mod_n(value, n, new HashMap(), new long[0]);
+    return order_mod_n(value, n, new HashMap<Integer, Integer>(), new long[0]);
   }
 
   public static long[] robust_divide(long n, long quotient, boolean include_count) throws Exception {
     if (quotient == 1 || quotient == -1) {
       throw new Exception("Please don't use " + quotient + " as a quotient.");
     }
-    
+
     // Since method can only return one type, we assume include_count is
     // always true, and throw an error otherwise
     if (!include_count) {

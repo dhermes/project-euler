@@ -32,7 +32,7 @@ class no019 {
     int date = jan_1_1901;
     int count = 0;
     if (date == 0) {
-	count++;
+      count++;
     }
 
     int[] months;

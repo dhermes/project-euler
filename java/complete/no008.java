@@ -55,7 +55,7 @@ class no008 {
         product *= digits[i + j];
       }
       ans = Math.max(ans, product);
-    }    
+    }
 
     return ans;
   }

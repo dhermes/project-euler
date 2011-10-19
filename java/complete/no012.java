@@ -101,7 +101,7 @@ class no012 {
     if (quotient == 1 || quotient == -1) {
       throw new Exception("Please don't use " + quotient + " as a quotient.");
     }
-    
+
     // Since method can only return one type, we assume include_count is
     // always true, and throw an error otherwise
     if (!include_count) {
@@ -186,20 +186,20 @@ class no012 {
 
   public static HashMap<String, Integer> list_frequencies(long[] list_) {
     long element;
-    HashMap<String, Integer> count_hash = new HashMap();
+    HashMap<String, Integer> count_hash = new HashMap<String, Integer>();
     String key;
     Integer value;
     for (int i = 0; i < list_.length; i++) {
       element = list_[i];
       key = Long.toString(element);
-      value = count_hash.get(key);      
+      value = count_hash.get(key);
       if (value != null) {
         count_hash.put(key, value + 1);
       } else {
         count_hash.put(key, 1);
       }
     }
-    // Should cast to items as in python here, will not for time being    
+    // Should cast to items as in python here, will not for time being
     return count_hash;
   }
 
@@ -218,7 +218,7 @@ class no012 {
     Object[] exponent_counts = factors_count_hash.values().toArray();
     int prod = 1;
     for (int i = 0; i < exponent_counts.length; i++) {
-	prod *= Integer.parseInt(exponent_counts[i].toString()) + 1;
+      prod *= Integer.parseInt(exponent_counts[i].toString()) + 1;
     }
 
     return prod;
@@ -228,18 +228,18 @@ class no012 {
     if (n % 2 == 0) {
       return special_num_factors(n / 2, n + 1, hash_);
     } else {
-	return special_num_factors(n, (n + 1) / 2, hash_);
+      return special_num_factors(n, (n + 1) / 2, hash_);
     }
   }
 
   public static String main(boolean verbose) {
     int n = 1;
-    HashMap<String, long []> h = new HashMap();
+    HashMap<String, long[]> h = new HashMap<String, long[]>();
     try {
       int num_fac = num_factors_nth_triangular(n, h);
       while (num_fac <= 500) {
         n++;
-	num_fac = num_factors_nth_triangular(n, h);
+        num_fac = num_factors_nth_triangular(n, h);
       }
 
       String result = Integer.toString((n * (n + 1)) / 2);

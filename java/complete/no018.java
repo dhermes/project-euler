@@ -31,7 +31,7 @@ class no018 {
 
     // Set bottom row for memoization
     int depth = max_depth;
-    HashMap<String, Integer> result = new HashMap();
+    HashMap<String, Integer> result = new HashMap<String, Integer>();
 
     int entry;
     for (int i = 0; i < triangle_matrix[depth].length; i++) {
@@ -46,8 +46,8 @@ class no018 {
     while (depth >= 0) {
       for (int i = 0; i < triangle_matrix[depth].length; i++) {
         entry = triangle_matrix[depth][i];
-	val_left = result.get(i + "," + (max_depth - depth - 1));
-	val_right = result.get(i + 1 + "," + (max_depth - depth - 1));
+        val_left = result.get(i + "," + (max_depth - depth - 1));
+        val_right = result.get(i + 1 + "," + (max_depth - depth - 1));
         result.put(i + "," +  (max_depth - depth),
                    entry + Math.max(val_left, val_right));
       }

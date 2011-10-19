@@ -39,11 +39,11 @@ class no002 {
     return main(false);
   }
 
-  public static void main(String[] args) { 
+  public static void main(String[] args) {
     try {
       System.out.println(main(true));
     } catch (Exception exc) {
       exc.printStackTrace();
-    }   
+    }
   }
 }

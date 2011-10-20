@@ -49,7 +49,7 @@ class no008 {
     int ans = 0;
     int product;
     int max_start = length - consecutive;
-    for (int i = 0; i <= max_start; i++) {
+    for (int i = 0; i < max_start + 1; i++) {
       product = 1;
       for (int j = 0; j < consecutive; j++) {
         product *= digits[i + j];

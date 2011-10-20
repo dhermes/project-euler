@@ -59,7 +59,7 @@ class no014 {
     long max_length_at = -1;
     long curr_length;
 
-    for (int i = 1; i <= n; i++) {
+    for (int i = 1; i < n + 1; i++) {
       curr_length = length(i, hash_);
       if (curr_length > max_length) {
         max_length = curr_length;

@@ -65,7 +65,7 @@ class no017 {
 
   public static int main(boolean verbose) {
     int result = 0;
-    for (int i = 1; i <= 1000; i++) {
+    for (int i = 1; i < 1000 + 1; i++) {
       result += num_letters_in_word(i);
     }
     return result;

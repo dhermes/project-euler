@@ -6,9 +6,9 @@ class no007 {
     Arrays.fill(to_check, true);
     int final_check = (int) Math.sqrt(n);
 
-    for (int i = 2; i <= final_check; i++) {
+    for (int i = 2; i < final_check + 1; i++) {
       if (to_check[i]) {
-        for (int j = i * i; j <= n; j += i) {
+        for (int j = i * i; j < n + 1; j += i) {
           to_check[j] = false;
         }
       }
@@ -16,7 +16,7 @@ class no007 {
 
     int[] result = new int[n];
     int curr_index = 0;
-    for (int i = 2; i <= n; i++) {
+    for (int i = 2; i < n + 1; i++) {
       if (to_check[i]) {
         result[curr_index] = i;
         curr_index++;

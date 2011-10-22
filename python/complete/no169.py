@@ -9,7 +9,10 @@
 
 from python.decorators import euler_timer
 
-def f(n, hash_={}):
+def f(n, hash_=None):
+    if hash_ is None:
+        hash_ = {}
+
     if n in hash_:
         return hash_[n]
     if n in [1, 2]:

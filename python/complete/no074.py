@@ -21,14 +21,20 @@ from math import factorial
 
 from python.decorators import euler_timer
 
-def digit_factorial_sum(n, hash_={}):
-    if n in hash_:
+def digit_factorial_sum(n, hash_=None):
+    if hash_ is None:
+        hash_ = {}
+    elif n in hash_:
         return hash_[n]
+
     result = sum([factorial(int(dig)) for dig in str(n)])
     hash_[n] = result
     return result
 
-def chain(n, next_hash={}, chain_hash={}):
+def chain(n, next_hash=None, chain_hash=None):
+    if chain_hash is None:
+        chain_hash = {}
+
     path = [n]
     if n in chain_hash:
         return chain_hash[n]

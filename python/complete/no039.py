@@ -5,7 +5,10 @@
 from python.decorators import euler_timer
 from python.functions import all_factors
 
-def all_triples(p, factors_hash={}):
+def all_triples(p, factors_hash=None):
+    if factors_hash is None:
+        factors_hash = {}
+
     if p % 2 == 1 or p < 2 or type(p) is not int:
         return []
 
@@ -36,7 +39,7 @@ def convert_to_triangle(triple):
     c = k*(m**2 + n**2)
     return tuple(sorted((a, b, c)))
 
-def all_triangles(p, factors_hash={}):
+def all_triangles(p, factors_hash=None):
     triples = all_triples(p, factors_hash)
     return list(set([convert_to_triangle(triple) for triple in triples]))
 

@@ -160,13 +160,13 @@ def fibonacci_generator():
 ########################## PRIMES ##########################
 ############################################################
 
-def first_prime_divisor(n, prime_list=[]):
+def first_prime_divisor(n, prime_list=None):
     if n == 1:
         return [1, 1]
     elif n % 2 == 0:
         return [2, n/2]
 
-    if prime_list != []:
+    if prime_list is not None:
         for p in prime_list:
             if n % p == 0:
                 return [p, n/p]
@@ -210,13 +210,17 @@ def prime_factors(n, unique=False, hash_=None):
     return result
 
 # 135
-def factors(n, factor_hash={}, primes=[]):
+def factors(n, factor_hash=None, primes=None):
+    if factor_hash is None:
+        factor_hash = {}
+
     if n in factor_hash:
         return factor_hash[n]
     elif n == 1:
         factor_hash[1] = [1]
         return [1]
-    elif n in primes:
+
+    if primes is not None and n in primes:
         factor_hash[n] = [1, n]
         return [1,n]
 
@@ -251,7 +255,7 @@ def all_factors(n, hash_={1: [1], 2: [1, 2], 3: [1, 3]}):
     return factor_hash
 
 # 37, 41, 58
-def is_prime(n, primes=[], failure_point=None):
+def is_prime(n, primes=None, failure_point=None):
     if n < 10:
         return n in [2, 3, 5, 7]
 
@@ -263,7 +267,7 @@ def is_prime(n, primes=[], failure_point=None):
         if n >= failure_point:
             raise ValueError("%s is too large for is_prime." % n)
 
-    if primes != []:
+    if primes is not None:
         if n in primes:
             return True
         to_check = [prime for prime in primes if prime**2 <= n]
@@ -305,7 +309,9 @@ def sieve(n):
 ############################################################
 
 # 26
-def order_mod_n(value, n, hash_={}, prime_list=[]):
+def order_mod_n(value, n, hash_=None, prime_list=None):
+    if hash_ is None:
+        hash_ = {}
     if n in hash_:
         return hash_[n]
 
@@ -352,7 +358,7 @@ def polygonal_number(s, n):
     return n*((s - 2)*n - (s - 4))/2
 
 # 42, 44, 61
-def reverse_polygonal_number(sides, number, hash_={}):
+def reverse_polygonal_number(sides, number, hash_=None):
     """
     Returns n given that number is the nth polygonal
     number with respect to sides
@@ -360,7 +366,7 @@ def reverse_polygonal_number(sides, number, hash_={}):
     The n-th polygonal number for s sides is:
     n*((s - 2)*n - (s - 4))/2
     """
-    if number in hash_:
+    if hash_ is not None and number in hash_:
         return hash_[number]
     root_plus, _ = polynomial_roots([-2*number, 4 - sides, sides - 2])
     if root_plus != int(root_plus):
@@ -368,7 +374,8 @@ def reverse_polygonal_number(sides, number, hash_={}):
     else:
         result = int(root_plus)
 
-    hash_[number] = result
+    if hash_ is not None:
+        hash_[number] = result
     return result
 
 # 72

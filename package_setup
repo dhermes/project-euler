@@ -44,3 +44,6 @@ export_stmt = ['\n',
 bash_profile = os.path.join(os.path.expanduser('~'), '.bash_profile')
 with open(bash_profile, 'a') as fh:
   fh.write(''.join(export_stmt))
+
+source_cmd = 'source %s' % bash_profile
+os.system(source_cmd)

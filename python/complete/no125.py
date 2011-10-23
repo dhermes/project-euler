@@ -28,7 +28,7 @@ def palindromic_square_sums(n):
 
     result = [num for num in curr if is_palindrome(num)]
     num_squares = 2
-    while curr != []:
+    while curr:
         num_squares += 1
         curr = [curr[i] + (i + num_squares)**2 for i in range(len(curr))]
         curr = [num for num in curr if num < n]

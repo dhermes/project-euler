@@ -305,7 +305,7 @@ class no023 {
       if (!sums[i]) {
         result += i;
       }
-    } 
+    }
     return result;
   }
 

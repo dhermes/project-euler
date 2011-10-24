@@ -29,7 +29,7 @@ class no014 {
           curr_size *= 2;
           sequence = Arrays.copyOf(sequence, curr_size);
         }
-	sequence[curr_index] = curr;
+        sequence[curr_index] = curr;
 
         if (hash_ != null) {
           curr_length = hash_.get(curr); // Can be null, no worries

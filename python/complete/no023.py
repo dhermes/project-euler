@@ -30,8 +30,9 @@ def main(verbose=False):
             if (val1 + val2 <= 28123):
                 sums[val1 + val2] = True
 
-    bad_ones = [i for i, bool_val in enumerate(sums) if not bool_val]
-    return sum(bad_ones)
+    # those with indices set to false are the ones which can't be written
+    # as the sum of two abundant numbers, so we sum them
+    return sum(i for i, bool_val in enumerate(sums) if not bool_val)
 
 if __name__ == '__main__':
     print euler_timer(23)(main)(verbose=True)

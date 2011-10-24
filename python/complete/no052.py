@@ -15,7 +15,7 @@ from python.decorators import euler_timer
 
 def same_digs(n, multiplier):
     candidates = [n*mult for mult in range(1, multiplier + 1)]
-    cand_digs = [sorted([int(dig) for dig in str(element)])
+    cand_digs = [sorted(int(dig) for dig in str(element))
                  for element in candidates]
     # we sort the digits so only the content of the digit list matters
     return (cand_digs.count(cand_digs[0]) == len(cand_digs))

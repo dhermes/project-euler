@@ -49,7 +49,7 @@ def is_squarefree(n):
 def main(verbose=False):
     NUM_ROWS = 51
     pascal_vals = unique_in_pascal(NUM_ROWS)
-    return sum([val for val in pascal_vals if is_squarefree(val)])
+    return sum(val for val in pascal_vals if is_squarefree(val))
 
 if __name__ == '__main__':
     print euler_timer(203)(main)(verbose=True)

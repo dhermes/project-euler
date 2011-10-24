@@ -16,14 +16,9 @@ def prime_concat_partners(list_, primes, failure_point):
             cand2 = int(str(n2) + str(n1))
             if is_prime(cand1, primes=primes, failure_point=failure_point):
                 if is_prime(cand2, primes=primes, failure_point=failure_point):
-                    if n1 in result:
-                        result[n1].append(n2)
-                    else:
-                        result[n1] = [n2]
-                    if n2 in result:
-                        result[n2].append(n1)
-                    else:
-                        result[n2] = [n1]
+                # sets value to [] if not set, returns value at key
+                result.setdefault(n1, []).append(n2)
+                result.setdefault(n2, []).append(n1)
     return result
 
 def possible_pairings(partner_hash, length):

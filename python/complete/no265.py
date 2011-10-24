@@ -68,7 +68,7 @@ def all_valid_sequences(length):
 
 def main(verbose=False):
     sequences = all_valid_sequences(5)
-    return sum([binary_array_to_integer(sequence) for sequence in sequences])
+    return sum(binary_array_to_integer(sequence) for sequence in sequences)
 
 if __name__ == '__main__':
     print euler_timer(265)(main)(verbose=True)

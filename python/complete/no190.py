@@ -32,7 +32,7 @@ def P(m):
                  [((2*n)/(1.0*(m + 1)))**n for n in range(1, m + 1)])
 
 def main(verbose=False):
-    return int(sum([floor(P(n)) for n in range(2, 16)]))
+    return int(sum(floor(P(n)) for n in range(2, 16)))
 
 if __name__ == '__main__':
     print euler_timer(190)(main)(verbose=True)

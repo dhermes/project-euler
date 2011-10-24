@@ -10,7 +10,7 @@ def main(verbose=False):
         to_add = []
         while curr not in destinations:
             to_add.append(curr)
-            curr = sum([int(digit)**2 for digit in str(curr)])
+            curr = sum(int(digit)**2 for digit in str(curr))
 
         # now curr will be in destinations
         value = destinations[curr]

@@ -1,10 +1,12 @@
 #!/usr/bin/env python
 
 import os
+import sys
 
 curr_file = os.path.abspath(__file__)
 if not curr_file.endswith('package_setup'):
-  raise Exception('Unexpected error occurred; wrong file called')
+  print 'Unexpected error occurred; wrong file called'
+  sys.exit(1)
 
 base_path = os.path.abspath(os.path.join(curr_file, '..'))
 data_path = '%s/problem_data' % base_path

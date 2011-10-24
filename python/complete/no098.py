@@ -27,10 +27,8 @@ def strings_by_length(data):
     result = {}
     for val in data:
         length = len(str(val))
-        if length in result:
-            result[length].append(val)
-        else:
-            result[length] = [val]
+        # sets value to [] if not set, returns value at key
+        result.setdefault(length, []).append(val)
     return result
 
 def main(verbose=False):

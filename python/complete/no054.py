@@ -51,16 +51,16 @@ def read_hand(hand_from_file):
     return (player1, player2)
 
 def is_straight(hand):
-    values = sorted([card[0] for card in hand])
+    values = sorted(card[0] for card in hand)
     smallest = values[0]
     values = [value - smallest for value in values]
     return values == range(5)
 
 def is_flush(hand):
-    return (len(set([card[1] for card in hand])) == 1)
+    return (len(set(card[1] for card in hand)) == 1)
 
 def is_royal(hand):
-    return (min([card[0] for card in hand]) >= 10)
+    return (min(card[0] for card in hand) >= 10)
 
 def top_cards(hand):
     royal = is_royal(hand)
@@ -80,7 +80,7 @@ def top_cards(hand):
     num_cards = len(set(values))
     if num_cards == 2:
         val1, val2 = set(values)
-        counts = sorted([values.count(val1), values.count(val2)])
+        counts = sorted((values.count(val1), values.count(val2)))
         if counts == [2, 3]:
             return (7, hand, [])
         elif counts == [1, 4]:
@@ -93,9 +93,9 @@ def top_cards(hand):
             return (8, quad, kicker)
     elif num_cards == 3:
         val1, val2, val3 = set(values)
-        counts = sorted([values.count(val1),
+        counts = sorted((values.count(val1),
                          values.count(val2),
-                         values.count(val3)])
+                         values.count(val3)))
         if counts == [1, 2, 2]:
             if values.count(val1) == 1:
                 loser = val1
@@ -163,8 +163,8 @@ def compare_hands(hand1, hand2):
         else:
             return compare_kickers(hand1[2], hand2[2])
     elif hand_value in (3, 7):
-        vals1 = sorted(list(set([card[0] for card in hand1[1]])))
-        vals2 = sorted(list(set([card[0] for card in hand2[1]])))
+        vals1 = sorted(list(set(card[0] for card in hand1[1])))
+        vals2 = sorted(list(set(card[0] for card in hand2[1])))
         if vals1[1] > vals2[1]:
             return 1
         if vals1[1] < vals2[1]:
@@ -177,8 +177,8 @@ def compare_hands(hand1, hand2):
             else:
                 return compare_kickers(hand1[2], hand2[2])
     elif hand_value == 5:
-        max1 = max([card[0] for card in hand1[1]])
-        max2 = max([card[0] for card in hand2[1]])
+        max1 = max(card[0] for card in hand1[1])
+        max2 = max(card[0] for card in hand2[1])
         if max1 > max2:
             return 1
         elif max1 < max2:

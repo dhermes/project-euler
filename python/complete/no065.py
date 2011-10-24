@@ -54,7 +54,7 @@ def main(verbose=False):
     h_99 = h_values[1]
     k_99 = k_values[1]
     reduced = h_99/(gcd(h_99, k_99))
-    return sum([int(dig) for dig in str(reduced)])
+    return sum(int(dig) for dig in str(reduced))
 
 if __name__ == '__main__':
     print euler_timer(65)(main)(verbose=True)

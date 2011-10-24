@@ -22,7 +22,7 @@ def main(verbose=False):
         for choice in ascending(8, digit_sum, 0, 9):
             choice = choice[1:]
             non_zero = [digit for digit in choice if digit != 0]
-            factorial_sum = sum([factorial(digit) for digit in non_zero])
+            factorial_sum = sum(factorial(digit) for digit in non_zero)
             possible_zeros = 7 - len(non_zero)
 
             # Can fill out the number with zeros (up to 7 digits)
@@ -37,7 +37,7 @@ def main(verbose=False):
 
     if verbose:
         return "%s.\nThe full list of numbers is as follows: %s." % (
-            sum(result), ", ".join([str(number) for number in result]))
+            sum(result), ", ".join(str(number) for number in result))
     else:
         return sum(result)
 

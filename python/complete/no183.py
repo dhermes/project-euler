@@ -46,7 +46,7 @@ def D(N):
 
 def main(verbose=False):
     MAX_N = 10**4
-    return sum([D(N) for N in range(5, MAX_N + 1)])
+    return sum(D(N) for N in range(5, MAX_N + 1))
 
 if __name__ == '__main__':
     print euler_timer(183)(main)(verbose=True)

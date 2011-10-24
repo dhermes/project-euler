@@ -20,7 +20,7 @@ from python.functions import reverse_polygonal_number
 
 def word_to_value(word):
     letters = string.uppercase
-    return sum([letters.find(letter) + 1 for letter in word])
+    return sum(letters.find(letter) + 1 for letter in word)
 
 def num_triangle():
     # Assumes file is "A","ABILITIY","ABLE",...

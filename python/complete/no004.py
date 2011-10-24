@@ -13,7 +13,7 @@ from python.functions import is_palindrome
 
 def main(verbose=False):
     products = apply_to_list(operator.mul, range(100,1000))
-    return max([elt for elt in products if is_palindrome(elt)])
+    return max(elt for elt in products if is_palindrome(elt))
 
 if __name__ == '__main__':
     print euler_timer(4)(main)(verbose=True)

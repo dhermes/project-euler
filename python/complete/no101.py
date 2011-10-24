@@ -32,8 +32,8 @@ def n_value_approximation(func, n, input_val):
     if n == 1:
         return func(1)
     points = range(1, n + 1)
-    return sum([func(points[i])*lagrange(input_val, i, points)
-                for i in range(len(points))])
+    return sum(func(points[i])*lagrange(input_val, i, points)
+               for i in range(len(points)))
 
 def main(verbose=False):
     def func(x):

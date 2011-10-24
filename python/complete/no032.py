@@ -27,9 +27,9 @@ def possible_products(list_):
 
     for i in range(1,len(list_)):
         left = list_[:i]
-        left = int("".join([str(elt) for elt in left]))
+        left = int("".join(str(elt) for elt in left))
         right = list_[i:]
-        right = int("".join([str(elt) for elt in right]))
+        right = int("".join(str(elt) for elt in right))
         result.append(left*right)
 
     return result
@@ -40,13 +40,13 @@ def main(verbose=False):
     for candidate in candidates:
         prods = possible_products(candidate[:5])
         last4 = candidate[-4:]
-        last4 = int("".join([str(elt) for elt in last4]))
+        last4 = int("".join(str(elt) for elt in last4))
         if last4 in prods:
             products.add(last4)
 
         prods = possible_products(candidate[:6])
         last3 = candidate[-3:]
-        last3 = int("".join([str(elt) for elt in last3]))
+        last3 = int("".join(str(elt) for elt in last3))
         if last3 in prods:
             products.add(last3)
 

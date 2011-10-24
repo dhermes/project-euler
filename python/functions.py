@@ -61,7 +61,7 @@ def recurrence_next(relation, values):
     if len(relation) != len(values):
         raise ValueError("Poorly specified recurrence")
     recurrence_order = len(relation)
-    next_val = sum([relation[i]*values[i] for i in range(recurrence_order)])
+    next_val = sum(relation[i]*values[i] for i in range(recurrence_order))
     return values[1:] + [next_val] # copies values (doesn't change inputs)
 
 # 4, 36, 55
@@ -136,9 +136,9 @@ def prime_divides_repunit_power10(prime, cap=-1):
         count_5 = min(cap, count_5)
     if prime == (2**count_2)*(5**count_5) + 1:
         return True
-    possible_exp = sorted([(2**exp2)*(5**exp5)
-                           for exp2 in range(0, count_2 + 1)
-                           for exp5 in range(0, count_5 + 1)])
+    possible_exp = sorted((2**exp2)*(5**exp5)
+                          for exp2 in range(0, count_2 + 1)
+                          for exp5 in range(0, count_5 + 1))
     for exp in possible_exp:
         if (10**exp - 1) % prime == 0:
             return True
@@ -186,10 +186,10 @@ def first_prime_divisor(n, prime_list=None):
 # 3, 12, 47
 def prime_factors(n, unique=False, hash_=None):
     if n == 1:
-        if type(hash_) == dict:
+        if isinstance(hash_, dict):
             hash_[1] = []
         return []
-    if type(hash_) == dict and n in hash_:
+    if isinstance(hash_, dict) and n in hash_:
         return hash_[n]
 
     prime, quotient = first_prime_divisor(n)
@@ -204,7 +204,7 @@ def prime_factors(n, unique=False, hash_=None):
                                                  unique=unique,
                                                  hash_=hash_)
 
-    if type(hash_) == dict:
+    if isinstance(hash_, dict):
         hash_[n] = result
 
     return result
@@ -227,7 +227,7 @@ def factors(n, factor_hash=None, primes=None):
     prime, quotient = first_prime_divisor(n, prime_list=primes)
 
     to_add = factors(quotient, factor_hash, primes)[:] # Need a deep-ish copy
-    to_add.extend([ prime*factor for factor in to_add ])
+    to_add.extend([prime*factor for factor in to_add])
 
     factor_hash[n] = sorted(list(set(to_add)))
     return factor_hash[n]
@@ -468,7 +468,7 @@ def apply_to_list(func, list_, non_match=False):
 
 # 35, 41, 68, 121
 def all_permutations(list_):
-    result = [ [] ]
+    result = [[]]
     for i in range(len(list_)):
         extended = []
         for perm in result:

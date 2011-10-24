@@ -10,10 +10,10 @@ def dice_outcomes(num_dice, num_sides):
         for dice_sum in range(1*num_dice, num_sides*num_dice + 1):
             for outcome in ascending(num_dice, dice_sum, bottom, num_sides):
                 curr_sum = sum(outcome)
-                if curr_sum in result:
-                    result[curr_sum] += total_perms(outcome)
-                else:
-                    result[curr_sum] = total_perms(outcome)
+                # if curr_sum is not in result, sets to total_perms(outcome)
+                # (default 0 returned by get)
+                result[curr_sum] = result.get(curr_sum, 0) + \
+                                   total_perms(outcome)
     return result
 
 def main(verbose=False):

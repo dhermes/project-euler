@@ -10,17 +10,15 @@
 from python.decorators import euler_timer
 
 def sum_of_digits_powers(n, power):
-    return sum([int(dig)**power for dig in str(n)])
+    return sum(int(dig)**power for dig in str(n))
 
 def main(verbose=False):
-    valid = []
-    for i in xrange(2,999999 + 1):
-        if sum_of_digits_powers(i, 5) == i:
-            valid.append(i)
+    valid = [i for i in xrange(2, 999999 + 1)
+             if sum_of_digits_powers(i, 5) == i]
 
     if verbose:
         return '%s.\nThe numbers satisfying this property are: %s.' % (
-            sum(valid), ', '.join([str(num) for num in valid]))
+            sum(valid), ', '.join(str(num) for num in valid))
     else:
         return sum(valid)
 

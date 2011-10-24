@@ -11,7 +11,7 @@ def translate(message, key):
         for j in range(i, len(result), len_key):
             result[j] = result[j] ^ key[i]
 
-    result = ''.join([chr(val) for val in result])
+    result = ''.join(chr(val) for val in result)
     return result
 
 def main(verbose=False):
@@ -34,14 +34,14 @@ def main(verbose=False):
             and curr.upper().find('ARE') != -1):
             break
 
-    key_as_word = ''.join([chr(val) for val in key])
+    key_as_word = ''.join(chr(val) for val in key)
     result = '\n\nActual Message:\n%s\n\nThe key is: %s or %s.' % (
         curr, key_as_word, key)
 
     if verbose:
-        return '%s%s' % (sum([ord(letter) for letter in curr]), result)
+        return '%s%s' % (sum(ord(letter) for letter in curr), result)
     else:
-        return sum([ord(letter) for letter in curr])
+        return sum(ord(letter) for letter in curr)
 
 if __name__ == '__main__':
     print euler_timer(59)(main)(verbose=True)

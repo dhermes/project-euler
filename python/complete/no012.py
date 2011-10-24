@@ -9,10 +9,8 @@ from python.functions import prime_factors
 def list_frequencies(list_):
     result = {}
     for element in list_:
-        if element in result:
-            result[element] += 1
-        else:
-            result[element] = 1
+        # if element is not in result, sets to 1 (default 0 returned by get)
+        result[element] = result.get(element, 0) + 1
     return result.items()
 
 def special_num_factors(a, b, hash_):

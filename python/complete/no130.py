@@ -38,7 +38,7 @@ def main(verbose=False):
     if verbose:
         return '%s.\nAs a check, the first five values are calculated to be ' \
                '%s, as stated.' % (sum(found),
-                                   ', '.join([str(num) for num in found[:5]]))
+                                   ', '.join(str(num) for num in found[:5]))
     else:
         return sum(found)
 

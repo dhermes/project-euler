@@ -43,15 +43,15 @@ def solutions(limit):
     # and 3n + sign = 3n - 1 = value - 2
     # If value == -1 mod 3, then 3n - sign == -1, hence sign = 1
     # and 3n + sign = 3n + 1 = value + 2
-    result = sorted([((value + 2) if value % 3 == 2 else (value - 2))
-                     for value in result])
+    result = sorted(((value + 2) if value % 3 == 2 else (value - 2))
+                    for value in result)
     # The first two solutions are 1-1-0 and 1-1-2, which are both degenerate
     return [perimeter for perimeter in result
             if perimeter < limit and perimeter not in (2, 4)]
 
 def main(verbose=False):
-    first = solutions(10**9)
-    return sum(first)
+    # the first solutions up to a billion are returned in solutions(10**9)
+    return sum(solutions(10**9))
 
 if __name__ == '__main__':
     print euler_timer(94)(main)(verbose=True)

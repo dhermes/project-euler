@@ -40,8 +40,8 @@ def main(verbose=False):
         result.extend([pair[1] for pair in series])
         series = [recurrence_next(relation, values) for values in series]
 
-    min_y = min([y for y in result if y > LOWER_LIMIT])
-    min_x = sqrt((1 + y**2)/2)
+    min_y = min(y for y in result if y > LOWER_LIMIT)
+    min_x = sqrt((1 + min_y**2)/2)
     return int((min_x + 1)/2)
 
 if __name__ == '__main__':

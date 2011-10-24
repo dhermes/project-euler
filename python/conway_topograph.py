@@ -160,8 +160,8 @@ def all_values_on_form(form, value):
     checked = found[:]
     for candidate in found:
         coords, val = candidate
-        next_x = sum([operator.mul(*pair) for pair in zip(coords, x_mult)])
-        next_y = sum([operator.mul(*pair) for pair in zip(coords, y_mult)])
+        next_x = sum(operator.mul(*pair) for pair in zip(coords, x_mult))
+        next_y = sum(operator.mul(*pair) for pair in zip(coords, y_mult))
         if ((next_x, next_y), val) in found:
             checked.remove(((next_x, next_y), val))
 
@@ -222,7 +222,7 @@ def start_to_series(initial, multiplier, series='x'):
     Output: the first two values in the series which will determine
     all x (or y values) given the recurrence for the form
     """
-    next = sum([operator.mul(*pair) for pair in zip(initial, multiplier)])
+    next = sum(operator.mul(*pair) for pair in zip(initial, multiplier))
     if series == 'x':
         return [initial[0], next]
     elif series == 'y':

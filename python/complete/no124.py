@@ -46,10 +46,8 @@ def sorted_radicals(n):
     # no need to sort within each radical value
     for i in range(1, n + 1):
         value = rad_dict[i]
-        if value in rad_vals:
-            rad_vals[value].append(i)
-        else:
-            rad_vals[value] = [i]
+        # sets value to [] if not set, returns value at key
+        rad_vals.setdefault(value, []).append(i)
 
     result = []
     for value in sorted(rad_vals):

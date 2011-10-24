@@ -42,10 +42,10 @@ def main(verbose=False):
         magic = magic_5_gon(perm)
         sums = [sum(triple) for triple in magic]
         if len(set(sums)) == 1:
-            to_add = "".join(["".join([str(ind) for ind in triple])
-                              for triple in magic])
+            to_add = "".join("".join(str(ind) for ind in triple)
+                             for triple in magic)
             result.append(to_add)
-    return max([int(concat) for concat in result if len(concat) == 16])
+    return max(int(concat) for concat in result if len(concat) == 16)
 
 if __name__ == '__main__':
     print euler_timer(68)(main)(verbose=True)

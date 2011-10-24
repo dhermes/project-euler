@@ -47,8 +47,8 @@ def solutions(limit):
     return sorted(result)[:limit]
 
 def main(verbose=False):
-    smallest = solutions(12)
-    return sum(smallest)
+    # smallest 12 solutions returned in solutions(12)
+    return sum(solutions(12))
 
 if __name__ == '__main__':
     print euler_timer(138)(main)(verbose=True)

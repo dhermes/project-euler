@@ -22,7 +22,7 @@ def find(n, value_list):
             return value
 
     digs = len(str(max(value_list)))
-    needed_residues = sorted(set([(-value) % n for value in value_list]))
+    needed_residues = sorted(set((-value) % n for value in value_list))
 
     residue = (10**digs) % n
     actual_list = [1, 2]
@@ -34,8 +34,8 @@ def find(n, value_list):
         actual_list = next
         residue_form = [(residue*val) % n for val in actual_list]
 
-    best_match = min([val for val in actual_list
-                      if (residue*val) % n in needed_residues])
+    best_match = min(val for val in actual_list
+                     if (residue*val) % n in needed_residues)
     best_opposites = [val for val in value_list
                       if val % n == (-(best_match*residue)) % n]
     return (10**digs)*best_match + min(best_opposites)

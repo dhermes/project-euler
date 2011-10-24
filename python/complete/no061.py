@@ -39,10 +39,8 @@ def possible_digits_key():
         for number in possible:
             left = str(number)[:2]
             right = str(number)[-2:]
-            if left in result:
-                result[left].append((right, sides))
-            else:
-                result[left] = [(right, sides)]
+            # sets value to [] if not set, returns value at key
+            result.setdefault(left, []).append((right, sides))
 
     return result
 
@@ -124,9 +122,9 @@ def main(verbose=False):
                                COLORS[i+1], right, ENDC])
         display += "\nP_(%s,%s) = %s" % (sides, number, colored_val)
     if verbose:
-        return "%s.%s" % (sum([int(match[0]) for match in result]), display)
+        return "%s.%s" % (sum(int(match[0]) for match in result), display)
     else:
-        return sum([int(match[0]) for match in result])
+        return sum(int(match[0]) for match in result)
 
 if __name__ == '__main__':
     print euler_timer(61)(main)(verbose=True)

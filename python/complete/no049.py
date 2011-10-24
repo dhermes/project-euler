@@ -30,11 +30,9 @@ def main(verbose=False):
     primes = [prime for prime in sieve(10000) if prime > 999]
     primes_by_digits = {}
     for prime in primes:
-        key = "".join(sorted([digit for digit in str(prime)]))
-        if key in primes_by_digits:
-            primes_by_digits[key].append(prime)
-        else:
-            primes_by_digits[key] = [prime]
+        key = "".join(sorted(digit for digit in str(prime)))
+        # sets value to [] if not set, returns value at key
+        primes_by_digits.setdefault(key, []).append(prime)
 
     result = []
     for key in primes_by_digits:
@@ -42,7 +40,7 @@ def main(verbose=False):
         if len(candidate) >= 3:
             soln = find_arithmetic(candidate)
             if soln:
-                result.append("".join([str(num) for num in sorted(soln)]))
+                result.append("".join(str(num) for num in sorted(soln)))
     return result[0]
 
 if __name__ == '__main__':

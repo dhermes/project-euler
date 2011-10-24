@@ -119,17 +119,16 @@ def main(verbose=False):
             current, chance_card, chest_card = \
                 next_square(landing_square, chance_card, chest_card)
 
-        if current in visited:
-            visited[current] += 1
-        else:
-            visited[current] = 1
+        # if current is not in visited, sets to 1
+        # (default 0 returned by get)
+        visited[current] = visited.get(current, 0) + 1
 
     top_visited = sorted(visited.items(),
                          key=lambda pair: pair[1],
                          reverse=True)
     top_visited = [SQUARES.index(square[0]) for square in top_visited[:3]]
 
-    return ''.join([str(index).zfill(2) for index in top_visited])
+    return ''.join(str(index).zfill(2) for index in top_visited)
 
 if __name__ == '__main__':
     print euler_timer(84)(main)(verbose=True)

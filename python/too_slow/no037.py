@@ -58,7 +58,7 @@ def main(verbose=False):
 
     if verbose:
         return "%s.\nThe primes are: %s." % (
-            sum(ans), ", ".join([str(prime) for prime in ans]))
+            sum(ans), ", ".join(str(prime) for prime in ans))
     else:
         return sum(ans)
 

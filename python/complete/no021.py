@@ -26,7 +26,7 @@ def main(verbose=False):
 
     if verbose:
         return '%s.\nThe full list of such amicable numbers is %s.' % (
-            sum(result), ', '.join([str(elt) for elt in result]))
+            sum(result), ', '.join(str(elt) for elt in result))
     else:
         return sum(result)
 

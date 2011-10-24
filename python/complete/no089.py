@@ -39,7 +39,7 @@ def actual(numeral):
     pairs = [(numeral[ind], numeral[ind + 1]) for
              ind in range(len(numeral) - 1)] + \
             [(numeral[-1], None)]
-    return sum([VALUES[pair[0]]*pos_neg(*pair) for pair in pairs])
+    return sum(VALUES[pair[0]]*pos_neg(*pair) for pair in pairs)
 
 def to_roman(n):
     ints = (1000, 900,  500, 400, 100,  90, 50,  40, 10,  9,   5,  4,   1)
@@ -53,9 +53,9 @@ def to_roman(n):
 
 def main(verbose=False):
     data = [num for num in get_data(89).split("\n") if num]
-    original_digits = len("".join([number for number in data]))
+    original_digits = len("".join(data))
     best = [to_roman(actual(numeral)) for numeral in data]
-    return original_digits - len("".join([number for number in best]))
+    return original_digits - len("".join(best))
 
 if __name__ == '__main__':
     print euler_timer(89)(main)(verbose=True)

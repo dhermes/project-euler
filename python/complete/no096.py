@@ -24,7 +24,7 @@ def main(verbose=False):
     puzzles = get_data(96).split("\n")
     puzzles = [reduce(operator.add, puzzles[10*index + 1:10*index + 10])
                for index in range(50)]
-    return sum([corner_sum(puzzle) for puzzle in puzzles])
+    return sum(corner_sum(puzzle) for puzzle in puzzles)
 
 if __name__ == '__main__':
     print euler_timer(96)(main)(verbose=True)

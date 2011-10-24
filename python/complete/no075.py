@@ -78,10 +78,10 @@ def main(verbose=False):
                 # the primitive triangle, we also
                 # have 2*perimiter, 3*perimeter, 4*perimeter, etc.
                 for perimeter in range(primitive, MAX_n + 1, primitive):
-                    if perimeter in number_solutions:
-                        number_solutions[perimeter] += 1
-                    else:
-                        number_solutions[perimeter] = 1
+                    # if perimeter is not in number_solutions, sets to 1
+                    # (default 0 returned by get)
+                    number_solutions[perimeter] = number_solutions.get(
+                        perimeter, 0) + 1
 
     return len([val for val in number_solutions.values() if val == 1])
 

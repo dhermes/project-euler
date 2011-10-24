@@ -54,10 +54,10 @@ def main(verbose=False):
         for key, value in acceptable_next.items():
             for onto in value:
                 to_add = num_blocks_ending[key][blocks - 1]
-                if blocks in num_blocks_ending[onto]:
-                    num_blocks_ending[onto][blocks] += to_add
-                else:
-                    num_blocks_ending[onto][blocks] = to_add
+                # if blocks is not in num_blocks_ending[onto], sets to to_add
+                # (default 0 returned by get)
+                num_blocks_ending[onto][blocks] = \
+                    num_blocks_ending[onto].get(blocks, 0) + to_add
 
     # we finally add together all walls of height 10 ending
     # with any key (so we loop over all keys)

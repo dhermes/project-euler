@@ -27,7 +27,7 @@ def digit_factorial_sum(n, hash_=None):
     elif n in hash_:
         return hash_[n]
 
-    result = sum([factorial(int(dig)) for dig in str(n)])
+    result = sum(factorial(int(dig)) for dig in str(n))
     hash_[n] = result
     return result
 

@@ -19,7 +19,7 @@ def product_consec_digits(number, consecutive):
             for i in range(max_start + 1)]
 
 def main(verbose=False):
-    n = int("".join([line.strip() for line in get_data(8).split("\n")]))
+    n = int("".join(line.strip() for line in get_data(8).split("\n")))
 
     return max(product_consec_digits(n, 5))
 

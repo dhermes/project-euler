@@ -16,14 +16,9 @@ def main(verbose=False):
             if data[node][dest] != '-':
                 value = int(data[node][dest])
                 network_sum += value
-                if node in adjacency:
-                    adjacency[node].append((dest, value))
-                else:
-                    adjacency[node] = [(dest, value)]
-                if dest in adjacency:
-                    adjacency[dest].append((node, value))
-                else:
-                    adjacency[dest] = [(node, value)]
+                # sets value to [] if not set, returns value at key
+                adjacency.setdefault(node, []).append((dest, value))
+                adjacency.setdefault(dest, []).append((node, value))
 
     _, min_sum = prims_algo(adjacency)
 

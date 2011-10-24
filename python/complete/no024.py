@@ -28,7 +28,7 @@ def lex(list_, perm):
 def main(verbose=False):
     list_ = range(10)
     perm = 10**6 - 1 # Our indexing begins at 0
-    return "".join([str(dig) for dig in lex(list_, perm)])
+    return "".join(str(dig) for dig in lex(list_, perm))
 
 if __name__ == '__main__':
     print euler_timer(24)(main)(verbose=True)

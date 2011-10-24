@@ -19,7 +19,7 @@ def binary_incrementer(str_):
                 digs[i - 1] += temp/2 # int division intended
         else:
             break
-    return ''.join([str(dig) for dig in digs])
+    return ''.join(str(dig) for dig in digs)
 
 def all_base10_base2_palindromes(n):
     result = []
@@ -37,7 +37,7 @@ def main(verbose=False):
     ans = all_base10_base2_palindromes(10**6)
     if verbose:
         return '%s.\nThe full list of palindromes is: %s' % (
-            sum(ans), ', '.join([str(number) for number in ans]))
+            sum(ans), ', '.join(str(number) for number in ans))
     else:
         return sum(ans)
 

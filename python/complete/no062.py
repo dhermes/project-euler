@@ -26,10 +26,8 @@ def has_k_perms(digits, k, cubes):
     sorted_cubes = {}
     for cube in cubes:
         sorted_digs = ''.join(sorted(str(cube)))
-        if sorted_digs in sorted_cubes:
-            sorted_cubes[sorted_digs].append(cube)
-        else:
-            sorted_cubes[sorted_digs] = [cube]
+        # sets value to [] if not set, returns value at key
+        sorted_cubes.setdefault(sorted_digs, []).append(cube)
 
     possible_matches = [value for value in sorted_cubes.values()
                         if len(value) == 5]

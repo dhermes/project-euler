@@ -83,7 +83,7 @@ def squarefree_sum(pairs, primes):
     remaining_primes = primes[1:]
     for pair in pairs:
         new_pairs = multiply_pair(pair, prime_pair)
-        result += sum([new_pair[0] for new_pair in new_pairs])
+        result += sum(new_pair[0] for new_pair in new_pairs)
         next_pairs.extend(new_pairs)
     # next_pairs has the prime added
     result += squarefree_sum(next_pairs, remaining_primes)

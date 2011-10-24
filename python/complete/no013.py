@@ -8,8 +8,7 @@ from python.functions import get_data
 
 def main(verbose=False):
     number = get_data(13)
-    numbers = [int(line) for line in number.split("\n") if line]
-    total = sum(numbers)
+    total = sum(int(line) for line in number.split("\n") if line)
     return str(total)[:10]
 
 if __name__ == '__main__':

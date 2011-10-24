@@ -38,10 +38,9 @@ def last5(n):
         residues = {}
         for i in range(1, n + 1):
             to_add = robust_divide(i, 5)
-            if to_add in residues:
-                residues[robust_divide(i, 5)] += 1
-            else:
-                residues[robust_divide(i, 5)] = 1
+            # if to_add is not in residues, sets to 1
+            # (default 0 returned by get)
+            residues[to_add] = residues.get(to_add, 0) + 1
     else:
         residues = {}
         for residue in range(1, 5**5):

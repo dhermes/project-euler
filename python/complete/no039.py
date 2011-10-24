@@ -9,7 +9,7 @@ def all_triples(p, factors_hash=None):
     if factors_hash is None:
         factors_hash = {}
 
-    if p % 2 == 1 or p < 2 or type(p) is not int:
+    if p % 2 == 1 or p < 2 or not isinstance(p, int):
         return []
 
     if p/2 in factors_hash:
@@ -41,7 +41,7 @@ def convert_to_triangle(triple):
 
 def all_triangles(p, factors_hash=None):
     triples = all_triples(p, factors_hash)
-    return list(set([convert_to_triangle(triple) for triple in triples]))
+    return list(set(convert_to_triangle(triple) for triple in triples))
 
 def all_triangles_up_to_n(n):
     factors_hash = all_factors(n)

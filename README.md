@@ -1,3 +1,5 @@
+![Leonhard Euler](/euler_main.jpg?raw=true "Leonhard Euler with funny hat")
+
 This is my own fun little project. I mostly use it to learn
 languages (Python, to master JS, Go, Ruby, ...)
 

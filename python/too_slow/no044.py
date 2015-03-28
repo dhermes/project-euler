@@ -1,10 +1,12 @@
 #!/usr/bin/env python
 
 # Pentagonal is n(3n-1)/2
-# Find (j,k) for which P_j + P_k and abs(P_j - P_k) = D is pentagonal and D is minimized. What is D?
+# Find (j,k) for which P_j + P_k and abs(P_j - P_k) = D is pentagonal and
+# D is minimized. What is D?
 
 # We will infinitely generate (k,j) = (1,2), (1,3), (2,3), (1,4), (2,4), ...
-# We will infinitely generate (k,j) = (1,2), (2,3), (1,3), (3,4), (2,4), (1,4), (4,5), ...
+# We will infinitely generate (k,j) = (1,2), (2,3), (1,3), (3,4), (2,4),
+#                                     (1,4), (4,5), ...
 # Will check if P_j - P_k is pentagonal.
 # If it is, will then check if P_k + P_j is
 
@@ -13,8 +15,8 @@
 # = (3j**2 - j)/2 - (3(j - 1)**2 - (j - 1))/2 = 3j - 2
 
 # For k < j, P_j - P_k >= 3j - 2
-# So if we have established a difference D, if 3j - 2 >= D, we need not consider it,
-# hence we need k < j < (D + 2)/3
+# So if we have established a difference D, if 3j - 2 >= D, we need not
+# consider it, hence we need k < j < (D + 2)/3
 
 from python.decorators import euler_timer
 from python.functions import polygonal_number

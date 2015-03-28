@@ -48,15 +48,15 @@ def main(verbose=False):
 
     smallest = 210  # The smallest integer of the four
     num_factors = [len(prime_factors(smallest + i,
-                                      unique=True,
-                                      hash_=factor_hash))
-                     for i in range(4)]
+                                     unique=True,
+                                     hash_=factor_hash))
+                   for i in range(4)]
     while num_factors != [4, 4, 4, 4]:
         smallest = increment(smallest, num_factors)
         num_factors = [len(prime_factors(smallest + i,
-                                          unique=True,
-                                          hash_=factor_hash))
-                         for i in range(4)]
+                                         unique=True,
+                                         hash_=factor_hash))
+                       for i in range(4)]
     return smallest
 
 if __name__ == '__main__':

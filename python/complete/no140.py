@@ -20,6 +20,7 @@ from python.conway_topograph import start_to_series
 from python.decorators import euler_timer
 from python.functions import recurrence_next
 
+
 def golden_nuggets(limit):
     # We seek x_k^2 - 5y_k^2 = 44
     # Where 5n + 7 = x_k
@@ -29,18 +30,19 @@ def golden_nuggets(limit):
               for initial in starting_points]
     nuggets = [pair[0] for pair in series
                if pair[0] % 5 == 2 and pair[0] > 7]
-    while len(nuggets) < 2*limit:
+    while len(nuggets) < 2 * limit:
         next = [pair[1] for pair in series
                 if pair[1] % 5 == 2 and pair[1] > 7]
         nuggets.extend(next)
         series = [recurrence_next(relation, values) for values in series]
-    return sorted([(value - 7)/5 for value in nuggets])[:limit]
+    return sorted([(value - 7) / 5 for value in nuggets])[:limit]
+
 
 def main(verbose=False):
     nuggets = golden_nuggets(30)
     if verbose:
         return '%s.\nAs a check, the 20th golden nugget is calculated ' \
-               'to be %s, as stated.' % (sum(nuggets), nuggets[20-1])
+               'to be %s, as stated.' % (sum(nuggets), nuggets[20 - 1])
     else:
         return sum(nuggets)
 

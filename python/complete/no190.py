@@ -27,9 +27,11 @@ from math import floor
 
 from python.decorators import euler_timer
 
+
 def P(m):
-   return reduce(operator.mul,
-                 [((2*n)/(1.0*(m + 1)))**n for n in range(1, m + 1)])
+    return reduce(operator.mul,
+                 [((2 * n) / (1.0 * (m + 1))) ** n for n in range(1, m + 1)])
+
 
 def main(verbose=False):
     return int(sum(floor(P(n)) for n in range(2, 16)))

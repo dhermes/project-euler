@@ -17,25 +17,27 @@
 from python.decorators import euler_timer
 from python.functions import order_mod_n
 
+
 def unit_a_null_b(a, b):
     k = 1
-    while (k*a + 1) % b != 0:
+    while (k * a + 1) % b != 0:
         k += 1
-    return (k*a + 1) % (a*b)
+    return (k * a + 1) % (a * b)
+
 
 def main(verbose=False):
     # We need to find the residue of P modulo 5**10
     # since we already know the residue modulo 2**10
-    actual_exponent = 7830457 % order_mod_n(2, 5**10)
+    actual_exponent = 7830457 % order_mod_n(2, 5 ** 10)
     # want to find 2 raised to this exponent
     power_of_two = 1
     for i in range(actual_exponent):
-        power_of_two = (2*power_of_two) % 5**10
-    residue = (28433*power_of_two + 1) % 5**10
+        power_of_two = (2 * power_of_two) % 5 ** 10
+    residue = (28433 * power_of_two + 1) % 5 ** 10
 
-    unit_two_null_five = unit_a_null_b(2**10, 5**10)
-    unit_five_null_two = unit_a_null_b(5**10, 2**10)
-    return (1*unit_two_null_five + residue*unit_five_null_two) % 10**10
+    unit_two_null_five = unit_a_null_b(2 ** 10, 5 ** 10)
+    unit_five_null_two = unit_a_null_b(5 ** 10, 2 ** 10)
+    return (1 * unit_two_null_five + residue * unit_five_null_two) % 10 ** 10
 
 if __name__ == '__main__':
     print euler_timer(97)(main)(verbose=True)

@@ -13,6 +13,7 @@ from python.functions import all_permutations_digits
 from python.functions import is_prime
 from python.functions import sieve
 
+
 def main(verbose=False):
     MAX_n = 987654321
     PRIMES = sieve(int(sqrt(MAX_n)))

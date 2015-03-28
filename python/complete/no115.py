@@ -3,10 +3,11 @@
 from python.decorators import euler_timer
 from python.functions import fill_count
 
+
 def main(verbose=False):
     count = 2
     n = 50
-    while count <= 10**6:
+    while count <= 10 ** 6:
         n += 1
         count = fill_count(50, n)
     return n

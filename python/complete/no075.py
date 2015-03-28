@@ -57,17 +57,18 @@ from math import sqrt
 
 from python.decorators import euler_timer
 
+
 def main(verbose=False):
     MAX_n = 1500000
     number_solutions = {}
 
-    max_m = int(sqrt(0.5*MAX_n))
+    max_m = int(sqrt(0.5 * MAX_n))
     for m in xrange(2, max_m + 1):
         # m, n need opposite parity
         n_parity = 0 if m % 2 else 1
         for n in xrange(n_parity, m, 2):
             if gcd(m, n) == 1:
-                primitive = 2*m*(m + n)
+                primitive = 2 * m * (m + n)
                 # m is fixed, so as n
                 # increases, primitive will
                 # and we break the inner loop when

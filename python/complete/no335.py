@@ -9,6 +9,7 @@
 from python.decorators import euler_timer
 from python.functions import inverse_mod_n
 
+
 def moves(n):
     if n < 3:
         return n
@@ -28,29 +29,32 @@ def moves(n):
 
     return num_moves
 
+
 def check_formula(n):
-    return (moves(2**n + 1) == 4**n - 3**n + 2**(n + 1))
+    return (moves(2 ** n + 1) == 4 ** n - 3 ** n + 2 ** (n + 1))
+
 
 # Since (a**(n**k))**n = a**(n*(n**k)) = a**(n**(k + 1)),
 # We can easily compute X**(P + 1) = X*(X**P) for P = 10**18
 def modular_exponentiate(val, exp_base, exp_power, modulus):
     result = val
     for i in xrange(exp_power):
-        result = (result**exp_base) % modulus
+        result = (result ** exp_base) % modulus
     return result
+
 
 def main(verbose=False):
     for n in range(10):
         if not check_formula(n):
             raise Exception("Proposed formula for M(2**k + 1) incorrect.")
 
-    modulus = 7**9
-    p_2 = 4*modular_exponentiate(2, 10, 18, modulus) - 2
-    p_3 = 3*modular_exponentiate(3, 10, 18, modulus) - 1
-    p_4 = 4*modular_exponentiate(4, 10, 18, modulus) - 1
+    modulus = 7 ** 9
+    p_2 = 4 * modular_exponentiate(2, 10, 18, modulus) - 2
+    p_3 = 3 * modular_exponentiate(3, 10, 18, modulus) - 1
+    p_4 = 4 * modular_exponentiate(4, 10, 18, modulus) - 1
 
-    return (p_4*inverse_mod_n(3, modulus) - \
-            p_3*inverse_mod_n(2, modulus) + p_2) % (modulus)
+    return (p_4 * inverse_mod_n(3, modulus) - \
+            p_3 * inverse_mod_n(2, modulus) + p_2) % (modulus)
 
 if __name__ == '__main__':
     print euler_timer(335)(main)(verbose=True)

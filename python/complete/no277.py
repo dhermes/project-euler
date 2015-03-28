@@ -18,33 +18,35 @@
 from python.decorators import euler_timer
 from python.functions import inverse_mod_n
 
+
 def sequence(letters, p_3, c, P_2):
     if letters == '':
         return p_3, c, P_2
 
     to_apply = letters[-1]
     if to_apply == 'D':
-        return sequence(letters[:-1], p_3 + 1, 3*c, P_2)
+        return sequence(letters[:-1], p_3 + 1, 3 * c, P_2)
     elif to_apply == 'U':
-        return sequence(letters[:-1], p_3 + 1, 3*c - 2*P_2, 4*P_2)
+        return sequence(letters[:-1], p_3 + 1, 3 * c - 2 * P_2, 4 * P_2)
     elif to_apply == 'd':
-        return sequence(letters[:-1], p_3 + 1, 3*c + P_2, 2*P_2)
+        return sequence(letters[:-1], p_3 + 1, 3 * c + P_2, 2 * P_2)
+
 
 def main(verbose=False):
     p_3, c, P_2 = sequence('UDDDUdddDDUDDddDdDddDDUDDdUUDd', 0, 0, 1)
     # Here a_1 = s**(-1)(y) = ((3**(p_3))*y + c)/P_2
     # Since we need a_1 > 10**15, (3**(p_3))*y > (10**15)*P_2 - c
-    min_y = ((10**15)*P_2 - c)/(3**p_3)
+    min_y = ((10 ** 15) * P_2 - c) / (3 ** p_3)
 
     # We also need (3**(p_3))*y == -c mod P_2
-    y_residue = inverse_mod_n(3**(p_3), P_2)*(-c) % P_2
+    y_residue = inverse_mod_n(3 ** (p_3), P_2) * (-c) % P_2
 
     # integer division intended to find nearest multiple of P_2
-    y = P_2*(min_y/P_2) + y_residue
+    y = P_2 * (min_y / P_2) + y_residue
     if y < min_y:
         y += P_2
 
-    return ((3**p_3)*y + c)/P_2
+    return ((3 ** p_3) * y + c) / P_2
 
 if __name__ == '__main__':
     print euler_timer(277)(main)(verbose=True)

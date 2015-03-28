@@ -7,14 +7,16 @@ import operator
 
 from python.decorators import euler_timer
 
+
 def first_triplet(total):
     for a in range(1, total - 1):
         for b in range(1, total - a):
             c = total - a - b
-            if a**2 + b**2 == c**2:
-                return [a,b,c]
+            if a ** 2 + b ** 2 == c ** 2:
+                return [a, b, c]
 
     return []
+
 
 def main(verbose=False):
     return reduce(operator.mul, first_triplet(1000))

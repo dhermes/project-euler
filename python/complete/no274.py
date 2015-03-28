@@ -13,8 +13,9 @@ from python.decorators import euler_timer
 from python.functions import sieve
 from python.functions import inverse_mod_n
 
+
 def main(verbose=False):
-    PRIMES = sieve(10**7)
+    PRIMES = sieve(10 ** 7)
     running_sum = 0
     for prime in PRIMES:
         if prime not in [2, 5]:

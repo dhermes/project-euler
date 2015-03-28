@@ -30,9 +30,9 @@ def do_operations_no_paren(operators, numbers):
 
     for i, op in enumerate(operators):
         if op in [operator.mul, operator.div]:
-            new_number = op(numbers[i], numbers[i+1])
-            new_numbers = numbers[:i] + [new_number] + numbers[i+2:]
-            new_operators = operators[:i] + operators[i+1:]
+            new_number = op(numbers[i], numbers[i + 1])
+            new_numbers = numbers[:i] + [new_number] + numbers[i + 2:]
+            new_operators = operators[:i] + operators[i + 1:]
             return do_operations_no_paren(new_operators, new_numbers)
 
     # no mul or div found
@@ -40,6 +40,7 @@ def do_operations_no_paren(operators, numbers):
     new_numbers = [new_number] + numbers[2:]
     new_operators = operators[1:]
     return do_operations_no_paren(new_operators, new_numbers)
+
 
 def results(signs, numbers):
     # parentheses first
@@ -99,6 +100,7 @@ def results(signs, numbers):
 
     return [int(n) for n in result if int(n) == n]
 
+
 def most_consecutive(dig_cands, sign_cands):
     all_encountered = []
     for perm in all_permutations(dig_cands):
@@ -111,6 +113,7 @@ def most_consecutive(dig_cands, sign_cands):
         biggest = biggest + 1
     return biggest
 
+
 def main(verbose=False):
     SIGNS = [operator.add, operator.sub, operator.mul, operator.div]
     SIGN_CANDS = []
@@ -118,7 +121,7 @@ def main(verbose=False):
         for sign2 in SIGNS:
             for sign3 in SIGNS:
                 SIGN_CANDS.append([sign1, sign2, sign3])
-    special_range = [n*1.0 for n in range(1, 10)]
+    special_range = [n * 1.0 for n in range(1, 10)]
     DIG_CANDS = all_subsets(special_range, 4)
 
     max_tuple = None

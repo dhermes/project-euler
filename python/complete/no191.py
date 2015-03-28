@@ -25,6 +25,7 @@
 
 from python.decorators import euler_timer
 
+
 def prize_strings(n):
     index = 1
     O_N = 1
@@ -47,6 +48,7 @@ def prize_strings(n):
         O_N, O_L, L_L, A_N, A_L, T_N, T_L = O_N + A_N + T_N, \
             O_L + A_L + T_L + L_L, O_N + A_N + T_N, O_N, O_L + L_L, A_N, A_L
     return O_N + O_L + L_L + A_N + A_L + T_N + T_L
+
 
 def main(verbose=False):
     return prize_strings(30)

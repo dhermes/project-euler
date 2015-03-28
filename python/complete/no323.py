@@ -17,13 +17,14 @@
 from python.decorators import euler_timer
 from python.functions import choose
 
+
 def main(verbose=False):
     expected_hash = {0: 0}
     for n in range(1, 32 + 1):
-        to_add = 2**n
+        to_add = 2 ** n
         for k in range(1, n + 1):
-            to_add += choose(n, k)*expected_hash[n - k]
-        expected_hash[n] = (to_add*1.0)/(2**n - 1)
+            to_add += choose(n, k) * expected_hash[n - k]
+        expected_hash[n] = (to_add * 1.0) / (2 ** n - 1)
 
     return round(expected_hash[32], 10)
 

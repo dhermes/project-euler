@@ -6,6 +6,7 @@ from python.decorators import euler_timer
 from python.functions import all_permutations
 from python.functions import get_data
 
+
 def main(verbose=False):
     data = [[int(dig) for dig in row] for row
             in get_data(79).split("\r\n") if row]

@@ -13,10 +13,12 @@ import operator
 from python.decorators import euler_timer
 from python.functions import all_factors
 
+
 def abundant_numbers(n):
     factor_hash = all_factors(n)
     # sum of proper divisors
     return [i for i in range(2, n + 1) if i < sum(factor_hash[i]) - i]
+
 
 def main(verbose=False):
     abundants = abundant_numbers(28123)

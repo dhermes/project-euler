@@ -11,12 +11,13 @@
 
 from python.decorators import euler_timer
 
+
 def main(verbose=False):
     for n in xrange(101010101, 138902662 + 1):
         if n % 250 in [43, 53, 83, 167, 197, 207]:
-            val = n**2
+            val = n ** 2
             if str(val)[::2] == '123456789':
-                return 10*n
+                return 10 * n
 
 if __name__ == '__main__':
     print euler_timer(206)(main)(verbose=True)

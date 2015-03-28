@@ -8,6 +8,7 @@
 
 from python.decorators import euler_timer
 
+
 def leap_year(year):
     if year % 4 == 0:
         if year % 100 == 0:
@@ -17,11 +18,13 @@ def leap_year(year):
     else:
         return False
 
+
 def month_lengths(year):
     result = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
     if leap_year(year):
         result[1] = 29
     return result
+
 
 def main(verbose=False):
     # We call the days of the week 0 - Sunday,...,6 - Saturday modulo 7

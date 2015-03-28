@@ -6,6 +6,7 @@ from math import factorial
 
 from python.decorators import euler_timer
 
+
 def main(verbose=False):
     return sum(int(digit) for digit in str(factorial(100)))
 

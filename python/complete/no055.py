@@ -30,10 +30,12 @@
 from python.decorators import euler_timer
 from python.functions import is_palindrome
 
+
 def next_lychrel_value(n):
     return n + int(str(n)[::-1])
 
-def update_hash(n, max_iterations, hash_ = {}):
+
+def update_hash(n, max_iterations, hash_={}):
     """
     Uses the hash values and continually updates
     the sequence until a palindrome is found or until
@@ -54,6 +56,7 @@ def update_hash(n, max_iterations, hash_ = {}):
             to_add[index] = curr
     hash_[n] = to_add
     return to_add
+
 
 def main(verbose=False):
     lychrel_sequences = {}

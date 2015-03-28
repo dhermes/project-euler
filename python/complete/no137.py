@@ -24,6 +24,7 @@ from python.conway_topograph import start_to_series
 from python.decorators import euler_timer
 from python.functions import recurrence_next
 
+
 def golden_nuggets(limit):
     # We seek 5x_k^2 - y_k^2 = 4
     # Where 5n + 1 = y_k
@@ -33,18 +34,19 @@ def golden_nuggets(limit):
               for initial in starting_points]
     nuggets = [pair[0] for pair in series
                if pair[0] % 5 == 1 and pair[0] > 1]
-    while len(nuggets) < 2*limit:
+    while len(nuggets) < 2 * limit:
         next = [pair[1] for pair in series
                 if pair[1] % 5 == 1 and pair[1] > 1]
         nuggets.extend(next)
         series = [recurrence_next(relation, values) for values in series]
-    return sorted([(value - 1)/5 for value in nuggets])[:limit]
+    return sorted([(value - 1) / 5 for value in nuggets])[:limit]
+
 
 def main(verbose=False):
     nuggets = golden_nuggets(15)
     if verbose:
         return '%s.\nAs a check, the 10th golden nugget is calculated ' \
-               'to be %s, as stated.' % (nuggets[-1], nuggets[10-1])
+               'to be %s, as stated.' % (nuggets[-1], nuggets[10 - 1])
     else:
         return nuggets[-1]
 

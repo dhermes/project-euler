@@ -30,7 +30,7 @@ def spiral_sum(n):
     # it does not increase
     step_num = 0
     step_size = 0
-    while curr_val <= n**2:
+    while curr_val <= n ** 2:
         if step_num % 2 == 0:
             step_size += 1
         curr_val += step_size
@@ -41,6 +41,7 @@ def spiral_sum(n):
         step_num += 1
 
     return total
+
 
 def main(verbose=False):
     return spiral_sum(1001)

@@ -31,17 +31,17 @@ from math import sqrt
 from python.decorators import euler_timer
 from python.functions import sieve
 
+
 def main(verbose=False):
-    problem_max = 10**6
+    problem_max = 10 ** 6
     count = 0
     PRIMES = sieve(problem_max)
-    max_L = int(round((sqrt(12*problem_max - 3) - 3)/6))
+    max_L = int(round((sqrt(12 * problem_max - 3) - 3) / 6))
     for L in xrange(1, max_L + 1):
-        difference = (L + 1)**3 - L**3
+        difference = (L + 1) ** 3 - L ** 3
         if difference in PRIMES:
             count += 1
     return count
 
 if __name__ == '__main__':
     print euler_timer(131)(main)(verbose=True)
-

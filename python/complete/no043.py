@@ -28,6 +28,7 @@ import operator
 
 from python.decorators import euler_timer
 
+
 def extend_matches(value, choices, direction):
     """
     Extends the value by anything in choices the
@@ -50,12 +51,14 @@ def extend_matches(value, choices, direction):
     else:
         raise ValueError("%s not a valid direction." % direction)
 
+
 def extend_to_remaining_digit(value):
     last_digit = set('0123456789').difference(value)
     if len(last_digit) != 1:
         raise ValueError("Algorithm for 43 failed.")
     last_digit = last_digit.pop()
     return int(last_digit + value)
+
 
 def main(verbose=False):
     unique_digits = {}

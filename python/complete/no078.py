@@ -21,6 +21,7 @@
 from python.decorators import euler_timer
 from python.functions import polygonal_number
 
+
 def find_residue(residue):
     p = {0: 1}
 
@@ -40,7 +41,7 @@ def find_residue(residue):
             # doesn't include end_val
             p[n] = 0
             for index, val in enumerate(pentagonal):
-                if (index/2) % 2 == 0:
+                if (index / 2) % 2 == 0:
                     p[n] = (p[n] + p[n - val]) % residue
                 else:
                     p[n] = (p[n] - p[n - val]) % residue
@@ -52,8 +53,9 @@ def find_residue(residue):
 
     raise Exception("Should not reach this line")
 
+
 def main(verbose=False):
-    return find_residue(10**6)
+    return find_residue(10 ** 6)
 
 if __name__ == '__main__':
     print euler_timer(78)(main)(verbose=True)

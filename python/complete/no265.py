@@ -31,11 +31,13 @@
 
 from python.decorators import euler_timer
 
+
 def binary_array_to_integer(array):
     result = 0
     for val in array:
-        result = 2*result + val
+        result = 2 * result + val
     return result
+
 
 def has_unique_subsequences(array, length):
     values = []
@@ -46,25 +48,28 @@ def has_unique_subsequences(array, length):
         values.append(to_add)
     return True
 
+
 def add_value(array, length):
     # may return []
     result = [array[:] + [new_val] for new_val in [0, 1]
               if has_unique_subsequences(array[:] + [new_val], length)]
     return result
 
+
 def all_valid_sequences(length):
-    sequences = [[1] + [0]*length + [1]]
-    while len(sequences[0]) < 2**length:
+    sequences = [[1] + [0] * length + [1]]
+    while len(sequences[0]) < 2 ** length:
         next_sequences = []
         for sequence in sequences:
             next_sequences.extend(add_value(sequence, length))
         sequences = next_sequences[:]
     # After this step, we want to make it cyclic, so we overload and check
-    sequences = [sequence + sequence[:length-1] for sequence in sequences]
-    sequences = [sequence[:2**length] for sequence in sequences
+    sequences = [sequence + sequence[:length - 1] for sequence in sequences]
+    sequences = [sequence[:2 ** length] for sequence in sequences
                  if has_unique_subsequences(sequence, length)]
     # finally, we want to start at 0, but these all start at 1
     return [sequence[1:] + sequence[:1] for sequence in sequences]
+
 
 def main(verbose=False):
     sequences = all_valid_sequences(5)

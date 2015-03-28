@@ -5,6 +5,7 @@
 from python.decorators import euler_timer
 from python.functions import fibonacci_generator
 
+
 def main(verbose=False):
     fib = fibonacci_generator()
     fib_index = 0

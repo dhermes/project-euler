@@ -21,6 +21,7 @@ from math import factorial
 
 from python.decorators import euler_timer
 
+
 def digit_factorial_sum(n, hash_=None):
     if hash_ is None:
         hash_ = {}
@@ -30,6 +31,7 @@ def digit_factorial_sum(n, hash_=None):
     result = sum(factorial(int(dig)) for dig in str(n))
     hash_[n] = result
     return result
+
 
 def chain(n, next_hash=None, chain_hash=None):
     if chain_hash is None:
@@ -48,13 +50,14 @@ def chain(n, next_hash=None, chain_hash=None):
     chain_hash[n] = path
     return path
 
+
 def main(verbose=False):
     chains = {}
     next_hash = {}
-    for n in range(1, 10**6):
+    for n in range(1, 10 ** 6):
         chain(n, next_hash, chains)
         # This sets the value in chains
-    return len([n for n in range(1, 10**6) if len(chains[n]) == 60])
+    return len([n for n in range(1, 10 ** 6) if len(chains[n]) == 60])
 
 if __name__ == '__main__':
     print euler_timer(74)(main)(verbose=True)

@@ -32,6 +32,7 @@ from python.conway_topograph import start_to_series
 from python.decorators import euler_timer
 from python.functions import recurrence_next
 
+
 def solutions(limit):
     # We seek 5x_k^2 - y_k^2 = 1
     # Where L = x_k
@@ -40,11 +41,12 @@ def solutions(limit):
     series = [start_to_series(initial, x_mult, 'x')
               for initial in starting_points]
     result = [pair[0] for pair in series if pair[0] > 1]
-    while len(result) < 2*limit:
+    while len(result) < 2 * limit:
         next = [pair[1] for pair in series if pair[1] > 1]
         result.extend(next)
         series = [recurrence_next(relation, values) for values in series]
     return sorted(result)[:limit]
+
 
 def main(verbose=False):
     # smallest 12 solutions returned in solutions(12)

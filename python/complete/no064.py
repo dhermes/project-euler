@@ -64,6 +64,7 @@ from python.decorators import euler_timer
 from python.functions import continued_fraction_cycle
 from python.functions import is_power
 
+
 def main(verbose=False):
     non_squares = [num for num in range(1, 10000 + 1)
                    if not is_power(num, 2)]

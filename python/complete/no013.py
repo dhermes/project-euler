@@ -6,6 +6,7 @@
 from python.decorators import euler_timer
 from python.functions import get_data
 
+
 def main(verbose=False):
     number = get_data(13)
     total = sum(int(line) for line in number.split("\n") if line)

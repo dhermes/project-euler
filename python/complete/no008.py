@@ -8,6 +8,7 @@ import operator
 from python.decorators import euler_timer
 from python.functions import get_data
 
+
 def product_consec_digits(number, consecutive):
     """
     Returns the largest product of "consecutive"
@@ -17,6 +18,7 @@ def product_consec_digits(number, consecutive):
     max_start = len(digits) - consecutive
     return [reduce(operator.mul, digits[i:i + consecutive])
             for i in range(max_start + 1)]
+
 
 def main(verbose=False):
     n = int("".join(line.strip() for line in get_data(8).split("\n")))

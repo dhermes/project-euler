@@ -3,6 +3,7 @@
 from python.decorators import euler_timer
 from python.functions import get_data
 
+
 def translate(message, key):
     len_key = len(key)
     result = message[:]
@@ -14,15 +15,16 @@ def translate(message, key):
     result = ''.join(chr(val) for val in result)
     return result
 
+
 def main(verbose=False):
     message = get_data(59).split(',')
 
     message = [int(char) for char in message]
 
     possible_keys = []
-    for ascii1 in range(97,123):
-        for ascii2 in range(97,123):
-            for ascii3 in range(97,123):
+    for ascii1 in range(97, 123):
+        for ascii2 in range(97, 123):
+            for ascii3 in range(97, 123):
                 possible_keys.append([ascii1, ascii2, ascii3])
 
     for key in possible_keys:

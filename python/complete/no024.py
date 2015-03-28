@@ -9,6 +9,7 @@ from math import factorial
 
 from python.decorators import euler_timer
 
+
 def lex(list_, perm):
     """
     Returns the perm-th permutation of the list in order
@@ -21,13 +22,14 @@ def lex(list_, perm):
     if len(list_) < 2:
         return list_[:]
 
-    index = perm/factorial(len(list_) - 1) # int. division intended
+    index = perm / factorial(len(list_) - 1)  # int. division intended
     remaining = perm % factorial(len(list_) - 1)
-    return [list_[index]] + lex(list_[:index]+list_[index+1:], remaining)
+    return [list_[index]] + lex(list_[:index] + list_[index + 1:], remaining)
+
 
 def main(verbose=False):
     list_ = range(10)
-    perm = 10**6 - 1 # Our indexing begins at 0
+    perm = 10 ** 6 - 1  # Our indexing begins at 0
     return "".join(str(dig) for dig in lex(list_, perm))
 
 if __name__ == '__main__':

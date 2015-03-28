@@ -3,6 +3,7 @@
 from python.decorators import euler_timer
 from python.functions import get_data
 
+
 def column_by_column(data):
     result = {}
     size = len(data)
@@ -26,6 +27,7 @@ def column_by_column(data):
             result[(row, column)] = set_val
 
     return min(result[(row, size - 1)] for row in range(size))
+
 
 def main(verbose=False):
     data = [[int(entry) for entry in row.split(",")]

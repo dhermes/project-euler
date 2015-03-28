@@ -15,8 +15,9 @@ from python.decorators import euler_timer
 from python.functions import order_mod_n
 from python.functions import sieve
 
+
 def main(verbose=False):
-    prime_max = 10**5
+    prime_max = 10 ** 5
     PRIMES = sieve(prime_max)
     found = []
     n = 2
@@ -31,7 +32,7 @@ def main(verbose=False):
 
         basis = n
         if n % 3 == 0:
-            basis = 9*n
+            basis = 9 * n
 
         if (n - 1) % order_mod_n(10, basis) == 0:
             found.append(n)

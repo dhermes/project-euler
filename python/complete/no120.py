@@ -20,6 +20,7 @@
 
 from python.decorators import euler_timer
 
+
 def main(verbose=False):
     low = 3
     high = 1000
@@ -30,8 +31,8 @@ def main(verbose=False):
         odds = range(low + 1, high + 1, 2)
         evens = range(low, high + 1, 2)
 
-    odd_sum = sum(val**2 - val for val in odds)
-    even_sum = sum(val**2 - 2*val for val in evens)
+    odd_sum = sum(val ** 2 - val for val in odds)
+    even_sum = sum(val ** 2 - 2 * val for val in evens)
     return odd_sum + even_sum
 
 if __name__ == '__main__':

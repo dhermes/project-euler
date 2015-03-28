@@ -6,6 +6,7 @@ from python.decorators import euler_timer
 from python.conway_topograph import next_juncture_on_river
 from python.conway_topograph import juncture_isom
 
+
 def minimal_solution(D):
     B = ((1, -1), 1 - D)
     P = ((1, 0), 1)
@@ -20,10 +21,11 @@ def minimal_solution(D):
     # We seek only (x,y), we want J[1][0]
     return J_curr[1][0]
 
+
 def main(verbose=False):
     max_n = 1000
-    non_squares = [n for n in range(1, max_n + 1) if n != int(sqrt(n))**2]
-    D_x_pair_min_solns = [(D,) + minimal_solution(D) for D in non_squares]
+    non_squares = [n for n in range(1, max_n + 1) if n != int(sqrt(n)) ** 2]
+    D_x_pair_min_solns = [(D, ) + minimal_solution(D) for D in non_squares]
     D_x_pair_min_solns.sort(key=lambda pair: pair[1])
     D, x, y = D_x_pair_min_solns[-1]
     if verbose:

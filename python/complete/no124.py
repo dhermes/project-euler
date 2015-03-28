@@ -26,6 +26,7 @@ from python.decorators import euler_timer
 from python.functions import first_prime_divisor
 from python.functions import sieve
 
+
 def all_radicals(n):
     PRIMES = sieve(n)
     result = {1: 1}
@@ -36,8 +37,9 @@ def all_radicals(n):
         if quotient % prime == 0:
             result[i] = result[quotient]
         else:
-            result[i] = result[quotient]*prime
+            result[i] = result[quotient] * prime
     return result
+
 
 def sorted_radicals(n):
     rad_dict = all_radicals(n)
@@ -55,9 +57,10 @@ def sorted_radicals(n):
 
     return result
 
+
 def main(verbose=False):
-    MAX_n = 10**5
-    index = 10**4
+    MAX_n = 10 ** 5
+    index = 10 ** 4
     return sorted_radicals(MAX_n)[index - 1]
 
 if __name__ == '__main__':

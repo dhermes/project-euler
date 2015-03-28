@@ -27,9 +27,10 @@
 
 from python.decorators import euler_timer
 
+
 def main(verbose=False):
-    D = 10**6
-    return 3*int((D - 5)/7.0) + 2
+    D = 10 ** 6
+    return 3 * int((D - 5) / 7.0) + 2
 
 if __name__ == '__main__':
     print euler_timer(71)(main)(verbose=True)

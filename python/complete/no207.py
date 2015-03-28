@@ -22,15 +22,16 @@
 
 from python.decorators import euler_timer
 
+
 def main(verbose=False):
     L = 1
-    while 12345*L + 1 >= 2**L:
+    while 12345 * L + 1 >= 2 ** L:
         L += 1
 
     count = L - 1
-    for n in range(2**(L - 1), 2**L):
-        if 12345*count < n:
-            return n*(n + 1)
+    for n in range(2 ** (L - 1), 2 ** L):
+        if 12345 * count < n:
+            return n * (n + 1)
     raise Exception("Program failed to find solution")
 
 if __name__ == '__main__':

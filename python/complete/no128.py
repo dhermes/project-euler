@@ -161,10 +161,10 @@ from python.functions import sieve
 
 def main(verbose=False):
     TOTAL = 2000
-    MAX_n = 10**6
+    MAX_n = 10 ** 6
     PRIMES = sieve(MAX_n)
     # Constant, rather than linear lookup
-    prime_bools = [False]*(MAX_n + 1)
+    prime_bools = [False] * (MAX_n + 1)
     for prime in PRIMES:
         prime_bools[prime] = True
 
@@ -172,14 +172,14 @@ def main(verbose=False):
     current = 2
 
     layer = 3
-    first_corner = 8 # Value of first corner in layer
-    last_corner = 19 # Value of last corner in layer
-    six_shared = 11 # prime candidate shared by both corners,
-                    # with a difference of 6
-    six_first = 13 # prime candidate for first corner, diff 6
-    six_last = 17 # prime candidate for last corner, diff 6
-    twelve_first = 29 # prime candidate for first corner, diff 12
-    twelve_last = 17 # prime candidate for last corner, diff 12
+    first_corner = 8  # Value of first corner in layer
+    last_corner = 19  # Value of last corner in layer
+    six_shared = 11  # prime candidate shared by both corners,
+    # with a difference of 6
+    six_first = 13  # prime candidate for first corner, diff 6
+    six_last = 17  # prime candidate for last corner, diff 6
+    twelve_first = 29  # prime candidate for first corner, diff 12
+    twelve_last = 17  # prime candidate for last corner, diff 12
     while count < TOTAL:
         if twelve_first > MAX_n:
             raise Exception("Primes not large enough")
@@ -196,8 +196,8 @@ def main(verbose=False):
         six_first += 6
         twelve_last, twelve_first = twelve_first, twelve_first + 12
 
-        first_corner += 6*(layer - 1)
-        last_corner += 6*layer
+        first_corner += 6 * (layer - 1)
+        last_corner += 6 * layer
 
         layer += 1
 

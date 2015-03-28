@@ -15,14 +15,15 @@
 from python.decorators import euler_timer
 from python.functions import all_subsets
 
+
 def all_choices(n):
     result = []
-    number_digit_sums = (n + 1)/2
+    number_digit_sums = (n + 1) / 2
 
     candidates = [('>=10', 1), ('>=10', 0), ('<10', 1), ('<10', 0)]
     for subset in all_subsets(candidates, number_digit_sums, unique=False):
         if n % 2 == 1:
-            even_index = (n + 1)/2
+            even_index = (n + 1) / 2
             signature = subset[even_index - 1]
             # parity
             if signature[1] == 1:
@@ -35,6 +36,7 @@ def all_choices(n):
         result.append(to_add)
 
     return result
+
 
 def valid_choice(choice, n):
     # all indices except final
@@ -54,8 +56,9 @@ def valid_choice(choice, n):
 
     return True
 
+
 def choice_to_count(choice, n):
-    number_digit_sums = (n + 1)/2
+    number_digit_sums = (n + 1) / 2
 
     result = 1
     for sum_index in range(1, number_digit_sums + 1):
@@ -87,6 +90,7 @@ def choice_to_count(choice, n):
             raise Exception("Signature not recognized")
 
     return result
+
 
 def main(verbose=False):
     running_sum = 0

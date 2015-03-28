@@ -46,13 +46,15 @@ from math import sqrt
 from python.decorators import euler_timer
 from python.functions import sieve
 
+
 def find_raw_solution(prime):
     max_n = int(sqrt(prime))
     for x in range(1, max_n + 1):
-        y = int(sqrt(prime - x**2))
-        if x**2 + y**2 == prime:
+        y = int(sqrt(prime - x ** 2))
+        if x ** 2 + y ** 2 == prime:
             return [x, y]
     return None
+
 
 # Using
 # (a**2 + b**2)*(c**2 + d**2) = (a*c - b*d)**2 + (a*d + b*c)**2
@@ -63,12 +65,13 @@ def multiply_pair(pair1, pair2):
     a, b = pair1
     c, d = pair2
 
-    first_pair = sorted([abs(a*c - b*d), a*d + b*c])
-    second_pair = sorted([a*c + b*d, abs(a*d - b*c)])
+    first_pair = sorted([abs(a * c - b * d), a * d + b * c])
+    second_pair = sorted([a * c + b * d, abs(a * d - b * c)])
     if first_pair == second_pair:
         return [first_pair]
     else:
         return [first_pair, second_pair]
+
 
 def squarefree_sum(pairs, primes):
     result = 0
@@ -76,7 +79,6 @@ def squarefree_sum(pairs, primes):
     # If we don't, there is no need to sum the values
     if primes == []:
         return result
-
 
     next_pairs = []
     prime_pair = find_raw_solution(primes[0])
@@ -90,6 +92,7 @@ def squarefree_sum(pairs, primes):
     # Don't add the prime
     result += squarefree_sum(pairs, remaining_primes)
     return result
+
 
 def main(verbose=False):
     primes = [prime for prime in sieve(150)

@@ -6,6 +6,7 @@
 from python.decorators import euler_timer
 from python.functions import is_palindrome
 
+
 def binary_incrementer(str_):
     digs = [int(dig) for dig in str_]
     digs[-1] += 1
@@ -14,12 +15,13 @@ def binary_incrementer(str_):
             temp = digs[i]
             digs[i] = temp % 2
             if i == 0:
-                digs = [temp/2] + digs
+                digs = [temp / 2] + digs
             else:
-                digs[i - 1] += temp/2 # int division intended
+                digs[i - 1] += temp / 2  # int division intended
         else:
             break
     return ''.join(str(dig) for dig in digs)
+
 
 def all_base10_base2_palindromes(n):
     result = []
@@ -33,8 +35,9 @@ def all_base10_base2_palindromes(n):
         base_2 = binary_incrementer(base_2)
     return result
 
+
 def main(verbose=False):
-    ans = all_base10_base2_palindromes(10**6)
+    ans = all_base10_base2_palindromes(10 ** 6)
     if verbose:
         return '%s.\nThe full list of palindromes is: %s' % (
             sum(ans), ', '.join(str(number) for number in ans))

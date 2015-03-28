@@ -7,6 +7,7 @@
 from python.decorators import euler_timer
 from python.functions import choose
 
+
 def main(verbose=False):
     # In an n x m grid there are (n + m) C m = (n + m) C n such paths.
     return choose(20 + 20, 20)

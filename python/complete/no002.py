@@ -15,15 +15,14 @@
 from python.decorators import euler_timer
 from python.functions import recurrence_next
 
+
 def main(verbose=False):
     a, b = 0, 2
     running_sum = 0
     while b <= 4000000:
         running_sum += b
-        a, b = recurrence_next([1,4], [a,b])
+        a, b = recurrence_next([1, 4], [a, b])
     return running_sum
 
 if __name__ == '__main__':
     print euler_timer(2)(main)(verbose=True)
-
-

@@ -23,6 +23,7 @@ VALUES = {'I': 1,
           'D': 500,
           'M': 1000}
 
+
 def pos_neg(val, next):
     if val not in ('I', 'X', 'C') or not next:
         return 1
@@ -35,21 +36,24 @@ def pos_neg(val, next):
         return -1
     return 1
 
+
 def actual(numeral):
     pairs = [(numeral[ind], numeral[ind + 1]) for
              ind in range(len(numeral) - 1)] + \
             [(numeral[-1], None)]
-    return sum(VALUES[pair[0]]*pos_neg(*pair) for pair in pairs)
+    return sum(VALUES[pair[0]] * pos_neg(*pair) for pair in pairs)
+
 
 def to_roman(n):
-    ints = (1000, 900,  500, 400, 100,  90, 50,  40, 10,  9,   5,  4,   1)
-    nums = ('M',  'CM', 'D', 'CD','C', 'XC','L','XL','X','IX','V','IV','I')
+    ints = (1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1)
+    nums = ('M', 'CM', 'D', 'CD', 'C', 'XC', 'L', 'XL', 'X', 'IX', 'V', 'IV', 'I')
     result = ""
     for i in range(len(ints)):
         count = int(n / ints[i])
         result += nums[i] * count
         n -= ints[i] * count
     return result
+
 
 def main(verbose=False):
     data = [num for num in get_data(89).split("\n") if num]

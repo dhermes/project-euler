@@ -28,13 +28,15 @@ from python.decorators import euler_timer
 from python.functions import factors
 from python.functions import sieve
 
+
 def num_solutions(factor_list):
     n = max(factor_list)
-    choices_a = [factor for factor in factor_list if n < 3*(factor**2)]
-    return [a for a in choices_a if (n/a + a) % 4 == 0]
+    choices_a = [factor for factor in factor_list if n < 3 * (factor ** 2)]
+    return [a for a in choices_a if (n / a + a) % 4 == 0]
+
 
 def main(verbose=False):
-    MAX_n = 10**6 - 1
+    MAX_n = 10 ** 6 - 1
     distinct_solutions = 10
     PRIMES = sieve(int(sqrt(MAX_n)) + 1)
     factor_hash = {}

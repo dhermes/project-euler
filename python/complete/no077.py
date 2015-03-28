@@ -44,6 +44,7 @@
 from python.decorators import euler_timer
 from python.functions import sieve
 
+
 def prime_partitions(n, primes):
     p = {}
     for k in range(1, n + 1):
@@ -55,8 +56,9 @@ def prime_partitions(n, primes):
                 p[(i, k)] = p[(i + 1, k)] + p[(i, k - i)]
     return p[(1, n)]
 
+
 def main(verbose=False):
-    max_prime_val = 10**2
+    max_prime_val = 10 ** 2
     PRIMES = sieve(max_prime_val)
 
     pp = {(0, 1): 0,

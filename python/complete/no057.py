@@ -21,6 +21,7 @@
 from python.decorators import euler_timer
 from python.functions import recurrence_next
 
+
 # We can write the rth expansion as h_r/k_r where both h and k satisfy
 # f(n+2) = 2f(n+1) + f(n)
 # and h_0 = 1, h_1 = 3, k_0 = 1, k_1 = 2

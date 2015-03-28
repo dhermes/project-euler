@@ -47,20 +47,22 @@
 from python.decorators import euler_timer
 from python.functions import is_power
 
+
 def unique_pairs(k, M):
     lower = max(k - M, 1)
-    upper = k/2 # integer division intended
+    upper = k / 2  # integer division intended
     return upper - lower + 1
 
+
 def main(verbose=False):
-    TARGET = 10**6
+    TARGET = 10 ** 6
     M = 1
     solutions = 0
     while solutions < TARGET:
         M += 1
         # need a + b with (a + b)**2 + M**2
-        for inferior_sum in xrange(2, 2*M + 1):
-            if is_power((inferior_sum)**2 + M**2, 2):
+        for inferior_sum in xrange(2, 2 * M + 1):
+            if is_power((inferior_sum) ** 2 + M ** 2, 2):
                 solutions += unique_pairs(inferior_sum, M)
     return M
 

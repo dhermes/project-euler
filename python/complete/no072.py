@@ -41,19 +41,20 @@ from python.decorators import euler_timer
 from python.functions import mu
 from python.functions import sieve
 
+
 def main(verbose=False):
-    D = 10**6
+    D = 10 ** 6
     PRIMES = sieve(int(sqrt(D)) + 1)
     # We seek |F_D| = 1 + sum_{i in  1 to D} PHI(i)
     # 2*sum_{i in  1 to D} PHI(i) = 1 + sum_{i in  1 to D} MU(i) floor(D/i)**2
     # 2*|F_D| = 3 + sum_{i in  1 to D} MU(i) floor(D/i)**2
     mu_hash = {1: 1}
-    running_sum = D**2 # i = 1
+    running_sum = D ** 2  # i = 1
     for i in range(2, D + 1):
-        running_sum += mu(i, mu_hash, PRIMES)*(int(floor(D*1.0/i))**2)
+        running_sum += mu(i, mu_hash, PRIMES) * (int(floor(D * 1.0 / i)) ** 2)
 
     # They don't include 0/1 or 1/1 so we subtract 2
-    return ((3 + running_sum)/2 - 2)
+    return ((3 + running_sum) / 2 - 2)
 
 if __name__ == '__main__':
     print euler_timer(72)(main)(verbose=True)

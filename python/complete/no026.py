@@ -7,6 +7,7 @@ from python.decorators import euler_timer
 from python.functions import order_mod_n
 from python.functions import robust_divide
 
+
 def main(verbose=False):
     max_index = -1
     max_block_size = -1

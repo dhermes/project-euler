@@ -11,6 +11,7 @@ from math import factorial
 from python.decorators import euler_timer
 from python.functions import ascending
 
+
 def main(verbose=False):
     result = []
     # We have at most 7 digits, so we consider all ascending
@@ -28,10 +29,10 @@ def main(verbose=False):
             # Can fill out the number with zeros (up to 7 digits)
             for zeros_add in range(possible_zeros + 1):
                 factorial_digits = [int(digit) for digit in str(factorial_sum)]
-                if sorted(factorial_digits) == sorted(non_zero + [0]*zeros_add):
+                if sorted(factorial_digits) == sorted(non_zero + [0] * zeros_add):
                     result.append(factorial_sum)
 
-                factorial_sum += 1 # Add factorial(0)
+                factorial_sum += 1  # Add factorial(0)
 
     result = [val for val in result if val not in [1, 2]]
 

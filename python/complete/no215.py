@@ -2,15 +2,17 @@
 
 from python.decorators import euler_timer
 
+
 def special_perms(num_2, num_3):
     if num_3 == 0:
-        return [[2]*num_2]
+        return [[2] * num_2]
     elif num_2 == 0:
-        return [[3]*num_3]
+        return [[3] * num_3]
 
     result = [[2] + perm for perm in special_perms(num_2 - 1, num_3)] + \
              [[3] + perm for perm in special_perms(num_2, num_3 - 1)]
     return result
+
 
 def cumulative_sum(list_):
     result = [list_[0]]
@@ -24,8 +26,8 @@ def cumulative_sum(list_):
 def main(verbose=False):
     break_rows = []
     for y_star in range(5 + 1):
-        x = 16 - 3*y_star
-        y = 2*y_star
+        x = 16 - 3 * y_star
+        y = 2 * y_star
         for perm in special_perms(x, y):
             to_add = cumulative_sum(perm)
             if to_add[-1] != 32:

@@ -9,8 +9,10 @@
 
 from python.decorators import euler_timer
 
+
 def sum_of_digits_powers(n, power):
-    return sum(int(dig)**power for dig in str(n))
+    return sum(int(dig) ** power for dig in str(n))
+
 
 def main(verbose=False):
     valid = [i for i in xrange(2, 999999 + 1)

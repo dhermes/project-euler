@@ -24,6 +24,7 @@ from python.decorators import euler_timer
 from python.functions import extended_euclid
 from python.functions import prime_factors
 
+
 def find_cube_roots(prime):
     # Won't check, but assumes prime is prime
     # in a prime field x^3 == 1 implies x == 1 or x^2 + x + 1 == 0
@@ -35,16 +36,17 @@ def find_cube_roots(prime):
     # The inverse of 2 is (prime + 1)/2
     # If L(q,p) is the legendre symbol, for p != 2 or 3 we know
     # L(-3, p) = L(-1, p)*L(3, p) = (-1)**(floor((p+1)/6)+(p-1)/2)
-    if (-1)**((prime + 1)/6 + (prime - 1)/2) == -1:
+    if (-1) ** ((prime + 1) / 6 + (prime - 1) / 2) == -1:
         return [1]
 
     for i in xrange(1, prime):
-        if (i**2 + 3) % prime == 0:
+        if (i ** 2 + 3) % prime == 0:
             break
     # So we know i and prime - i are the square roots of 3
     return sorted([1,
-                   ((prime + 1)*(i - 1)/2) % prime,
-                   ((prime + 1)*(prime - i - 1))/2 % prime])
+                   ((prime + 1) * (i - 1) / 2) % prime,
+                   ((prime + 1) * (prime - i - 1)) / 2 % prime])
+
 
 def main(verbose=False):
     product = 13082761331670030
@@ -59,18 +61,18 @@ def main(verbose=False):
 
     coprime_units = {}
     for factor in factors:
-        _, multiplier = extended_euclid(factor, product/factor)
-        coprime_units[factor] = multiplier*(product/factor)
+        _, multiplier = extended_euclid(factor, product / factor)
+        coprime_units[factor] = multiplier * (product / factor)
 
     vals = []
     for pairing in result:
         count = 0
         for prime, residue in pairing:
-            count += residue*coprime_units[prime]
+            count += residue * coprime_units[prime]
         count = count % product
         vals.append(count)
 
-    return sum(vals) - 1 # 1 is in there as (1,1,...,1)
+    return sum(vals) - 1  # 1 is in there as (1,1,...,1)
 
 if __name__ == '__main__':
     print euler_timer(271)(main)(verbose=True)

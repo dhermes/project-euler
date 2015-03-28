@@ -22,14 +22,16 @@
 from python.decorators import euler_timer
 from python.functions import sieve
 
+
 def polynomial_consecutive_primes(a, b, primes):
     # f(n + 1) = f(n) + 1 + a + 2n
     current = b
     index = 0
     while current in primes:
-        current += 1 + a + 2*index
+        current += 1 + a + 2 * index
         index += 1
     return index
+
 
 def main(verbose=False):
     PRIMES = sieve(86238)
@@ -40,7 +42,7 @@ def main(verbose=False):
                   for b in b_choices]
     quantities = [entry[2] for entry in candidates]
     winner = candidates[quantities.index(max(quantities))]
-    prod = winner[0]*winner[1]
+    prod = winner[0] * winner[1]
     a = winner[0]
     b = winner[1]
     max_vals = winner[2]

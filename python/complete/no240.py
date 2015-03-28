@@ -4,6 +4,7 @@ from python.decorators import euler_timer
 from python.functions import ascending
 from python.functions import total_perms
 
+
 def generate_addons(num, smallest, biggest):
     if num == 1:
         return [[i] for i in range(smallest, biggest + 1)]
@@ -13,6 +14,7 @@ def generate_addons(num, smallest, biggest):
         result.extend([[i] + addon for addon
                        in generate_addons(num - 1, i, biggest)])
     return result
+
 
 def main(verbose=False):
     MATCHES = []

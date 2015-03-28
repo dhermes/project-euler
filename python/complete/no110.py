@@ -22,28 +22,29 @@ from python.functions import power_up_to_digits
 from python.functions import prime_factors
 from python.functions import sieve
 
+
 def main(verbose=False):
     prime_factors_hash = {}
 
-    MINIMUM_SOLUTIONS = 4*(10**6)
+    MINIMUM_SOLUTIONS = 4 * (10 ** 6)
     # P^k < 10**7 (10 mil)
     powers = [power_up_to_digits(prime, 7)
               for prime in [3, 5, 7]]
     products = [reduce(operator.mul, triple) for
                 triple in list(i_product(*powers))]
     products = [product for product in sorted(products)
-                if product > 2*MINIMUM_SOLUTIONS][:20]
+                if product > 2 * MINIMUM_SOLUTIONS][:20]
 
     PRIMES = sieve(100)
 
-    max_prod = 10**21
+    max_prod = 10 ** 21
     res = []
     for product in products:
         factors = prime_factors(product, unique=False, hash_=prime_factors_hash)
-        factors = [(factor - 1)/2 for factor in factors][::-1]
+        factors = [(factor - 1) / 2 for factor in factors][::-1]
         curr_prod = 1
         for i, exp in enumerate(factors):
-            curr_prod = curr_prod*(PRIMES[i]**exp)
+            curr_prod = curr_prod * (PRIMES[i] ** exp)
 
         if curr_prod < max_prod:
             max_prod = curr_prod

@@ -18,34 +18,37 @@ from fractions import gcd
 
 from python.decorators import euler_timer
 
+
 def canceled_pair(numer, denom):
     shared = set(str(numer)).intersection(set(str(denom)))
     result_n = [dig for dig in str(numer)]
     result_d = [dig for dig in str(denom)]
     for dig in shared:
-        result_n.remove(dig) # Only removes first instance
-        result_d.remove(dig) # Only removes first instance
+        result_n.remove(dig)  # Only removes first instance
+        result_d.remove(dig)  # Only removes first instance
     result_n = int("".join(result_n)) if result_n else 0
     result_d = int("".join(result_d)) if result_d else 0
     return result_n, result_d
+
 
 def equals_canceled_pair(numer, denom):
     c_num, c_denom = canceled_pair(numer, denom)
     if c_num == numer and c_denom == denom:
         return False
-    elif 10*c_num == numer:
+    elif 10 * c_num == numer:
         return False
     elif c_num == 0 and c_denom == 0:
         return False
-    return (c_num*denom == c_denom*numer)
+    return (c_num * denom == c_denom * numer)
+
 
 def main(verbose=False):
-    pairs = [(numer, denom) for numer in range(10,99)
+    pairs = [(numer, denom) for numer in range(10, 99)
                             for denom in range(numer + 1, 100)
                             if equals_canceled_pair(numer, denom)]
     num = reduce(operator.mul, [pair[0] for pair in pairs])
     denom = reduce(operator.mul, [pair[1] for pair in pairs])
-    return denom/(gcd(num,denom))
+    return denom / (gcd(num, denom))
 
 if __name__ == '__main__':
     print euler_timer(33)(main)(verbose=True)

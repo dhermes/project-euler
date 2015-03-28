@@ -40,9 +40,11 @@ CARDS = dict([('2', 2),
               ('K', 13),
               ('A', 14)])
 
+
 def read_card(card_from_file):
     value, suit = card_from_file
     return (CARDS[value], suit)
+
 
 def read_hand(hand_from_file):
     cards = [card.strip() for card in hand_from_file.split() if card]
@@ -50,17 +52,21 @@ def read_hand(hand_from_file):
     player2 = [read_card(card) for card in cards[5:]]
     return (player1, player2)
 
+
 def is_straight(hand):
     values = sorted(card[0] for card in hand)
     smallest = values[0]
     values = [value - smallest for value in values]
     return values == range(5)
 
+
 def is_flush(hand):
     return (len(set(card[1] for card in hand)) == 1)
 
+
 def is_royal(hand):
     return (min(card[0] for card in hand) >= 10)
+
 
 def top_cards(hand):
     royal = is_royal(hand)
@@ -134,6 +140,7 @@ def top_cards(hand):
         return (1, high, kickers)
     raise Exception(hand)
 
+
 def compare_kickers(kicker1, kicker2):
     # assumes they are the same
     if len(kicker1) != len(kicker2):
@@ -147,6 +154,7 @@ def compare_kickers(kicker1, kicker2):
             return 2
     raise Exception("Dan dumb 2")
     return
+
 
 def compare_hands(hand1, hand2):
     if hand1[0] < hand2[0]:
@@ -189,6 +197,7 @@ def compare_hands(hand1, hand2):
         raise Exception("Dan bad 4")
     raise Exception("Dan bad 5")
     return
+
 
 def main(verbose=False):
     data = get_data(54)

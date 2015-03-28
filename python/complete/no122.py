@@ -2,13 +2,14 @@
 
 from python.decorators import euler_timer
 
+
 def main(verbose=False):
     MAX_n = 200
 
     optimal_chains = {1: [[1]]}
     for exponent in range(2, MAX_n + 1):
         addition_chains = []
-        for needed_value in xrange(1, exponent/2 + 1):
+        for needed_value in xrange(1, exponent / 2 + 1):
             for chain in optimal_chains[exponent - needed_value]:
                 if needed_value in chain:
                     addition_chains.append(chain[:] + [exponent])

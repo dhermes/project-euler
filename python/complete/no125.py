@@ -19,25 +19,27 @@ from math import sqrt
 from python.decorators import euler_timer
 from python.functions import is_palindrome
 
+
 def palindromic_square_sums(n):
     # first populate all pairs that add to less than n
     # 2k**2 < k**2 + (k + 1)**2 < n
-    MAX_k = int(round(sqrt(n/2.0)))
-    curr = [index**2 + (index + 1)**2 for index in range(1, MAX_k)]
+    MAX_k = int(round(sqrt(n / 2.0)))
+    curr = [index ** 2 + (index + 1) ** 2 for index in range(1, MAX_k)]
     curr = [num for num in curr if num < n]
 
     result = [num for num in curr if is_palindrome(num)]
     num_squares = 2
     while curr:
         num_squares += 1
-        curr = [curr[i] + (i + num_squares)**2 for i in range(len(curr))]
+        curr = [curr[i] + (i + num_squares) ** 2 for i in range(len(curr))]
         curr = [num for num in curr if num < n]
         result.extend([num for num in curr if is_palindrome(num)])
 
     return set(result)
 
+
 def main(verbose=False):
-    PROBLEM_MAX = 10**8
+    PROBLEM_MAX = 10 ** 8
     return sum(palindromic_square_sums(PROBLEM_MAX))
 
 if __name__ == '__main__':

@@ -25,22 +25,24 @@ from python.functions import continued_fraction_cycle
 from python.functions import is_power
 from python.functions import recurrence_next
 
+
 def expanded_digits(numerator, denominator, digits):
     # use integer division on num and denom to get a quotient
-    quotient_digits = [int(dig) for dig in str(numerator/denominator)]
+    quotient_digits = [int(dig) for dig in str(numerator / denominator)]
     remainder = numerator % denominator
     if len(quotient_digits) >= digits:
         return quotient_digits[:digits]
-    return quotient_digits + expanded_digits(10*remainder,
+    return quotient_digits + expanded_digits(10 * remainder,
                                              denominator,
                                              digits - len(quotient_digits))
 
+
 def stable_expansion(digits, n):
     values = continued_fraction_cycle(n)
-    h_values = [1, values[0]] # a_0
+    h_values = [1, values[0]]  # a_0
     k_values = [0, 1]
 
-    cycle_length = len(values) - 1 # we only cycle over a_1,...,a_{k-1}
+    cycle_length = len(values) - 1  # we only cycle over a_1,...,a_{k-1}
     last = expanded_digits(h_values[1], k_values[1], digits)
     index = 1
     relation = [1, values[index]]
@@ -58,6 +60,7 @@ def stable_expansion(digits, n):
         k_values = recurrence_next(relation, k_values)
         current = expanded_digits(h_values[1], k_values[1], digits)
     return current
+
 
 def main(verbose=False):
     non_squares = [num for num in range(1, 100 + 1)

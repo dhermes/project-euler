@@ -21,23 +21,26 @@ import operator
 
 from python.decorators import euler_timer
 
+
 def lagrange(input_val, index, points):
     numerator = reduce(operator.mul, [input_val - points[i] for i in
                                       range(len(points)) if i != index])
     denominator = reduce(operator.mul, [points[index] - points[i] for i in
                                         range(len(points)) if i != index])
-    return numerator*1.0/denominator
+    return numerator * 1.0 / denominator
+
 
 def n_value_approximation(func, n, input_val):
     if n == 1:
         return func(1)
     points = range(1, n + 1)
-    return sum(func(points[i])*lagrange(input_val, i, points)
+    return sum(func(points[i]) * lagrange(input_val, i, points)
                for i in range(len(points)))
+
 
 def main(verbose=False):
     def func(x):
-        return ((1 + x**11)*(1.0))/(1 + x)
+        return ((1 + x ** 11) * (1.0)) / (1 + x)
     result = 0
     for k in range(1, 11):
         val = n_value_approximation(func, k, k + 1)

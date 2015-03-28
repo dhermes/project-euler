@@ -5,6 +5,7 @@
 from python.decorators import euler_timer
 from python.functions import all_factors
 
+
 def nontrivial_factorizations(n):
     factor_hash = {1: [1]}
     factor_hash = all_factors(n, factor_hash)
@@ -13,9 +14,9 @@ def nontrivial_factorizations(n):
     for i in range(3, n + 1):
         to_add = [[i]]
         for factor in factor_hash[i]:
-            if factor > 1 and factor**2 <= i:
+            if factor > 1 and factor ** 2 <= i:
                 for subset1 in result[factor]:
-                    for subset2 in result[i/factor]:
+                    for subset2 in result[i / factor]:
                         cand = sorted(subset1 + subset2)
                         if cand not in to_add:
                             to_add.append(cand)

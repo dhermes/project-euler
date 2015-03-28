@@ -13,16 +13,19 @@ SQUARES = ["GO",
            "G2J",
            "G1", "G2", "CC3", "G3", "R4", "CH3", "H1", "T2", "H2"]
 
+
 def roll_die(size):
     first_die = choice(range(1, size + 1))
     second_die = choice(range(1, size + 1))
 
     return (first_die + second_die, (first_die == second_die))
 
+
 def back(square, step):
     index = SQUARES.index(square)
     new_index = (index - step) % len(SQUARES)
     return SQUARES[new_index]
+
 
 def next_specific(square, next_type):
     if next_type not in ["R", "U"]:
@@ -51,6 +54,7 @@ def next_specific(square, next_type):
             return Exception("Case should not occur")
     else:
         raise Exception("Case should not occur")
+
 
 def next_square(landing_square, chance_card, chest_card):
     if landing_square not in ["CC1", "CC2", "CC3", "CH1", "CH2", "CH3", "G2J"]:
@@ -95,8 +99,9 @@ def next_square(landing_square, chance_card, chest_card):
     else:
         raise Exception("Case should not occur")
 
+
 def main(verbose=False):
-    GAME_PLAY = 10**6
+    GAME_PLAY = 10 ** 6
     dice_size = 4
     visited = {"GO": 1}
     current = "GO"

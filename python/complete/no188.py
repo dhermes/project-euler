@@ -26,6 +26,7 @@
 from python.decorators import euler_timer
 from python.functions import order_mod_n
 
+
 def hyper_exponentiate(a, b, modulus):
     if modulus == 1:
         return 1
@@ -34,10 +35,11 @@ def hyper_exponentiate(a, b, modulus):
     if b == 1:
         return a % modulus
     a_order = order_mod_n(a, modulus)
-    return (a**hyper_exponentiate(a, b - 1, a_order)) % modulus
+    return (a ** hyper_exponentiate(a, b - 1, a_order)) % modulus
+
 
 def main(verbose=False):
-    return hyper_exponentiate(1777, 1855, 10**8)
+    return hyper_exponentiate(1777, 1855, 10 ** 8)
 
 if __name__ == '__main__':
     print euler_timer(188)(main)(verbose=True)

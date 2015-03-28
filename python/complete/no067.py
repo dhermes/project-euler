@@ -23,6 +23,7 @@ from python.decorators import euler_timer
 from python.functions import get_data
 from python.functions import max_sum
 
+
 def main(verbose=False):
     triangle = get_data(67).strip()
     TRIANGLE_MAT = [[int(elt) for elt in line.split()]

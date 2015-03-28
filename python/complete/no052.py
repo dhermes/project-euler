@@ -13,18 +13,21 @@
 
 from python.decorators import euler_timer
 
+
 def same_digs(n, multiplier):
-    candidates = [n*mult for mult in range(1, multiplier + 1)]
+    candidates = [n * mult for mult in range(1, multiplier + 1)]
     cand_digs = [sorted(int(dig) for dig in str(element))
                  for element in candidates]
     # we sort the digits so only the content of the digit list matters
     return (cand_digs.count(cand_digs[0]) == len(cand_digs))
 
+
 def find_sequence_same_digs(digs, multiplier):
-    for n in range(10**(digs - 1), 10**digs/multiplier + 1):
+    for n in range(10 ** (digs - 1), 10 ** digs / multiplier + 1):
         if same_digs(n, multiplier):
             return (True, n)
     return (False, -1)
+
 
 def find_sequence_same(multiplier):
     digits = 1
@@ -34,6 +37,7 @@ def find_sequence_same(multiplier):
         found, val = find_sequence_same_digs(digits, multiplier)
         digits += 1
     return val
+
 
 def main(verbose=False):
     return find_sequence_same(6)

@@ -39,12 +39,13 @@ from python.functions import all_subsets
 from python.functions import choose
 from python.functions import sieve
 
+
 def main(verbose=False):
     primes = sieve(100)
 
-    MAX_n = 10**16
+    MAX_n = 10 ** 16
 
-    product_factor_pairs = [(1,0)]
+    product_factor_pairs = [(1, 0)]
     product_hash = {0: [1]}
     for num_factors in range(1, 13 + 1):
         product_hash[num_factors] = []
@@ -55,20 +56,20 @@ def main(verbose=False):
     for prime in primes:
         to_add = []
         for product, num_factors in product_factor_pairs:
-            if prime*product < MAX_n:
-                to_add.append((prime*product, num_factors + 1))
-                product_hash[num_factors + 1].append(prime*product)
+            if prime * product < MAX_n:
+                to_add.append((prime * product, num_factors + 1))
+                product_hash[num_factors + 1].append(prime * product)
         product_factor_pairs += to_add
 
     result = 0
     sign = -1
     for num_factors in range(4, 13 + 1):
         sign = -sign
-        PIE_factor = sign*choose(num_factors - 1, 3)
+        PIE_factor = sign * choose(num_factors - 1, 3)
         current_sum = 0
         for product in product_hash[num_factors]:
-            current_sum += MAX_n/product # integer division
-        result += PIE_factor*current_sum
+            current_sum += MAX_n / product  # integer division
+        result += PIE_factor * current_sum
 
     return result
 

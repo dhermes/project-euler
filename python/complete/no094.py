@@ -23,6 +23,7 @@ from python.conway_topograph import start_to_series
 from python.decorators import euler_timer
 from python.functions import recurrence_next
 
+
 def solutions(limit):
     # We seek x_k^2 - 3y_k^2 = 4
     # Where 3*n - sign = x_k
@@ -32,7 +33,7 @@ def solutions(limit):
               for initial in starting_points]
     result = [pair[0] for pair in series
                if pair[0] % 3 != 0 and pair[0] > 0]
-    while max(result) < 2*limit:
+    while max(result) < 2 * limit:
         next = [pair[1] for pair in series
                 if pair[1] % 3 != 0 and pair[1] > 0]
         result.extend(next)
@@ -49,9 +50,10 @@ def solutions(limit):
     return [perimeter for perimeter in result
             if perimeter < limit and perimeter not in (2, 4)]
 
+
 def main(verbose=False):
     # the first solutions up to a billion are returned in solutions(10**9)
-    return sum(solutions(10**9))
+    return sum(solutions(10 ** 9))
 
 if __name__ == '__main__':
     print euler_timer(94)(main)(verbose=True)

@@ -66,6 +66,7 @@ from python.decorators import euler_timer
 from python.functions import is_prime
 from python.functions import sieve
 
+
 def main(verbose=False):
     # layer/primes
     #     2/3
@@ -76,21 +77,21 @@ def main(verbose=False):
 
     # ratio >= .1 iff 10*(primes/total) >= 1 iff 10*primes >= total
     # iff 10*primes >= 4*index - 3
-    FAILURE_POINT = 10**9
+    FAILURE_POINT = 10 ** 9
     PRIMES = sieve(int(sqrt(FAILURE_POINT)) + 1)
 
     layer = 2
     num_primes = 3
-    while 10*num_primes >= 4*layer - 3:
+    while 10 * num_primes >= 4 * layer - 3:
         layer += 1
-        candidates = [(2*layer - 1)**2 - 2*(layer - 1)*i
+        candidates = [(2 * layer - 1) ** 2 - 2 * (layer - 1) * i
                       for i in range(1, 4)]
         if candidates[-1] >= FAILURE_POINT:
             raise ValueError("Sieve was not big enough, restart function")
         for candidate in candidates:
             if is_prime(candidate, primes=PRIMES, failure_point=FAILURE_POINT):
                 num_primes += 1
-    side_length = 2*layer - 1 # 2*(layer - 1) + 1
+    side_length = 2 * layer - 1  # 2*(layer - 1) + 1
     return side_length
 
 if __name__ == '__main__':

@@ -16,15 +16,17 @@ from python.decorators import euler_timer
 from python.functions import all_subsets
 from python.functions import sieve
 
+
 def find_arithmetic(list_):
     if len(list_) < 3:
         raise ValueError("List wrong size.")
 
     candidates = all_subsets(list_, 3)
     for cand in candidates:
-        if cand[0] + cand[2] == 2*cand[1]:
+        if cand[0] + cand[2] == 2 * cand[1]:
             return cand
     return []
+
 
 def main(verbose=False):
     primes = [prime for prime in sieve(10000) if prime > 999]

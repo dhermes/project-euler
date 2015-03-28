@@ -3,6 +3,7 @@
 from python.decorators import euler_timer
 from python.functions import all_factors
 
+
 def main(verbose=False):
     n = 10000
     factors = all_factors(n - 1)
@@ -22,7 +23,7 @@ def main(verbose=False):
     # Similarly s_1 != i <==> sum(factors[i]) != 2*i
     result = [i for i in range(2, n) if
               sum(factors[sum(factors[i]) - i]) == sum(factors[i]) and
-              sum(factors[i]) != 2*i]
+              sum(factors[i]) != 2 * i]
 
     if verbose:
         return '%s.\nThe full list of such amicable numbers is %s.' % (

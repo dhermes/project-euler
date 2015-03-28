@@ -18,9 +18,11 @@ from python.decorators import euler_timer
 from python.functions import get_data
 from python.functions import reverse_polygonal_number
 
+
 def word_to_value(word):
     letters = string.uppercase
     return sum(letters.find(letter) + 1 for letter in word)
+
 
 def num_triangle():
     # Assumes file is "A","ABILITIY","ABLE",...
@@ -32,6 +34,7 @@ def num_triangle():
         if reverse_polygonal_number(3, val, triangle_hash) != -1:
             count += 1
     return count
+
 
 def main(verbose=False):
     return num_triangle()

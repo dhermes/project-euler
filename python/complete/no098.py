@@ -5,6 +5,7 @@ from math import sqrt
 from python.decorators import euler_timer
 from python.functions import get_data
 
+
 def same_signature(n, word):
     digits = [dig for dig in str(n)]
     dig_set = set(digits)
@@ -23,6 +24,7 @@ def same_signature(n, word):
     else:
         return (False, None)
 
+
 def strings_by_length(data):
     result = {}
     for val in data:
@@ -31,13 +33,14 @@ def strings_by_length(data):
         result.setdefault(length, []).append(val)
     return result
 
+
 def main(verbose=False):
     data = get_data(98)[1:-1].split('","')
     words = strings_by_length(data)
 
-    max_len = int(sqrt(10)**max(words))
+    max_len = int(sqrt(10) ** max(words))
     squares = strings_by_length(
-        [i**2 for i in range(1, int(sqrt(10)**max(words)))])
+        [i ** 2 for i in range(1, int(sqrt(10) ** max(words)))])
 
     max_val = 0
     for word_length in sorted(words.keys())[::-1]:

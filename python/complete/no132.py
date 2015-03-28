@@ -4,9 +4,10 @@ from python.decorators import euler_timer
 from python.functions import prime_divides_repunit_power10
 from python.functions import sieve
 
+
 def main(verbose=False):
-    PRIMES = sieve(10**6)
-    prime_index = 3 # p0=2, p1=3, and p2=5 are false positives
+    PRIMES = sieve(10 ** 6)
+    prime_index = 3  # p0=2, p1=3, and p2=5 are false positives
     matches = []
     while len(matches) < 40:
         prime = PRIMES[prime_index]

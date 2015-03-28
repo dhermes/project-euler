@@ -53,12 +53,13 @@
 
 from python.decorators import euler_timer
 
+
 def main(verbose=False):
     a, b = 1, 3
     for i in range(8):
-        a, b = b, 4*b - a
+        a, b = b, 4 * b - a
     # Now b = x_9
-    return (b**2 - 1)/8
+    return (b ** 2 - 1) / 8
 
 if __name__ == '__main__':
     print euler_timer(45)(main)(verbose=True)

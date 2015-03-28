@@ -23,15 +23,16 @@ from fractions import gcd
 from python.decorators import euler_timer
 from python.functions import order_mod_n
 
+
 def main(verbose=False):
     max_a = 0
-    n = 10**6
-    while max_a <= 10**6:
+    n = 10 ** 6
+    while max_a <= 10 ** 6:
         n += 1
         if gcd(10, n) == 1:
             basis = n
             if n % 3 == 0:
-                basis = 9*n
+                basis = 9 * n
             curr_order = order_mod_n(10, basis)
             if curr_order > max_a:
                 max_a = curr_order

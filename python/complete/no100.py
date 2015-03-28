@@ -26,9 +26,10 @@ from python.conway_topograph import start_to_series
 from python.decorators import euler_timer
 from python.functions import recurrence_next
 
+
 def main(verbose=False):
     # y = 2T - 1, T > 10**12 implies the following:
-    LOWER_LIMIT = 2*(10**12) - 1
+    LOWER_LIMIT = 2 * (10 ** 12) - 1
 
     # We seek 2x^2 - y^2 = 1
     x_mult, y_mult, relation = get_recurrence([2, -1])
@@ -41,8 +42,8 @@ def main(verbose=False):
         series = [recurrence_next(relation, values) for values in series]
 
     min_y = min(y for y in result if y > LOWER_LIMIT)
-    min_x = sqrt((1 + min_y**2)/2)
-    return int((min_x + 1)/2)
+    min_x = sqrt((1 + min_y ** 2) / 2)
+    return int((min_x + 1) / 2)
 
 if __name__ == '__main__':
     print euler_timer(100)(main)(verbose=True)

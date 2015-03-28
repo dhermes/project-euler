@@ -27,13 +27,14 @@ from math import floor
 
 from python.decorators import euler_timer
 
+
 def main(verbose=False):
     MAX_d = 12000
 
     count = 0
     for d in range(4, MAX_d + 1):
-        low = int(ceil(d/3.0))
-        high = int(floor(d/2.0))
+        low = int(ceil(d / 3.0))
+        high = int(floor(d / 2.0))
         for n in range(low, high + 1):
             if gcd(d, n) == 1:
                 count += 1

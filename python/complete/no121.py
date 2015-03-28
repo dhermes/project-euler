@@ -30,26 +30,29 @@ from math import factorial
 
 from python.decorators import euler_timer
 
+
 def iterative_numerator(n):
     numerators = {}
-    for k in range(1,n + 1):
+    for k in range(1, n + 1):
         for j in range(k + 1):
             if j == 0:
-                numerators[(j,k)] = factorial(k)
+                numerators[(j, k)] = factorial(k)
             elif j == k:
-                numerators[(j,k)] = 1
+                numerators[(j, k)] = 1
             else:
-                numerators[(j,k)] = numerators[(j - 1,k - 1)] + \
-                                    k*numerators[(j,k - 1)]
-    min_blue = (n/2) + 1
+                numerators[(j, k)] = numerators[(j - 1, k - 1)] + \
+                                    k * numerators[(j, k - 1)]
+    min_blue = (n / 2) + 1
     count = 0
     for blue in range(min_blue, n + 1):
         count += numerators[(blue, n)]
     return count
 
+
 def max_payout(n):
     # Integer division precludes floor operation
-    return factorial(n + 1)/iterative_numerator(n)
+    return factorial(n + 1) / iterative_numerator(n)
+
 
 def main(verbose=False):
     return max_payout(15)

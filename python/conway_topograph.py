@@ -30,6 +30,7 @@ from math import sqrt
 from python.functions import factors
 from python.functions import is_power
 
+
 def plus(cell1, cell2, back_val):
     """
     Moves forward between two cells. Requires a third cell, though
@@ -39,10 +40,11 @@ def plus(cell1, cell2, back_val):
     (x1, y1), val1 = cell1
     (x2, y2), val2 = cell2
     # back_val, val1 + val2, val form an arithmetic progression
-    val = 2*(val1 + val2) - back_val
+    val = 2 * (val1 + val2) - back_val
     x = x1 + x2
     y = y1 + y2
-    return ( (x, y), val)
+    return ((x, y), val)
+
 
 def next_juncture_on_river(juncture):
     """
@@ -64,12 +66,14 @@ def next_juncture_on_river(juncture):
     else:
         raise Exception("No infinite river here, found a lake.")
 
+
 def juncture_isom(juncture1, juncture2):
     """Takes a juncture and checks if the cell values are all equal"""
     B1, P1, N1, F1 = juncture1
     B2, P2, N2, F2 = juncture2
     return ((B1[1] == B2[1]) and (P1[1] == P2[1]) and
             (N1[1] == N2[1]) and (F1[1] == F2[1]))
+
 
 def seek_up_to_val(juncture, max_value):
     """
@@ -92,6 +96,7 @@ def seek_up_to_val(juncture, max_value):
     J_right = (P, F, N, turn_right)
     result.extend(seek_up_to_val(J_right, max_value))
     return result
+
 
 def all_positive_roots(form):
     """
@@ -128,6 +133,7 @@ def all_positive_roots(form):
         result.append((N, P, F, new_cell))
     return result
 
+
 def all_values_on_form(form, value):
     """
     Returns all lattice points (not necessarily coprime)
@@ -140,7 +146,7 @@ def all_values_on_form(form, value):
     """
     factor_list = factors(value)
     valid_factors = [factor for factor in factor_list
-                     if is_power(value/factor, 2)]
+                     if is_power(value / factor, 2)]
 
     roots = all_positive_roots(form)
     found = set()
@@ -171,12 +177,13 @@ def all_values_on_form(form, value):
     for cell in checked:
         (x, y), val = cell
         if val < value:
-            ratio = int(sqrt(value/val))
+            ratio = int(sqrt(value / val))
             x *= ratio
             y *= ratio
-        result.append((x,y))
+        result.append((x, y))
 
     return result
+
 
 def get_recurrence(form):
     """
@@ -210,7 +217,8 @@ def get_recurrence(form):
     # Similarly for y (can check if you want)
     a, b = J_curr[1][0]
     c, d = J_curr[2][0]
-    return ((a, c), (b, d), (c*b - a*d, a + d))
+    return ((a, c), (b, d), (c * b - a * d, a + d))
+
 
 def start_to_series(initial, multiplier, series='x'):
     """

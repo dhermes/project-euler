@@ -13,10 +13,12 @@ from path import DATA_PATH
 ############################################################
 
 def lcm(n, m):
-    return n*m/(gcd(n, m))
+    return n * m / (gcd(n, m))
+
 
 def choose(n, k):
-    return factorial(n)/(factorial(k)*factorial(n - k))
+    return factorial(n) / (factorial(k) * factorial(n - k))
+
 
 # 8, 11, 13, 18, 22, 42, 54, 59, 67
 def get_data(problem_number):
@@ -35,6 +37,7 @@ def get_data(problem_number):
         result = fh.read()
     return result
 
+
 # 26
 def robust_divide(n, quotient, include_count=False):
     if quotient in (-1, 1):
@@ -44,11 +47,12 @@ def robust_divide(n, quotient, include_count=False):
     count = 0
     while result % quotient == 0:
         count += 1
-        result = result/quotient
+        result = result / quotient
     if include_count:
         return result, count
     else:
         return result
+
 
 # 2, 57, 65
 def recurrence_next(relation, values):
@@ -61,16 +65,19 @@ def recurrence_next(relation, values):
     if len(relation) != len(values):
         raise ValueError("Poorly specified recurrence")
     recurrence_order = len(relation)
-    next_val = sum(relation[i]*values[i] for i in range(recurrence_order))
-    return values[1:] + [next_val] # copies values (doesn't change inputs)
+    next_val = sum(relation[i] * values[i] for i in range(recurrence_order))
+    return values[1:] + [next_val]  # copies values (doesn't change inputs)
+
 
 # 4, 36, 55
 def is_palindrome(n):
     return (str(n) == str(n)[::-1])
 
+
 # 46
 def is_power(n, exponent):
-    return n == (int(n**(1.0/exponent)))**exponent
+    return n == (int(n ** (1.0 / exponent))) ** exponent
+
 
 ############################################################
 ##################### PROBLEM SPECIFIC #####################
@@ -109,19 +116,21 @@ def max_sum(triangle_matrix):
 
     return result[(0, max_depth - depth - 1)]
 
+
 # 114, 115
 def fill_count(m, n):
     count = 1
-    MAX_k = (n + 1)/(m + 1)
+    MAX_k = (n + 1) / (m + 1)
     for k in range(1, MAX_k + 1):
-        for sum_ai in range(m*k, n + 1 - k + 1):
+        for sum_ai in range(m * k, n + 1 - k + 1):
             perm_count = 0
-            for bottom in range(m, sum_ai/k + 1):
+            for bottom in range(m, sum_ai / k + 1):
                 for gp_ai in ascending(k, sum_ai, bottom, n + 1):
                     perm_count += total_perms(gp_ai)
-            add_value = perm_count*choose(n + 1 - sum_ai, k)
+            add_value = perm_count * choose(n + 1 - sum_ai, k)
             count += add_value
     return count
+
 
 # 132, 133
 def prime_divides_repunit_power10(prime, cap=-1):
@@ -134,15 +143,16 @@ def prime_divides_repunit_power10(prime, cap=-1):
     if cap > 0:
         count_2 = min(cap, count_2)
         count_5 = min(cap, count_5)
-    if prime == (2**count_2)*(5**count_5) + 1:
+    if prime == (2 ** count_2) * (5 ** count_5) + 1:
         return True
-    possible_exp = sorted((2**exp2)*(5**exp5)
+    possible_exp = sorted((2 ** exp2) * (5 ** exp5)
                           for exp2 in range(0, count_2 + 1)
                           for exp5 in range(0, count_5 + 1))
     for exp in possible_exp:
-        if (10**exp - 1) % prime == 0:
+        if (10 ** exp - 1) % prime == 0:
             return True
     return False
+
 
 ############################################################
 ######################### FIBONACCI ########################
@@ -164,12 +174,12 @@ def first_prime_divisor(n, prime_list=None):
     if n == 1:
         return [1, 1]
     elif n % 2 == 0:
-        return [2, n/2]
+        return [2, n / 2]
 
     if prime_list is not None:
         for p in prime_list:
             if n % p == 0:
-                return [p, n/p]
+                return [p, n / p]
         # To complete this loop, either the prime list was
         # insufficient or p is prime
         if is_prime(n, primes=prime_list):
@@ -180,8 +190,9 @@ def first_prime_divisor(n, prime_list=None):
         divisor = 3
         while n % divisor != 0:
             divisor += 2
-        return [divisor, n/divisor]
+        return [divisor, n / divisor]
     raise ValueError("Bad input %s." % n)
+
 
 # 3, 12, 47
 def prime_factors(n, unique=False, hash_=None):
@@ -209,6 +220,7 @@ def prime_factors(n, unique=False, hash_=None):
 
     return result
 
+
 # 135
 def factors(n, factor_hash=None, primes=None):
     if factor_hash is None:
@@ -222,15 +234,16 @@ def factors(n, factor_hash=None, primes=None):
 
     if primes is not None and n in primes:
         factor_hash[n] = [1, n]
-        return [1,n]
+        return [1, n]
 
     prime, quotient = first_prime_divisor(n, prime_list=primes)
 
-    to_add = factors(quotient, factor_hash, primes)[:] # Need a deep-ish copy
-    to_add.extend([prime*factor for factor in to_add])
+    to_add = factors(quotient, factor_hash, primes)[:]  # Need a deep-ish copy
+    to_add.extend([prime * factor for factor in to_add])
 
     factor_hash[n] = sorted(list(set(to_add)))
     return factor_hash[n]
+
 
 # 21, 23, 39
 def all_factors(n, hash_={1: [1], 2: [1, 2], 3: [1, 3]}):
@@ -254,6 +267,7 @@ def all_factors(n, hash_={1: [1], 2: [1, 2], 3: [1, 3]}):
 
     return factor_hash
 
+
 # 37, 41, 58
 def is_prime(n, primes=None, failure_point=None):
     if n < 10:
@@ -270,7 +284,7 @@ def is_prime(n, primes=None, failure_point=None):
     if primes is not None:
         if n in primes:
             return True
-        to_check = [prime for prime in primes if prime**2 <= n]
+        to_check = [prime for prime in primes if prime ** 2 <= n]
         for prime in to_check:
             if n % prime == 0:
                 return False
@@ -287,6 +301,7 @@ def is_prime(n, primes=None, failure_point=None):
         divisor_plus += 6
     return True
 
+
 # 7, 10, 21, 27, 35, 37, 46, 49, 50, 51, 58, 60
 def sieve(n):
     """
@@ -295,14 +310,15 @@ def sieve(n):
     Returns all primes <= n
     """
     to_check = [True] * (n + 1)
-    final_check = int(sqrt(n)) # effectively the floor of sqrt(n)
+    final_check = int(sqrt(n))  # effectively the floor of sqrt(n)
 
     for i in xrange(2, final_check + 1):
         if to_check[i]:
-            for j in xrange(i**2, n + 1, i):
+            for j in xrange(i ** 2, n + 1, i):
                 to_check[j] = False
 
     return [i for i in range(2, n + 1) if to_check[i]]
+
 
 ############################################################
 ################# NUMBER THEORY AND ALGEBRA ################
@@ -334,7 +350,7 @@ def order_mod_n(value, n, hash_=None, prime_list=None):
         return exponent
 
     # Here, quotient > 1
-    prime_power = n/quotient
+    prime_power = n / quotient
     prime_order = order_mod_n(value, prime_power,
                               hash_=hash_,
                               prime_list=prime_list)
@@ -344,18 +360,21 @@ def order_mod_n(value, n, hash_=None, prime_list=None):
     hash_[n] = lcm(prime_order, quotient_order)
     return hash_[n]
 
+
 def polynomial_roots(coefficients):
     # Assumes coefficients = [a_0, a_1,..., a_n]
     # for f(x) = a_n x^n + ... + a_1 x + a_0
     if len(coefficients) != 3:
         raise ValueError("Only supporting quadratics at this time")
     c, b, a = coefficients
-    discriminant_rt = sqrt(b**2 - 4*a*c)
-    return [(-b + discriminant_rt)/(2.0*a), (-b - discriminant_rt)/(2.0*a)]
+    discriminant_rt = sqrt(b ** 2 - 4 * a * c)
+    return [(-b + discriminant_rt) / (2.0 * a), (-b - discriminant_rt) / (2.0 * a)]
+
 
 # 6, 42, 44, 61
 def polygonal_number(s, n):
-    return n*((s - 2)*n - (s - 4))/2
+    return n * ((s - 2) * n - (s - 4)) / 2
+
 
 # 42, 44, 61
 def reverse_polygonal_number(sides, number, hash_=None):
@@ -368,7 +387,7 @@ def reverse_polygonal_number(sides, number, hash_=None):
     """
     if hash_ is not None and number in hash_:
         return hash_[number]
-    root_plus, _ = polynomial_roots([-2*number, 4 - sides, sides - 2])
+    root_plus, _ = polynomial_roots([-2 * number, 4 - sides, sides - 2])
     if root_plus != int(root_plus):
         result = -1
     else:
@@ -378,20 +397,22 @@ def reverse_polygonal_number(sides, number, hash_=None):
         hash_[number] = result
     return result
 
+
 # 72
 def mu(n, hash_, primes):
     if n in hash_:
         return hash_[n]
 
     prime, _ = first_prime_divisor(n, prime_list=primes)
-    if n % prime**2 == 0:
+    if n % prime ** 2 == 0:
         hash_[n] = 0
     else:
         # if n/prime has a square, we will want mu(n) = 0
         # if mu(n/prime) = 1, we add 1 prime so we negate it
         # similarly if mu(n/prime) = -1
-        hash_[n] = -mu(n/prime, hash_, primes)
+        hash_[n] = -mu(n / prime, hash_, primes)
     return hash_[n]
+
 
 def extended_euclid(a, b):
     M = max(a, b)
@@ -401,14 +422,15 @@ def extended_euclid(a, b):
     curr = (m, [0, 1])
     while curr[0] > 1:
         next = last[0] % curr[0]
-        factor = (last[0] - next)/curr[0]
-        last, curr = curr, (next, [last[1][0] - factor*curr[1][0],
-                                   last[1][1] - factor*curr[1][1]])
+        factor = (last[0] - next) / curr[0]
+        last, curr = curr, (next, [last[1][0] - factor * curr[1][0],
+                                   last[1][1] - factor * curr[1][1]])
     result = curr[1]
-    if a*result[0] + b*result[1] == 1:
+    if a * result[0] + b * result[1] == 1:
         return result
     else:
         return result[::-1]
+
 
 def inverse_mod_n(val, n):
     if gcd(val, n) > 1:
@@ -431,24 +453,27 @@ def inverse_mod_n(val, n):
 
 def next_continued_fraction_triple(current, n):
     A, B, C = current
-    a = int(C*(1.0)/(A*sqrt(n) + B))
-    r = (C*A, -C*B - a*(n*A**2 - B**2), n*A**2 - B**2)
+    a = int(C * (1.0) / (A * sqrt(n) + B))
+    r = (C * A, -C * B - a * (n * A ** 2 - B ** 2), n * A ** 2 - B ** 2)
     d = gcd(gcd(r[0], r[1]), r[2])
-    return (r[0]/d, r[1]/d, r[2]/d)
+    return (r[0] / d, r[1] / d, r[2] / d)
+
 
 def continued_fraction_cycle(n):
     result = [int(sqrt(n))]
     init = curr_r = (1, -int(sqrt(n)), 1)
 
-    result.append(int(curr_r[2]*(1.0)/(curr_r[0]*sqrt(n) + curr_r[1])))
+    result.append(int(curr_r[2] * (1.0) / (curr_r[0] * sqrt(n) + curr_r[1])))
     curr_r = next_continued_fraction_triple(curr_r, n)
     while curr_r != init:
-        result.append(int(curr_r[2]*(1.0)/(curr_r[0]*sqrt(n) + curr_r[1])))
+        result.append(int(curr_r[2] * (1.0) / (curr_r[0] * sqrt(n) + curr_r[1])))
         curr_r = next_continued_fraction_triple(curr_r, n)
     return result
 
+
 def power_up_to_digits(n, digits):
-    return [n**exp for exp in range(int(digits*log(10)/log(n)) + 1)]
+    return [n ** exp for exp in range(int(digits * log(10) / log(n)) + 1)]
+
 
 ############################################################
 ###################### LIST MANAGEMENT #####################
@@ -466,6 +491,7 @@ def apply_to_list(func, list_, non_match=False):
                 result.append(func(elt1, elt2))
     return result
 
+
 # 35, 41, 68, 121
 def all_permutations(list_):
     result = [[]]
@@ -477,11 +503,13 @@ def all_permutations(list_):
         result = extended
     return result
 
+
 # 35, 41
 def all_permutations_digits(n):
     digs = [dig for dig in str(n)]
     result = all_permutations(digs)
     return [int("".join(perm)) for perm in result]
+
 
 # 49, 51, 60
 def all_subsets(list_, size, unique=True):
@@ -551,6 +579,7 @@ def astar(graph, start, target, heuristic, adjacent):
 
     return closed_nodes[target][1]
 
+
 def prims_algo(adjacency_list):
     keys = adjacency_list.keys()
     vertices = [keys[0]]
@@ -572,6 +601,7 @@ def prims_algo(adjacency_list):
 
     return edges, min_sum
 
+
 def total_perms(o_list):
     counts = []
     curr_entry = o_list[0]
@@ -587,7 +617,8 @@ def total_perms(o_list):
 
     denominator = reduce(operator.mul,
                          [factorial(count) for count in counts])
-    return factorial(sum(counts))/denominator
+    return factorial(sum(counts)) / denominator
+
 
 def ascending(num, num_sum, min_num, prob_max):
     if num_sum < min_num:
@@ -599,7 +630,7 @@ def ascending(num, num_sum, min_num, prob_max):
             return []
 
     next_sum = num_sum - min_num
-    biggest = next_sum/(num - 1) # integer division intended
+    biggest = next_sum / (num - 1)  # integer division intended
     biggest = min(biggest, prob_max)
     result = []
     for next_min in range(min_num, biggest + 1):

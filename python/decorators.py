@@ -2,6 +2,7 @@ import time
 from math import floor
 from math import log10
 
+
 def euler_timer(problem_number):
 
     def result_timer(method):
@@ -16,7 +17,7 @@ def euler_timer(problem_number):
             runtime = finish_time - start_time
             exponent = int(floor(log10(runtime)))
             time_statement = 'This solution ran in %sE%s seconds.' % (
-                round(10**(-exponent)*runtime, 3), exponent)
+                round(10 ** (-exponent) * runtime, 3), exponent)
 
             result = '%s %s\n\n%s' % (result, method_result, time_statement)
 

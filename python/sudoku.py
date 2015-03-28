@@ -15,6 +15,7 @@ The *sudoku* module offers three objects building a sudoku solver:
 import array
 from contextlib import contextmanager
 
+
 class Sudoku(object):
     """The *Sudoku* board class has the methods for reading the start
     state of a sudoku board, for representing a board. It also has the
@@ -26,26 +27,26 @@ class Sudoku(object):
         # helper of initialisation of the data structures
 
         # Private bitfield presence sets
-        self._lines   = newarray()  # Lines, columns and
+        self._lines = newarray()  # Lines, columns and
         self._columns = newarray()  # square are bitfields of length 9.
         self._squares = newarray()  # When bit 3 is set in lines[5], 3
-                                    # is present in the fifth line.
+        # is present in the fifth line.
 
-        self.board  = [newarray() for i in range(9)]
+        self.board = [newarray() for i in range(9)]
         # a 9x9 matrix of of ints between 1 and 9, an empty position
         # is represented by a false value.
 
         # Reading the problem
-        k=0
+        k = 0
         for i in range(9):
             for j in range(9):
                 if int(problem[k]) != 0:
                     self.set(i, j, int(problem[k]))
-                k+=1
+                k += 1
 
-    _one  = lambda self, val, index: val |   1 << index - 1
+    _one = lambda self, val, index: val | 1 << index - 1
     _zero = lambda self, val, index: val & ~(1 << index - 1)
-    _get  = lambda self, val, index: (val >>  index - 1) & 1
+    _get = lambda self, val, index: (val >> index - 1) & 1
     # Bitfield manipulation
 
     def set(self, i, j, val):
@@ -53,14 +54,14 @@ class Sudoku(object):
         updates the board *without* checking first if the rules of the
         sudo game are respected"""
 
-        self.board[i][j]   = val
+        self.board[i][j] = val
 
         # Not only update the board but also the lines, columns and
         # squares arrays
-        self._lines[i]   = self._one(self._lines[i],   val)
+        self._lines[i] = self._one(self._lines[i], val)
         self._columns[j] = self._one(self._columns[j], val)
-        self._squares[(j/3)*3+i/3] = self._one(
-            self._squares[(j/3)*3+i/3], val)
+        self._squares[(j / 3) * 3 + i / 3] = self._one(
+            self._squares[(j / 3) * 3 + i / 3], val)
 
     def free(self, i, j):
         """Frees the slot in position i,j"""
@@ -70,20 +71,20 @@ class Sudoku(object):
         val, self.board[i][j] = self.board[i][j], 0
 
         # Also update the line, column and square presence sets.
-        self._lines[i]   = self._zero(self._lines[i],   val)
+        self._lines[i] = self._zero(self._lines[i], val)
         self._columns[j] = self._zero(self._columns[j], val)
-        self._squares[(j/3)*3+i/3] = self._zero(
-            self._squares[(j/3)*3+i/3], val)
+        self._squares[(j / 3) * 3 + i / 3] = self._zero(
+            self._squares[(j / 3) * 3 + i / 3], val)
 
     @contextmanager
     def attempt(self, col, row, candidate):
-       """A context manager which sets the value of the board at
+        """A context manager which sets the value of the board at
         position: *col*, *line* on entering the context and which
         frees the position on exiting the context."""
 
-       self.set(col, row, candidate)
-       yield
-       self.free(col, row)
+        self.set(col, row, candidate)
+        yield
+        self.free(col, row)
 
     def candidates(self, col, row):
 
@@ -97,11 +98,11 @@ class Sudoku(object):
         *row*."""
 
         return filter(
-            lambda val: all( not self._get(bf, val) for bf in (
+            lambda val: all(not self._get(bf, val) for bf in (
                     self._lines[col],
                     self._columns[row],
-                    self._squares[(row/3)*3+col/3])),
-            range(1,10))
+                    self._squares[(row / 3) * 3 + col / 3])),
+            range(1, 10))
 
     def __str__(self):
 
@@ -109,10 +110,9 @@ class Sudoku(object):
         l = [str(self.board[i][j]) if self.board[i][j] else ' '
                     for i in range(9) for j in range(9)]
 
-        l = ['\n   '+e if i%9 ==0 else e for (i,e) in enumerate(l)] # 1.
-        l = ['  '+e    if i%3 ==0 else e for (i,e) in enumerate(l)] # 2.
-        l = ['\n'+e    if i%27==0 else e for (i,e) in enumerate(l)] # 3.
-
+        l = ['\n   ' + e if i % 9 == 0 else e for (i, e) in enumerate(l)]  # 1.
+        l = ['  ' + e    if i % 3 == 0 else e for (i, e) in enumerate(l)]  # 2.
+        l = ['\n' + e    if i % 27 == 0 else e for (i, e) in enumerate(l)]  # 3.
         # 1.   New lines every 9 elements
         # 2,3. Squares are represented by extra spaces and another
         #      newline
@@ -141,7 +141,7 @@ def make_generators(sudoku):
     generators = []
     for i in range(9):
         for j in range(9):
-            def gen_func(col=i,row=j):
+            def gen_func(col=i, row=j):
                 if sudoku.board[col][row] != 0:
                     yield
                 else:
@@ -187,5 +187,5 @@ def stack_assumptions(generators, i=0):
         yield
     else:
         for _ in generators[i]():
-            for _ in stack_assumptions(generators, i+1):
+            for _ in stack_assumptions(generators, i + 1):
                 yield

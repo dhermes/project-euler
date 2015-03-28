@@ -8,9 +8,8 @@ from math import sqrt
 
 from path import DATA_PATH
 
-############################################################
-##################### HELPER FUNCTIONS #####################
-############################################################
+
+# HELPER FUNCTIONS
 
 def lcm(n, m):
     return n * m / (gcd(n, m))
@@ -22,9 +21,7 @@ def choose(n, k):
 
 # 8, 11, 13, 18, 22, 42, 54, 59, 67
 def get_data(problem_number):
-    """
-    Takes a problem number and returns the raw text
-    from the expected data file
+    """Maps problem number to raw text from expected data file.
 
     Data is expected to be in euler_project/problem_data and
     to be named no---.txt where --- is the zero padded
@@ -56,7 +53,8 @@ def robust_divide(n, quotient, include_count=False):
 
 # 2, 57, 65
 def recurrence_next(relation, values):
-    """
+    """Gets next term in a recurrence based on relation.
+
     Assumes recurrence of length k satisfies
     f(n+k) = relation[0]*f(n) + relation[1]*f(n+1) + ...
 
@@ -79,14 +77,11 @@ def is_power(n, exponent):
     return n == (int(n ** (1.0 / exponent))) ** exponent
 
 
-############################################################
-##################### PROBLEM SPECIFIC #####################
-############################################################
+# PROBLEM SPECIFIC METHODS
 
 # 18, 67
 def max_sum(triangle_matrix):
-    """
-    Finds maximum sum of path from top of triangle down to bottom
+    """Finds maximum sum of path from top of triangle down to bottom.
 
     Input: Matrix of triangle e.g.
       1
@@ -154,9 +149,7 @@ def prime_divides_repunit_power10(prime, cap=-1):
     return False
 
 
-############################################################
-######################### FIBONACCI ########################
-############################################################
+# FIBONACCI METHODS
 
 # 25
 def fibonacci_generator():
@@ -166,9 +159,8 @@ def fibonacci_generator():
         yield a
         a, b = b, a + b
 
-############################################################
-########################## PRIMES ##########################
-############################################################
+
+# PRIMES METHODS
 
 def first_prime_divisor(n, prime_list=None):
     if n == 1:
@@ -247,8 +239,7 @@ def factors(n, factor_hash=None, primes=None):
 
 # 21, 23, 39
 def all_factors(n, hash_={1: [1], 2: [1, 2], 3: [1, 3]}):
-    """
-    Takes n and optional hash of factors
+    """Takes n and optional hash of factors
 
     Uses the hash to update a full list of factors for
     all integers 1 to n. Only updates if not in hash_.
@@ -304,8 +295,7 @@ def is_prime(n, primes=None, failure_point=None):
 
 # 7, 10, 21, 27, 35, 37, 46, 49, 50, 51, 58, 60
 def sieve(n):
-    """
-    Sieve of Eratosthenes
+    """Sieve of Eratosthenes
 
     Returns all primes <= n
     """
@@ -320,9 +310,7 @@ def sieve(n):
     return [i for i in range(2, n + 1) if to_check[i]]
 
 
-############################################################
-################# NUMBER THEORY AND ALGEBRA ################
-############################################################
+# NUMBER THEORY AND ALGEBRA METHODS
 
 # 26
 def order_mod_n(value, n, hash_=None, prime_list=None):
@@ -368,7 +356,8 @@ def polynomial_roots(coefficients):
         raise ValueError("Only supporting quadratics at this time")
     c, b, a = coefficients
     discriminant_rt = sqrt(b ** 2 - 4 * a * c)
-    return [(-b + discriminant_rt) / (2.0 * a), (-b - discriminant_rt) / (2.0 * a)]
+    return [(-b + discriminant_rt) / (2.0 * a),
+            (-b - discriminant_rt) / (2.0 * a)]
 
 
 # 6, 42, 44, 61
@@ -378,9 +367,7 @@ def polygonal_number(s, n):
 
 # 42, 44, 61
 def reverse_polygonal_number(sides, number, hash_=None):
-    """
-    Returns n given that number is the nth polygonal
-    number with respect to sides
+    """Computes n given the nth polygonal number (and the polygon size).
 
     The n-th polygonal number for s sides is:
     n*((s - 2)*n - (s - 4))/2
@@ -439,6 +426,7 @@ def inverse_mod_n(val, n):
     result, _ = extended_euclid(val, n)
     return result % n
 
+
 # Let r_i = 1/(a_(i+1) + 1/(a(i+2) + ...
 # Then 1/r_i = a_(i+1) + r_(i+1); a_i = floor(1/r_i)
 
@@ -449,8 +437,8 @@ def inverse_mod_n(val, n):
 # -> a = floor(1/r_i) = floor( C/(A rt(n) + B) )
 # -> r_(i + 1) = (C*A, C*B - a*(n*A**2 - B**2), n*A**2 - B**2)
 # -> r_(i + 1) = (A', B', C') #reduce
-# then r_(i+1) = (C_i*A_i*rt(n) - [C_i*B_i + a_(i+1)*(n*A_i**2 - B_i**2)])/(n*A_i**2 - B_i**2)
-
+# then r_(i+1) = ((C_i*A_i*rt(n) - [C_i*B_i + a_(i+1)*(n*A_i**2 - B_i**2)]) /
+#                 (n*A_i**2 - B_i**2))
 def next_continued_fraction_triple(current, n):
     A, B, C = current
     a = int(C * (1.0) / (A * sqrt(n) + B))
@@ -466,7 +454,8 @@ def continued_fraction_cycle(n):
     result.append(int(curr_r[2] * (1.0) / (curr_r[0] * sqrt(n) + curr_r[1])))
     curr_r = next_continued_fraction_triple(curr_r, n)
     while curr_r != init:
-        result.append(int(curr_r[2] * (1.0) / (curr_r[0] * sqrt(n) + curr_r[1])))
+        result.append(int(curr_r[2] * (1.0) /
+                          (curr_r[0] * sqrt(n) + curr_r[1])))
         curr_r = next_continued_fraction_triple(curr_r, n)
     return result
 
@@ -475,9 +464,7 @@ def power_up_to_digits(n, digits):
     return [n ** exp for exp in range(int(digits * log(10) / log(n)) + 1)]
 
 
-############################################################
-###################### LIST MANAGEMENT #####################
-############################################################
+# LIST MANAGEMENT METHODS
 
 # 4, 23, 29, 56
 def apply_to_list(func, list_, non_match=False):
@@ -537,9 +524,8 @@ def all_subsets(list_, size, unique=True):
                        for sub_list in all_subsets(curr, size - 1)])
     return result
 
-############################################################
-######################## GRAPH THEORY ######################
-############################################################
+
+# GRAPH THEORY METHODS
 
 def astar(graph, start, target, heuristic, adjacent):
     closed_nodes = {start: (None, graph[start])}
@@ -635,5 +621,5 @@ def ascending(num, num_sum, min_num, prob_max):
     result = []
     for next_min in range(min_num, biggest + 1):
         result.extend([[min_num] + cand for cand in
-                        ascending(num - 1, next_sum, next_min, prob_max)])
+                       ascending(num - 1, next_sum, next_min, prob_max)])
     return result

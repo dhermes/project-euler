@@ -16,16 +16,33 @@ import array
 from contextlib import contextmanager
 
 
+def newarray():
+    # helper of initialisation of the data structures in Sudoku
+    return array.array('i', [0] * 9)
+
+
+# Bitfield manipulation methods
+def _one(val, index):
+    return val | 1 << index - 1
+
+
+def _zero(val, index):
+    return val & ~(1 << index - 1)
+
+
+def _get(val, index):
+    return (val >> index - 1) & 1
+
+
 class Sudoku(object):
-    """The *Sudoku* board class has the methods for reading the start
-    state of a sudoku board, for representing a board. It also has the
-    methods for setting and freeing a digit in a slot of the board,
-    according to the rules of the sudoku game."""
+    """The *Sudoku* board class.
+
+    Has the methods for reading the start state of a sudoku board, for
+    representing a board. It also has the methods for setting and freeing a
+    digit in a slot of the board, according to the rules of the sudoku game.
+    """
 
     def __init__(self, problem):
-        newarray = lambda: array.array('i', [0] * 9)
-        # helper of initialisation of the data structures
-
         # Private bitfield presence sets
         self._lines = newarray()  # Lines, columns and
         self._columns = newarray()  # square are bitfields of length 9.
@@ -44,23 +61,20 @@ class Sudoku(object):
                     self.set(i, j, int(problem[k]))
                 k += 1
 
-    _one = lambda self, val, index: val | 1 << index - 1
-    _zero = lambda self, val, index: val & ~(1 << index - 1)
-    _get = lambda self, val, index: (val >> index - 1) & 1
-    # Bitfield manipulation
-
     def set(self, i, j, val):
-        """Sets a new digit on the board in position i,j. This only
-        updates the board *without* checking first if the rules of the
-        sudo game are respected"""
+        """Sets a new digit on the board in position i,j.
+
+        This only updates the board *without* checking first if the rules of
+        the sudoku game are respected
+        """
 
         self.board[i][j] = val
 
         # Not only update the board but also the lines, columns and
         # squares arrays
-        self._lines[i] = self._one(self._lines[i], val)
-        self._columns[j] = self._one(self._columns[j], val)
-        self._squares[(j / 3) * 3 + i / 3] = self._one(
+        self._lines[i] = _one(self._lines[i], val)
+        self._columns[j] = _one(self._columns[j], val)
+        self._squares[(j / 3) * 3 + i / 3] = _one(
             self._squares[(j / 3) * 3 + i / 3], val)
 
     def free(self, i, j):
@@ -71,34 +85,37 @@ class Sudoku(object):
         val, self.board[i][j] = self.board[i][j], 0
 
         # Also update the line, column and square presence sets.
-        self._lines[i] = self._zero(self._lines[i], val)
-        self._columns[j] = self._zero(self._columns[j], val)
-        self._squares[(j / 3) * 3 + i / 3] = self._zero(
+        self._lines[i] = _zero(self._lines[i], val)
+        self._columns[j] = _zero(self._columns[j], val)
+        self._squares[(j / 3) * 3 + i / 3] = _zero(
             self._squares[(j / 3) * 3 + i / 3], val)
 
     @contextmanager
     def attempt(self, col, row, candidate):
-        """A context manager which sets the value of the board at
-        position: *col*, *line* on entering the context and which
-        frees the position on exiting the context."""
+        """A context manager which sets the value of the board.
+
+        Set value at position: *col*, *line* on entering the context and which
+        frees the position on exiting the context.
+        """
 
         self.set(col, row, candidate)
         yield
         self.free(col, row)
 
     def candidates(self, col, row):
+        """Returns the list of possible values for the slot specified
 
-        """Returns the list of possible values for the slot specified by
-        the arguments, according to the current state of the sudoku
-        board and according to the rules of the sudoku game.
+        According to the current state of the sudoku board and according to
+        the rules of the sudoku game.
 
         The sudoku rules states that the candidates are the numbers
         which are not present neither in the column *col*, neither in
         the line *row*, neither in the square identified by *col* and
-        *row*."""
+        *row*.
+        """
 
         return filter(
-            lambda val: all(not self._get(bf, val) for bf in (
+            lambda val: all(not _get(bf, val) for bf in (
                     self._lines[col],
                     self._columns[row],
                     self._squares[(row / 3) * 3 + col / 3])),
@@ -108,11 +125,11 @@ class Sudoku(object):
 
         # The matrix is transformed into a list of characters
         l = [str(self.board[i][j]) if self.board[i][j] else ' '
-                    for i in range(9) for j in range(9)]
+             for i in range(9) for j in range(9)]
 
         l = ['\n   ' + e if i % 9 == 0 else e for (i, e) in enumerate(l)]  # 1.
-        l = ['  ' + e    if i % 3 == 0 else e for (i, e) in enumerate(l)]  # 2.
-        l = ['\n' + e    if i % 27 == 0 else e for (i, e) in enumerate(l)]  # 3.
+        l = ['  ' + e if i % 3 == 0 else e for (i, e) in enumerate(l)]  # 2.
+        l = ['\n' + e if i % 27 == 0 else e for (i, e) in enumerate(l)]  # 3.
         # 1.   New lines every 9 elements
         # 2,3. Squares are represented by extra spaces and another
         #      newline
@@ -121,9 +138,9 @@ class Sudoku(object):
 
 
 def make_generators(sudoku):
+    """Makes list of candidate generators for backtrack algorithm.
 
-    """Returns a list of candidate generators for use with the
-    backtrack algorithm stack_assumptions.  The sudoku argument must
+    Generators will be used in stack_assumptions. The sudoku argument must
     provide two functions: *candidates(i,j)*, and *attempt(col, row,
     candidate)* and a member attribute called *board*, which is a 9x9
     matrix.
@@ -136,7 +153,8 @@ def make_generators(sudoku):
     When called for the first time, the generator computes the list of
     candidate numbers for the slot, according to the current sudoku
     board. The list of candidates depends on the state of the board at
-    the time the generator is called for the first time."""
+    the time the generator is called for the first time.
+    """
 
     generators = []
     for i in range(9):
@@ -153,8 +171,9 @@ def make_generators(sudoku):
 
 
 def stack_assumptions(generators, i=0):
+    """Stack up several generator assumptions.
 
-    """Takes a list of generators. This list is assumed to manipulate
+    Takes a list of generators. This list is assumed to manipulate
     a shared representation of the problem. When this algorithm
     yields, a solution has been found and can be printed.
 
@@ -181,7 +200,8 @@ def stack_assumptions(generators, i=0):
     When a generator raises a StopIteration, then a dead-end was
     met. A wrong assumption must have been taken somewhere along the
     stack of the previous recursion: the algorithm backtracks at the
-    previous recursion, another assumption can be attempted."""
+    previous recursion, another assumption can be attempted.
+    """
 
     if i >= len(generators):
         yield

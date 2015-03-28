@@ -32,10 +32,10 @@ from python.functions import is_power
 
 
 def plus(cell1, cell2, back_val):
-    """
-    Moves forward between two cells. Requires a third cell, though
-    truly only requires the value of that the form takes at
-    the cell.
+    """Moves forward between two cells.
+
+    Requires a third cell, though truly only requires the value of that the
+    form takes at the cell.
     """
     (x1, y1), val1 = cell1
     (x2, y2), val2 = cell2
@@ -47,8 +47,7 @@ def plus(cell1, cell2, back_val):
 
 
 def next_juncture_on_river(juncture):
-    """
-    Moves along the river to the next juncture
+    """Moves along the river to the next juncture
 
     Turns "left" if the forward value if negative
     and "right" if it is positive
@@ -76,9 +75,9 @@ def juncture_isom(juncture1, juncture2):
 
 
 def seek_up_to_val(juncture, max_value):
-    """
-    Returns all cells sprouting forth from a positive root
-    up to a cell value of max_value
+    """Returns all cells sprouting forth from a positive root.
+
+    Stops at a cell value of max_value
 
     Takes advantage of fact that all values must increase away
     from the river (on positive side)
@@ -99,9 +98,7 @@ def seek_up_to_val(juncture, max_value):
 
 
 def all_positive_roots(form):
-    """
-    Takes a quadratic form and gives all the
-    "positive roots" along the river
+    """Takes a quadratic form and gives all "positive roots" along river.
 
     Form is the coefficients on x and y
     e.g. if [a,b] = form, f(x,y) = ax**2 + by**2
@@ -135,9 +132,9 @@ def all_positive_roots(form):
 
 
 def all_values_on_form(form, value):
-    """
-    Returns all lattice points (not necessarily coprime)
-    that produce the desired value on the form
+    """Returns all lattice points that produce a quadratic form.
+
+    NOTE: The lattice returned will not necessarily be coprime.
 
     Given the recurrence for the form, these values
     can serve to determine *all* solutions for
@@ -186,7 +183,8 @@ def all_values_on_form(form, value):
 
 
 def get_recurrence(form):
-    """
+    """Gets a recurrence along the river for the base, given a quadratic form.
+
     Input: quadratic form [a,b]
 
     Output: (x_mult, y_mult, relation) where y_mult is the coefficients
@@ -221,7 +219,8 @@ def get_recurrence(form):
 
 
 def start_to_series(initial, multiplier, series='x'):
-    """
+    """Starts a series of values for points on a river.
+
     Input: initial is an initial lattice point; multiplier
     is either x_mult (or y_mult) which will transform a point
     to the next x (or y) value on the river; series is

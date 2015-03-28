@@ -18,6 +18,7 @@
 from python.decorators import euler_timer
 from python.functions import all_permutations
 
+
 def magic_5_gon(perm):
     node_indices = [0, 1, 8, 9, 5]
     triples = {0: [0, 2, 4],
@@ -35,9 +36,10 @@ def magic_5_gon(perm):
         result.append([perm[ind] for ind in curr_ind])
     return result
 
+
 def main(verbose=False):
     result = []
-    perms = all_permutations(range(1,11))
+    perms = all_permutations(range(1, 11))
     for perm in perms:
         magic = magic_5_gon(perm)
         sums = [sum(triple) for triple in magic]

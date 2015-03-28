@@ -4,6 +4,7 @@ from python.decorators import euler_timer
 from python.functions import is_prime
 from python.functions import sieve
 
+
 def prime_concat_partners(list_, primes, failure_point):
     result = {}
 
@@ -16,10 +17,11 @@ def prime_concat_partners(list_, primes, failure_point):
             cand2 = int(str(n2) + str(n1))
             if is_prime(cand1, primes=primes, failure_point=failure_point):
                 if is_prime(cand2, primes=primes, failure_point=failure_point):
-                # sets value to [] if not set, returns value at key
-                result.setdefault(n1, []).append(n2)
-                result.setdefault(n2, []).append(n1)
+                    # sets value to [] if not set, returns value at key
+                    result.setdefault(n1, []).append(n2)
+                    result.setdefault(n2, []).append(n1)
     return result
+
 
 def possible_pairings(partner_hash, length):
     # length = 1
@@ -38,12 +40,12 @@ def possible_pairings(partner_hash, length):
 
 
 def main(verbose=False):
-    MAX_n = 10**4
+    MAX_n = 10 ** 4
     PRIMES = sieve(MAX_n)
-    partner_hash = prime_concat_partners(PRIMES, PRIMES, MAX_n**2)
+    partner_hash = prime_concat_partners(PRIMES, PRIMES, MAX_n ** 2)
     valid = possible_pairings(partner_hash, 5)
 
-    min_sum = 10**10
+    min_sum = 10 ** 10
     min_set = None
     for subset in valid:
         if sum(subset) < min_sum:

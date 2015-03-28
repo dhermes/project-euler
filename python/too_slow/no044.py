@@ -20,6 +20,7 @@ from python.decorators import euler_timer
 from python.functions import polygonal_number
 from python.functions import reverse_polygonal_number
 
+
 def increment_pair(pair):
     """
     Increments pair by traversing through all
@@ -35,6 +36,7 @@ def increment_pair(pair):
     else:
         return [j, j + 1]
 
+
 def main(verbose=False):
     # Not only finds the minimum, but also checks to make sure
     # it is the smallest. Since P_j - P_k >= P_j - P_(j-1) = 3j - 2
@@ -42,7 +44,7 @@ def main(verbose=False):
     # check the minimum
     pair = [1, 2]
     D = -1
-    while D == -1 or 3*pair[1] - 2 <= D:
+    while D == -1 or 3 * pair[1] - 2 <= D:
         vals = [polygonal_number(5, val) for val in pair]
         difference = abs(vals[0] - vals[1])
         if D != -1 and difference > D:

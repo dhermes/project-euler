@@ -13,6 +13,7 @@
 from python.decorators import euler_timer
 from python.functions import prime_factors
 
+
 def increment(value, list_):
     """
     This updates the value according to the list. Since we seek 4
@@ -34,6 +35,7 @@ def increment(value, list_):
     # We can assume the last 3 elements are [4,4,4]
     return value + 1
 
+
 def main(verbose=False):
     # Find the first four consecutive integers to have four distinct
     # primes factors. What is the first of these numbers?
@@ -41,20 +43,20 @@ def main(verbose=False):
     factor_hash = {1: [], 2: [2]}
     # Smallest product of 4 primes is 2*3*5*7 = 210
     # We need to update the hash to get to this point
-    for i in range(3,210 + 1):
+    for i in range(3, 210 + 1):
         prime_factors(i, hash_=factor_hash)
 
-    smallest = 210 # The smallest integer of the four
-    num_factors = [ len(prime_factors(smallest + i,
+    smallest = 210  # The smallest integer of the four
+    num_factors = [len(prime_factors(smallest + i,
                                       unique=True,
                                       hash_=factor_hash))
-                     for i in range(4) ]
-    while num_factors != [4,4,4,4]:
+                     for i in range(4)]
+    while num_factors != [4, 4, 4, 4]:
         smallest = increment(smallest, num_factors)
-        num_factors = [ len(prime_factors(smallest + i,
+        num_factors = [len(prime_factors(smallest + i,
                                           unique=True,
                                           hash_=factor_hash))
-                         for i in range(4) ]
+                         for i in range(4)]
     return smallest
 
 if __name__ == '__main__':

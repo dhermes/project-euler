@@ -11,8 +11,8 @@
 # Find the sum of all the numbers less than 10**8 that are both palindromic
 # and can be written as the sum of consecutive squares.
 
-# NOTE: I am assuming we need at least 2 squares, i.e. 121 = 11**2 doesn't count
-# this assumption is because the use of plural in the question
+# NOTE: I am assuming we need at least 2 squares, i.e. 121 = 11**2 doesn't
+# count this assumption is because the use of plural in the question
 
 from math import sqrt
 

@@ -89,11 +89,14 @@ def next_square(landing_square, chance_card, chest_card):
         elif chance_card == 5:
             return ("R1", chance_card, chest_card)
         elif chance_card == 6:
-            return (next_specific(landing_square, "U"), chance_card, chest_card)
+            return (next_specific(landing_square, "U"),
+                    chance_card, chest_card)
         elif chance_card == 7:
-            return next_square(back(landing_square, 3), chance_card, chest_card)
+            return next_square(back(landing_square, 3),
+                               chance_card, chest_card)
         elif chance_card in [8, 9]:
-            return (next_specific(landing_square, "R"), chance_card, chest_card)
+            return (next_specific(landing_square, "R"),
+                    chance_card, chest_card)
         else:
             return (landing_square, chance_card, chest_card)
     else:
@@ -121,8 +124,8 @@ def main(verbose=False):
         else:
             index = SQUARES.index(current)
             landing_square = SQUARES[(index + total) % len(SQUARES)]
-            current, chance_card, chest_card = \
-                next_square(landing_square, chance_card, chest_card)
+            (current, chance_card,
+             chest_card) = next_square(landing_square, chance_card, chest_card)
 
         # if current is not in visited, sets to 1
         # (default 0 returned by get)

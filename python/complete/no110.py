@@ -40,7 +40,8 @@ def main(verbose=False):
     max_prod = 10 ** 21
     res = []
     for product in products:
-        factors = prime_factors(product, unique=False, hash_=prime_factors_hash)
+        factors = prime_factors(product, unique=False,
+                                hash_=prime_factors_hash)
         factors = [(factor - 1) / 2 for factor in factors][::-1]
         curr_prod = 1
         for i, exp in enumerate(factors):

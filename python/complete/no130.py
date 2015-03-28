@@ -37,9 +37,9 @@ def main(verbose=False):
         if (n - 1) % order_mod_n(10, basis) == 0:
             found.append(n)
     if verbose:
-        return '%s.\nAs a check, the first five values are calculated to be ' \
-               '%s, as stated.' % (sum(found),
-                                   ', '.join(str(num) for num in found[:5]))
+        return ('%s.\nAs a check, the first five values are calculated to be '
+                '%s, as stated.' % (sum(found),
+                                    ', '.join(str(num) for num in found[:5])))
     else:
         return sum(found)
 

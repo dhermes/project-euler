@@ -13,8 +13,8 @@ def dice_outcomes(num_dice, num_sides):
                 curr_sum = sum(outcome)
                 # if curr_sum is not in result, sets to total_perms(outcome)
                 # (default 0 returned by get)
-                result[curr_sum] = result.get(curr_sum, 0) + \
-                                   total_perms(outcome)
+                result[curr_sum] = (result.get(curr_sum, 0) +
+                                    total_perms(outcome))
     return result
 
 
@@ -25,7 +25,8 @@ def main(verbose=False):
     winning_outcomes = 0
     for pete_score in range(9, 36 + 1):
         for colin_score in range(6, pete_score):
-            winning_outcomes += OUTCOMES_4[pete_score] * OUTCOMES_6[colin_score]
+            winning_outcomes += (OUTCOMES_4[pete_score] *
+                                 OUTCOMES_6[colin_score])
 
     return round(winning_outcomes * 1.0 / ((4 ** 9) * (6 ** 6)), 7)
 

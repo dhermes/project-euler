@@ -54,7 +54,8 @@ def last5(n):
             biggest_quotient = n / (5 ** power)
             for residue in range(1, 5 ** 5):
                 if residue % 5 != 0:
-                    residues[residue] += (biggest_quotient - residue) / (5 ** 5) + 1
+                    residues[residue] += ((biggest_quotient - residue) /
+                                          (5 ** 5) + 1)
 
     product = 1
     for residue, power in residues.items():

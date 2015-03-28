@@ -73,11 +73,13 @@ def main(verbose=False):
     # We have only covered the 11 case, so we need to include those for the
     # 13 and 17 to the right and 7, 5, 3, 2 to the left (in order)
     for prime in [13, 17]:
-        candidates = reduce(operator.add,
+        candidates = reduce(
+            operator.add,
             [extend_matches(candidate, unique_digits[prime], 'right')
              for candidate in candidates])
     for prime in [7, 5, 3, 2]:
-        candidates = reduce(operator.add,
+        candidates = reduce(
+            operator.add,
             [extend_matches(candidate, unique_digits[prime], 'left')
              for candidate in candidates])
     # We now have all possibilities for d_2 ... d_10, from which we can

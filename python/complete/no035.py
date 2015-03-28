@@ -36,11 +36,11 @@ def all_circular_perm_in(prime, primes):
 def all_circular(n):
     # the number of digits limits the size of all permutations
     digs = len(str(n))
-    possible_primes = [2, 5] + \
-        [prime for prime in sieve(10 ** digs - 1)
-         if contains_only_digits(prime, [1, 3, 7, 9])]
+    possible_primes = ([2, 5] +
+                       [prime for prime in sieve(10 ** digs - 1)
+                        if contains_only_digits(prime, [1, 3, 7, 9])])
     return [prime for prime in possible_primes if prime <= n
-             and all_circular_perm_in(prime, possible_primes)]
+            and all_circular_perm_in(prime, possible_primes)]
 
 
 def main(verbose=False):

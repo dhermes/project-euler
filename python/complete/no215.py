@@ -9,8 +9,8 @@ def special_perms(num_2, num_3):
     elif num_2 == 0:
         return [[3] * num_3]
 
-    result = [[2] + perm for perm in special_perms(num_2 - 1, num_3)] + \
-             [[3] + perm for perm in special_perms(num_2, num_3 - 1)]
+    result = ([[2] + perm for perm in special_perms(num_2 - 1, num_3)] +
+              [[3] + perm for perm in special_perms(num_2, num_3 - 1)])
     return result
 
 
@@ -19,6 +19,7 @@ def cumulative_sum(list_):
     for entry in list_[1:]:
         result.append(result[-1] + entry)
     return result
+
 
 # 2*x + 3*y = 32
 # implies y = 2*y_star, x = 16 - 3*y_star for 0 <= y_star <= 5
@@ -58,8 +59,8 @@ def main(verbose=False):
                 to_add = num_blocks_ending[key][blocks - 1]
                 # if blocks is not in num_blocks_ending[onto], sets to to_add
                 # (default 0 returned by get)
-                num_blocks_ending[onto][blocks] = \
-                    num_blocks_ending[onto].get(blocks, 0) + to_add
+                new_val = num_blocks_ending[onto].get(blocks, 0) + to_add
+                num_blocks_ending[onto][blocks] = new_val
 
     # we finally add together all walls of height 10 ending
     # with any key (so we loop over all keys)

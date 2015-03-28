@@ -149,10 +149,10 @@ def all_values_on_form(form, value):
     found = set()
     for root in roots:
         candidates = seek_up_to_val(root, value)
-        to_add = [candidate for candidate in candidates
-                  if candidate[1] in valid_factors] + \
-                 [candidate for candidate in root
-                  if candidate[1] in valid_factors]
+        to_add = ([candidate for candidate in candidates
+                   if candidate[1] in valid_factors] +
+                  [candidate for candidate in root
+                   if candidate[1] in valid_factors])
         found.update(to_add)
     found = list(found)
 

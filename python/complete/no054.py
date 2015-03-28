@@ -16,9 +16,9 @@
 # The file, no054.txt, contains one-thousand random hands dealt to two players.
 # Each line of the file contains ten cards (separated by a single space): the
 # first five are Player 1's cards and the last five are Player 2's cards. You
-# can assume that all hands are valid (no invalid characters or repeated cards),
-# each player's hand is in no specific order, and in each hand there is a
-# clear winner.
+# can assume that all hands are valid (no invalid characters or repeated
+# cards), each player's hand is in no specific order, and in each hand there
+# is a clear winner.
 
 # Example Row in File
 # 7C 3C TH 5S 8H 8C 9C JD TC KD

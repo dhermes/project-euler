@@ -30,10 +30,10 @@ def main(verbose=False):
     for key in possible_keys:
         curr = translate(message, key)
         if (curr.upper().find('THE') != -1
-            and curr.upper().find('IS') != -1
-            and curr.upper().find('AND') != -1
-            and curr.upper().find('OF') != -1
-            and curr.upper().find('ARE') != -1):
+                and curr.upper().find('IS') != -1
+                and curr.upper().find('AND') != -1
+                and curr.upper().find('OF') != -1
+                and curr.upper().find('ARE') != -1):
             break
 
     key_as_word = ''.join(chr(val) for val in key)

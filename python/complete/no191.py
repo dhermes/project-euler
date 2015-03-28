@@ -37,16 +37,21 @@ def prize_strings(n):
     T_L = 0
     while index < n:
         # after O, next can be anything:
-        ### O_L-->O_L,A_L; O_N-->O_N,A_N,L_L
+        #     O_L-->O_L,A_L; O_N-->O_N,A_N,L_L
         # after one A, next can be anything
-        ### A_L-->T_L,O_L; A_N-->O_N,T_N,L_L
+        #     A_L-->T_L,O_L; A_N-->O_N,T_N,L_L
         # after two A's, next can not be A
-        ### T_L-->O_L; T_N-->O_N,L_L
+        #     T_L-->O_L; T_N-->O_N,L_L
         # after L is encountered, no more L
         # L_L-->O_L,A_L
         index += 1
-        O_N, O_L, L_L, A_N, A_L, T_N, T_L = O_N + A_N + T_N, \
-            O_L + A_L + T_L + L_L, O_N + A_N + T_N, O_N, O_L + L_L, A_N, A_L
+        O_N, O_L, L_L, A_N, A_L, T_N, T_L = (O_N + A_N + T_N,
+                                             O_L + A_L + T_L + L_L,
+                                             O_N + A_N + T_N,
+                                             O_N,
+                                             O_L + L_L,
+                                             A_N,
+                                             A_L)
     return O_N + O_L + L_L + A_N + A_L + T_N + T_L
 
 

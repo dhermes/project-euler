@@ -16,8 +16,8 @@ def list_frequencies(list_):
 
 
 def special_num_factors(a, b, hash_):
-    factors = prime_factors(a, unique=False, hash_=hash_) + \
-              prime_factors(b, unique=False, hash_=hash_)
+    factors = (prime_factors(a, unique=False, hash_=hash_) +
+               prime_factors(b, unique=False, hash_=hash_))
     factors = list_frequencies(factors)
 
     prod = 1

@@ -8,7 +8,7 @@
 # The player... wins if they have taken more blue discs than red discs a
 # the end of the game.
 
-################################################################################
+# ------------------------------------------------------------------------
 # P_n = prob(disc n is blue) = 1/(n + 1)
 
 # For n discs, let C_1-C_2-...-C_n be the colors drawn, let i_1,...,i_k be the
@@ -40,8 +40,8 @@ def iterative_numerator(n):
             elif j == k:
                 numerators[(j, k)] = 1
             else:
-                numerators[(j, k)] = numerators[(j - 1, k - 1)] + \
-                                    k * numerators[(j, k - 1)]
+                numerators[(j, k)] = (numerators[(j - 1, k - 1)] +
+                                      k * numerators[(j, k - 1)])
     min_blue = (n / 2) + 1
     count = 0
     for blue in range(min_blue, n + 1):

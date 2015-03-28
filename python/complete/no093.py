@@ -6,6 +6,7 @@ from python.decorators import euler_timer
 from python.functions import all_permutations
 from python.functions import all_subsets
 
+
 # a D b D c D d, for D in {+,-,*,/}
 # = {operator.add, operator.sub, operator.mul, operator.div}
 
@@ -26,7 +27,6 @@ def do_operations_no_paren(operators, numbers):
 
     if len(numbers) == 1:
         return numbers[0]
-
 
     for i, op in enumerate(operators):
         if op in [operator.mul, operator.div]:
@@ -66,7 +66,8 @@ def results(signs, numbers):
     except ZeroDivisionError:
         pass
     try:
-        val = do_operations_no_paren([s3],
+        val = do_operations_no_paren(
+            [s3],
             [do_operations_no_paren([s1, s2], [a, b, c]), d])
         result.append(val)
     except ZeroDivisionError:
@@ -82,7 +83,8 @@ def results(signs, numbers):
     except ZeroDivisionError:
         pass
     try:
-        val = do_operations_no_paren([s1],
+        val = do_operations_no_paren(
+            [s1],
             [a, do_operations_no_paren([s2, s3], [b, c, d])])
         result.append(val)
     except ZeroDivisionError:

@@ -32,7 +32,7 @@ def solutions(limit):
     series = [start_to_series(initial, x_mult, 'x')
               for initial in starting_points]
     result = [pair[0] for pair in series
-               if pair[0] % 3 != 0 and pair[0] > 0]
+              if pair[0] % 3 != 0 and pair[0] > 0]
     while max(result) < 2 * limit:
         next = [pair[1] for pair in series
                 if pair[1] % 3 != 0 and pair[1] > 0]

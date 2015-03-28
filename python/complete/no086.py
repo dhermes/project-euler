@@ -31,8 +31,8 @@
 # hence the minimum occurs at c**2 + (a + b)**2
 
 # Let SP(M) = #{paths of max size MxMxM with integer shortes path}
-# Clearly
-# SP(M) = SP(M - 1) + #{paths of size axbxM with integer shortes path | a<=b<=M}
+# Clearly SP(M) = SP(M - 1) + DELTA where
+# DELTA = #{paths of size axbxM with integer shortest path | a<=b<=M}
 
 # Initially SP(1) = 0 since the only cube is 1x1x1 and
 # the min distance is sqrt(5)

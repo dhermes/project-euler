@@ -41,8 +41,8 @@ def golden_nuggets(limit):
 def main(verbose=False):
     nuggets = golden_nuggets(30)
     if verbose:
-        return '%s.\nAs a check, the 20th golden nugget is calculated ' \
-               'to be %s, as stated.' % (sum(nuggets), nuggets[20 - 1])
+        return ('%s.\nAs a check, the 20th golden nugget is calculated '
+                'to be %s, as stated.' % (sum(nuggets), nuggets[20 - 1]))
     else:
         return sum(nuggets)
 

@@ -53,7 +53,7 @@ def main(verbose=False):
     p_3 = 3 * modular_exponentiate(3, 10, 18, modulus) - 1
     p_4 = 4 * modular_exponentiate(4, 10, 18, modulus) - 1
 
-    return (p_4 * inverse_mod_n(3, modulus) - \
+    return (p_4 * inverse_mod_n(3, modulus) -
             p_3 * inverse_mod_n(2, modulus) + p_2) % (modulus)
 
 if __name__ == '__main__':

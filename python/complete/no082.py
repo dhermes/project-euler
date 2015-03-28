@@ -15,13 +15,13 @@ def column_by_column(data):
         for row in range(size):
             set_val = result[(row, column - 1)] + data[row][column]
             for under in range(row):
-                val = result[(under, column - 1)] + \
-                      sum(data[ind][column] for ind in range(under, row + 1))
+                val = (result[(under, column - 1)] +
+                       sum(data[ind][column] for ind in range(under, row + 1)))
                 if val < set_val:
                     set_val = val
             for over in range(row + 1, size):
-                val = result[(over, column - 1)] + \
-                      sum(data[ind][column] for ind in range(row, over + 1))
+                val = (result[(over, column - 1)] +
+                       sum(data[ind][column] for ind in range(row, over + 1)))
                 if val < set_val:
                     set_val = val
             result[(row, column)] = set_val

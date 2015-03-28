@@ -34,7 +34,8 @@ def main(verbose=False):
     area = 0
     for m in range(1, max_m + 1):
         for n in range(1, m + 1):
-            if abs(m * n * (m + 1) * (n + 1) - 8 * 10 ** 6) < abs(closest - 8 * 10 ** 6):
+            if (abs(m * n * (m + 1) * (n + 1) - 8 * 10 ** 6) <
+                    abs(closest - 8 * 10 ** 6)):
                 closest = m * n * (m + 1) * (n + 1)
                 area = m * n
     return area

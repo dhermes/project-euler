@@ -38,15 +38,17 @@ def pos_neg(val, next):
 
 
 def actual(numeral):
-    pairs = [(numeral[ind], numeral[ind + 1]) for
-             ind in range(len(numeral) - 1)] + \
-            [(numeral[-1], None)]
+    pairs = ([(numeral[ind], numeral[ind + 1]) for
+              ind in range(len(numeral) - 1)] +
+             [(numeral[-1], None)])
+
     return sum(VALUES[pair[0]] * pos_neg(*pair) for pair in pairs)
 
 
 def to_roman(n):
     ints = (1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1)
-    nums = ('M', 'CM', 'D', 'CD', 'C', 'XC', 'L', 'XL', 'X', 'IX', 'V', 'IV', 'I')
+    nums = ('M', 'CM', 'D', 'CD', 'C', 'XC', 'L',
+            'XL', 'X', 'IX', 'V', 'IV', 'I')
     result = ""
     for i in range(len(ints)):
         count = int(n / ints[i])

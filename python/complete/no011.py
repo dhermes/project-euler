@@ -36,7 +36,8 @@ from python.functions import get_data
 
 
 def make_path(point, step, length):
-    return [(point[0] + i * step[0], point[1] + i * step[1]) for i in range(length)]
+    return [(point[0] + i * step[0], point[1] + i * step[1])
+            for i in range(length)]
 
 
 def convert(path, data):
@@ -53,7 +54,8 @@ def main(verbose=False):
     vert = max(convert(make_path((x, y), (1, 0), 4), DATA) for x
                in range(0, 16 + 1) for y in range(19 + 1))
 
-    # LEFT/RIGHT goes from DATA[x][y] to DATA[x][y+3] where 0 <= x, y, y+3 <= 19
+    # LEFT/RIGHT goes from DATA[x][y] to DATA[x][y+3]
+    # where 0 <= x, y, y+3 <= 19
     horiz = max(convert(make_path((x, y), (0, 1), 4), DATA) for x
                 in range(0, 19 + 1) for y in range(16 + 1))
 

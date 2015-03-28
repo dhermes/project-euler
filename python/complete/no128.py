@@ -10,7 +10,7 @@
 
 # f(k) = 3k^2 - 3k + 1
 # f(k) = elements before layer k if k > 0
-#Layer 0
+# Layer 0
 #  1 -- (1,1) -- (2,1),(2,2),(2,3),(2,4),(2,5),(2,6)
 
 # Layer 1
@@ -55,7 +55,8 @@
 # Case1, k neq 1, corner
 ##############################
 # The corner (n, k) is adjacent to
-# (n-1, (k-1)/(n-1)*(n-2) + 1), (n,k-1), (n,k+1)-->don't matter if not end piece
+# (n-1, (k-1)/(n-1)*(n-2) + 1), (n,k-1), (n,k+1)
+#     -->don't matter if not end piece
 # (n+1, (k-1)/(n-1)*n), (n+1, (k-1)/(n-1)*n + 1), (n+1, (k-1)/(n-1)*n + 2),
 # 3*(n - 1)*(n - 2) + 1 + k vs.
 # 3*(n - 2)*(n - 3) + 1 + (k - 1)/(n - 1)*(n - 2) + 1,
@@ -129,6 +130,7 @@
 
 from python.decorators import euler_timer
 from python.functions import sieve
+
 
 # 3*(n - 1)*(n - 2) + 2:
 # c1=6*(n - 1) - 1 = 6*n - 7

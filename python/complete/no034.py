@@ -29,7 +29,8 @@ def main(verbose=False):
             # Can fill out the number with zeros (up to 7 digits)
             for zeros_add in range(possible_zeros + 1):
                 factorial_digits = [int(digit) for digit in str(factorial_sum)]
-                if sorted(factorial_digits) == sorted(non_zero + [0] * zeros_add):
+                if (sorted(factorial_digits) ==
+                        sorted(non_zero + [0] * zeros_add)):
                     result.append(factorial_sum)
 
                 factorial_sum += 1  # Add factorial(0)

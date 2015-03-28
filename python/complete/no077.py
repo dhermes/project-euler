@@ -27,7 +27,7 @@
 # p(k, n) = 1 if p_k = n
 # pp(k, n) = pp(k+1, n) + pp(k, n - p_k)
 
-############## EXAMPLE TABLE ##############
+# -------------- EXAMPLE TABLE --------------
 # n\k | 0 | 1 | 2 |
 # -----------------
 #  1  | 0 | 0 | 0 |
@@ -95,7 +95,8 @@ def main(verbose=False):
             if prime_val > n - prime_val:
                 pp[(index, n)] = pp[(index + 1, n)]
             else:
-                pp[(index, n)] = pp[(index + 1, n)] + pp[(index, n - prime_val)]
+                pp[(index, n)] = (pp[(index + 1, n)] +
+                                  pp[(index, n - prime_val)])
 
         curr_val = pp[(0, n)]
     return n
